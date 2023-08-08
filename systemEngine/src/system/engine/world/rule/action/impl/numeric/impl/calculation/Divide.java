@@ -15,12 +15,12 @@ public class Divide extends Calculation {
 
     @Override
     public void executeAction(Context context) {
-        PropertyInstance propertyInstance = entityInstance.getPropertyByName(resultPropName);
-        Expression expression1 = craeteExpression(expressionStrArg1, entityInstance, resultPropName);
-        Expression expression2 = craeteExpression(expressionStrArg2, entityInstance, resultPropName);
+        PropertyInstance propertyInstance = context.getPrimaryEntityInstance().getPropertyByName(resultPropName);
+        Expression expression1 = craeteExpression(expressionStrArg1, context.getPrimaryEntityInstance(), resultPropName);
+        Expression expression2 = craeteExpression(expressionStrArg2, context.getPrimaryEntityInstance(), resultPropName);
         Type type = propertyInstance.getPropertyDefinition().getType();
 
-        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression1)) | (!verifyNumericExpressionValue(expression2))) {
+        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression1, context)) | (!verifyNumericExpressionValue(expression2, context))) {
             throw new IllegalArgumentException("increase action can't operate on a none number property [" + resultPropName);
         }
 
@@ -45,7 +45,7 @@ public class Divide extends Calculation {
 
     @Override
     public boolean verifyNumericExpressionValue(Expression expression, Context context) {
-        return verifyNumericExpressionValue(expression);
+        return verifyNumericExpressionValue(expression, context);
     }
 }
 
