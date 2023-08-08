@@ -20,7 +20,7 @@ public class Multiply extends Calculation {
         Expression expression2 = craeteExpression(expressionStrArg2, context.getPrimaryEntityInstance(), resultPropName);
         Type type = propertyInstance.getPropertyDefinition().getType();
 
-        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression1)) | (!verifyNumericExpressionValue(expression2))) {
+        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression1, context)) | (!verifyNumericExpressionValue(expression2, context))) {
             throw new IllegalArgumentException("increase action can't operate on a none number property [" + resultPropName);
         }
 
@@ -45,6 +45,6 @@ public class Multiply extends Calculation {
 
     @Override
     public boolean verifyNumericExpressionValue(Expression expression, Context context) {
-        return verifyNumericExpressionValue(expression);
+        return verifyNumericExpressionValue(expression, context);
     }
 }

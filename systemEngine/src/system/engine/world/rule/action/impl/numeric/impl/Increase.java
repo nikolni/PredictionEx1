@@ -28,7 +28,7 @@ public class Increase extends AbstractAction implements NumericVerify {
         Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
         Type type = propertyInstance.getPropertyDefinition().getType();
 
-        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression))) {
+        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression, context))) {
             throw new IllegalArgumentException("increase action can't operate on a none number property [" + propertyName);
         }
 
@@ -53,6 +53,6 @@ public class Increase extends AbstractAction implements NumericVerify {
 
     @Override
     public boolean verifyNumericExpressionValue(Expression expression, Context context) {
-        return verifyNumericExpressionValue(expression);
+        return verifyNumericExpressionValue(expression, context);
     }
 }
