@@ -1,4 +1,4 @@
-package system.engine.world.definition.value.generator.init;
+package system.engine.world.definition.value.generator.impl.init;
 
 
 import system.engine.world.definition.value.generator.api.ValueGenerator;

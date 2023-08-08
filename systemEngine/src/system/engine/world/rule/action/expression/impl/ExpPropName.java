@@ -1,17 +1,21 @@
 package system.engine.world.rule.action.expression.impl;
 
-import system.engine.world.definition.entity.api.EntityDefinition;
+import system.engine.world.execution.instance.enitty.api.EntityInstance;
+import system.engine.world.execution.instance.property.api.PropertyInstance;
+import system.engine.world.rule.action.expression.api.AbstractExpressionImpl;
+import system.engine.world.rule.context.Context;
 
-public class ExpPropName extends Expression {
+public class ExpPropName extends AbstractExpressionImpl {
 
-    private PropertyDefinition propertyArg;
-    public ExpPropName(String expressionStrParam, EntityDefinition entityDefinitionParam) {
-        super(expressionStrParam, entityDefinitionParam);
-        propertyArg= entityDefinition.getSinglePropertyFromString(expressionStrParam);
+    private String propertyName;
+    public ExpPropName(String expressionStrParam, EntityInstance entityInstanceParam, String propertyNameParam) {
+        super(expressionStrParam, entityInstanceParam);
+        propertyName = expressionStrParam;
     }
 
     @Override
-    public Object evaluateExpression() {
-        return propertyArg.getPropertyTypeValue().getSecond();
+    public Object evaluateExpression(Context context) {
+        PropertyInstance propertyInstance = entityInstance.getPropertyByName(propertyName);
+        return propertyInstance.getValue();
     }
 }

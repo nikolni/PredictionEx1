@@ -1,11 +1,11 @@
 package system.engine.world.definition.value.generator.api;
 
 
-import system.engine.world.definition.value.generator.init.InitValueGenerator;
-import system.engine.world.definition.value.generator.random.impl.bool.RandomBooleanValueGenerator;
-import system.engine.world.definition.value.generator.random.impl.numeric.RandomFloatGenerator;
-import system.engine.world.definition.value.generator.random.impl.numeric.RandomIntegerGenerator;
-import system.engine.world.definition.value.generator.random.impl.string.RandomStringGenerator;
+import system.engine.world.definition.value.generator.impl.init.InitValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.bool.RandomBooleanValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.numeric.RandomFloatGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.numeric.RandomIntegerGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.string.RandomStringGenerator;
 
 public interface ValueGeneratorFactory {
 

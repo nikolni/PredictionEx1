@@ -1,4 +1,4 @@
-package system.engine.world.definition.value.generator.random.api;
+package system.engine.world.definition.value.generator.impl.random.api;
 
 
 import system.engine.world.definition.value.generator.api.ValueGenerator;

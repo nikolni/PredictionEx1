@@ -1,6 +1,6 @@
-package system.engine.world.definition.value.generator.random.impl.bool;
+package system.engine.world.definition.value.generator.impl.random.impl.bool;
 
-import system.engine.world.definition.value.generator.random.api.AbstractRandomValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
 
 public class RandomBooleanValueGenerator extends AbstractRandomValueGenerator<Boolean> {
 

@@ -1,9 +1,9 @@
-package system.engine.world.definition.value.generator.random.impl.string;
+package system.engine.world.definition.value.generator.impl.random.impl.string;
 
 
-import system.engine.world.definition.value.generator.random.api.AbstractRandomValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
 
-public class RandomStringGenerator extends AbstractRandomValueGenerator <String> {
+public class RandomStringGenerator extends AbstractRandomValueGenerator<String> {
     private final static int maxRange  = 50;
     @Override
     public String generateValue() {

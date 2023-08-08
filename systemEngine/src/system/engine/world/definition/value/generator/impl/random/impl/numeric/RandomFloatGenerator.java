@@ -1,4 +1,4 @@
-package system.engine.world.definition.value.generator.random.impl.numeric;
+package system.engine.world.definition.value.generator.impl.random.impl.numeric;
 
 public class RandomFloatGenerator extends AbstractNumericRandomGenerator<Float> {
 

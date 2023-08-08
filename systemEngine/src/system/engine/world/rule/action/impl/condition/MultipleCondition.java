@@ -1,43 +1,44 @@
 package system.engine.world.rule.action.impl.condition;
 
-import system.engine.world.rule.action.impl.Action;
+import system.engine.world.execution.instance.enitty.api.EntityInstance;
 import system.engine.world.definition.entity.api.EntityDefinition;
+import system.engine.world.rule.action.api.Action;
+import system.engine.world.rule.context.Context;
 
 import java.util.List;
 
-public class MultipleCondition extends Condition{
+public class MultipleCondition extends Condition {
     private String logical;
-    private List<SingleCondition> singleConditionsCollection;
+    private List<Condition> conditionsCollection;
 
-    public MultipleCondition(String typeParam, EntityDefinition entityDefinitionParam, List<Action> actionsCollectionParam,
-                             String logicalParam, List<SingleCondition> singleConditionsCollectionParam) {
-        super(typeParam, entityDefinitionParam, actionsCollectionParam);
+    public MultipleCondition(EntityDefinition entityDefinitionParam, String logicalParam,
+                             List<Action> actionsCollectionParam, List<Condition> conditionsCollectionParam) {
+        super(entityDefinitionParam, actionsCollectionParam);
         logical = logicalParam;
-        singleConditionsCollection = singleConditionsCollectionParam;
+        conditionsCollection = conditionsCollectionParam;
     }
 
     @Override
-    public void executeAction() {
-        if(isConditionFulfilled()){
-            for(Action action: actionsCollection){
-                action.executeAction();
+    public void executeAction(Context context) {
+        if (isConditionFulfilled(entityInstance)) {
+            for (Action action : actionsCollection) {
+                action.executeAction(entityInstance);
             }
         }
-
     }
 
-    public boolean isConditionFulfilled(){
-        boolean isConditionFulfilled =false;
+    public boolean isConditionFulfilled(EntityInstance entityInstance) {
+        boolean isConditionFulfilled = false;
 
-        switch (logical){
+        switch (logical) {
             case "or":
-                for(SingleCondition singleCondition: singleConditionsCollection){
-                    isConditionFulfilled |= singleCondition.isConditionFulfilled();
+                for (Condition condition : conditionsCollection) {
+                    isConditionFulfilled |= condition.isConditionFulfilled(entityInstance);
                 }
                 break;
             case "and":
-                for(SingleCondition singleCondition: singleConditionsCollection){
-                    isConditionFulfilled &= singleCondition.isConditionFulfilled();
+                for (Condition condition : conditionsCollection) {
+                    isConditionFulfilled &= condition.isConditionFulfilled(entityInstance);
                 }
                 break;
         }

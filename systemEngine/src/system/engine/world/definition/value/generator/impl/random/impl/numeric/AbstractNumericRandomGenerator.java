@@ -1,6 +1,6 @@
-package system.engine.world.definition.value.generator.random.impl.numeric;
+package system.engine.world.definition.value.generator.impl.random.impl.numeric;
 
-import system.engine.world.definition.value.generator.random.api.AbstractRandomValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
 
 public abstract class AbstractNumericRandomGenerator<T> extends AbstractRandomValueGenerator<T> {
 
