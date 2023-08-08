@@ -44,7 +44,7 @@ public class Multiply extends Calculation {
     }
 
     @Override
-    public boolean verifyNumericExpressionValue(Expression expression) {
+    public boolean verifyNumericExpressionValue(Expression expression, Context context) {
         return verifyNumericExpressionValue(expression);
     }
 }

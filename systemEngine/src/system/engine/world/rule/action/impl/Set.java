@@ -22,7 +22,7 @@ public class Set extends AbstractAction {
 
         @Override
         public void executeAction(Context context) {
-            PropertyInstance propertyInstance = ocntext.getPrimaryEntityInstance().getPropertyByName(propertyName);
+            PropertyInstance propertyInstance = context.getPrimaryEntityInstance().getPropertyByName(propertyName);
             Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
             Object expressionVal=  expression.evaluateExpression(context);
             Type propertyType = propertyInstance.getPropertyDefinition().getType();

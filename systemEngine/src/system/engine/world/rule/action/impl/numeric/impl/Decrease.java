@@ -52,7 +52,7 @@ public class Decrease extends AbstractAction implements NumericVerify {
     }
 
     @Override
-    public boolean verifyNumericExpressionValue(Expression expression) {
+    public boolean verifyNumericExpressionValue(Expression expression, Context context) {
         return verifyNumericExpressionValue(expression);
     }
 }
