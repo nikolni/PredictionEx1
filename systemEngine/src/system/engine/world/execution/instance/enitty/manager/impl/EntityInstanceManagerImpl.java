@@ -1,6 +1,7 @@
 package system.engine.world.execution.instance.enitty.manager.impl;
 
 import system.engine.world.definition.entity.api.EntityDefinition;
+import system.engine.world.definition.entity.manager.api.EntityDefinitionManager;
 import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.execution.instance.enitty.api.EntityInstance;
 import system.engine.world.execution.instance.enitty.impl.EntityInstanceImpl;
@@ -13,13 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityInstanceManagerImpl implements EntityInstanceManager {
-
+    private EntityDefinitionManager entityDefinitionManager;
     private int count;
     private List<EntityInstance> instances;
 
-    public EntityInstanceManagerImpl() {
+    public EntityInstanceManagerImpl(EntityDefinitionManager entityDefinitionManager) {
+        this.entityDefinitionManager = entityDefinitionManager;
         count = 0;
         instances = new ArrayList<>();
+        for (EntityDefinition entityDefinition: entityDefinitionManager.getDefinitions()){
+            create(entityDefinition);
+        }
     }
 
     @Override

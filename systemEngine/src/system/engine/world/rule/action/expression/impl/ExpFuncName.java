@@ -1,49 +1,51 @@
 package system.engine.world.rule.action.expression.impl;
 
-import system.engine.world.general.random.RandomInitialize;
-import system.engine.world.definition.entity.api.EntityDefinition;
-import system.engine.world.environment.variable.EnvironmentVariable;
-
+import system.engine.world.definition.value.generator.impl.random.impl.numeric.RandomFloatGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.numeric.RandomIntegerGenerator;
+import system.engine.world.execution.instance.enitty.api.EntityInstance;
+import system.engine.world.execution.instance.property.api.PropertyInstance;
+import system.engine.world.rule.action.expression.api.AbstractExpressionImpl;
+import system.engine.world.rule.context.Context;
+import system.engine.world.rule.enums.Type;
 import java.util.Arrays;
 import java.util.List;
 
-import static system.engine.world.WorldInstance.getSingleEnvironmentVariableFromString;
 
-
-public class ExpFuncName extends Expression {
+public class ExpFuncName extends AbstractExpressionImpl {
 
     private List<String> functionArgs;
-    private PropertyDefinition property;
+    private String propertyName;
 
-    public ExpFuncName(String expressionStrParam, EntityDefinition entityDefinitionParam, PropertyDefinition propertyParam, String... strings) {
-        super(expressionStrParam, entityDefinitionParam);
+    public ExpFuncName(String expressionStrParam, EntityInstance entityInstanceParam, String propertyNameParam, String... strings) {
+        super(expressionStrParam, entityInstanceParam);
         functionArgs = Arrays.asList(strings);
-        property = propertyParam;
+        propertyName = propertyNameParam;
     }
 
     @Override
-    public Object evaluateExpression() {
+    public Object evaluateExpression(Context context) {
         switch (expressionStr) {
             case "environment":
-                return environment(getSingleEnvironmentVariableFromString(functionArgs.get(0)));
+                return environment(context.getEnvironmentVariable(functionArgs.get(0)));
             case "random":
                 return random(Integer.parseInt(functionArgs.get(0)));
         }
         return null;
     }
 
-    private Object environment(EnvironmentVariable environmentVariable) {
-        return environmentVariable.getEnvironmentVariableTypeValue().getSecond();
+    private Object environment(PropertyInstance environmentVariable) {
+        return environmentVariable.getValue();
     }
 
     private Object random(int num) {
-        RandomInitialize randomInitialize=new RandomInitialize();
+        PropertyInstance propertyInstance = entityInstance.getPropertyByName(propertyName);
+        Type type = propertyInstance.getPropertyDefinition().getType();
 
-        switch (property.getPropertyTypeValue().getType()) {   //enum???
-            case INT:
-                return randomInitialize.intRandomInitialize(num);
+        switch (type) {
+            case DECIMAL:
+                return (new RandomIntegerGenerator(0, num)).generateValue();
             case FLOAT:
-                return randomInitialize.floatRandomInitialize(num);
+                return (new RandomFloatGenerator((float) 0, (float) num)).generateValue();
             default:
                 //errors
         }
