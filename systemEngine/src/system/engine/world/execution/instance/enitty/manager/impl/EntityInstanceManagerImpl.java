@@ -14,12 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityInstanceManagerImpl implements EntityInstanceManager {
-    private EntityDefinitionManager entityDefinitionManager;
-    private int count;
+    private int count;   //all instances of all entities
     private List<EntityInstance> instances;
 
     public EntityInstanceManagerImpl(EntityDefinitionManager entityDefinitionManager) {
-        this.entityDefinitionManager = entityDefinitionManager;
         count = 0;
         instances = new ArrayList<>();
         for (EntityDefinition entityDefinition: entityDefinitionManager.getDefinitions()){

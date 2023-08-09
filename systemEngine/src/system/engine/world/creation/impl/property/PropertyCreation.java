@@ -1,4 +1,4 @@
-package system.engine.world.creation.property;
+package system.engine.world.creation.impl.property;
 
 import system.engine.world.rule.enums.Type;
 

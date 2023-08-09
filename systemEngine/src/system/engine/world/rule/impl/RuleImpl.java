@@ -35,4 +35,9 @@ public class RuleImpl implements Rule {
     public void addAction(Action action) {
         actions.add(action);
     }
+
+    @Override
+    public void craeteActivation(int ticksNumber) {
+        activation= new A
+    }
 }

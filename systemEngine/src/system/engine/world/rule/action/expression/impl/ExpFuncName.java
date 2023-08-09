@@ -1,12 +1,13 @@
 package system.engine.world.rule.action.expression.impl;
 
+import system.engine.world.rule.context.Context;
+import system.engine.world.rule.enums.Type;
 import system.engine.world.definition.value.generator.impl.random.impl.numeric.RandomFloatGenerator;
 import system.engine.world.definition.value.generator.impl.random.impl.numeric.RandomIntegerGenerator;
 import system.engine.world.execution.instance.enitty.api.EntityInstance;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
 import system.engine.world.rule.action.expression.api.AbstractExpressionImpl;
-import system.engine.world.rule.context.Context;
-import system.engine.world.rule.enums.Type;
+
 import java.util.Arrays;
 import java.util.List;
 

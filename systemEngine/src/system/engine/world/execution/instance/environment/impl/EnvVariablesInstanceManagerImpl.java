@@ -10,11 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnvVariablesInstanceManagerImpl implements EnvVariablesInstanceManager {
-    private EnvVariablesDefinitionManager envVariablesDefinitionManager;
     private final Map<String, PropertyInstance> envVariables;
 
     public EnvVariablesInstanceManagerImpl(EnvVariablesDefinitionManager envVariablesDefinitionManager) {
-        this.envVariablesDefinitionManager = envVariablesDefinitionManager;
         envVariables = new HashMap<>();
         for (PropertyDefinition propertyDefinition : envVariablesDefinitionManager.getEnvVariables()){
             Object value = propertyDefinition.generateValue();

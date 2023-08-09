@@ -1,15 +1,15 @@
 package system.engine.world.rule.action.impl.numeric.impl.calculation;
 
+import system.engine.world.rule.context.Context;
+import system.engine.world.rule.enums.Type;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
 import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.rule.action.expression.api.Expression;
-import system.engine.world.rule.context.Context;
-import system.engine.world.rule.enums.Type;
 
-import static system.engine.world.creation.expression.ExpressionCreation.craeteExpression;
+import static system.engine.world.creation.impl.expression.ExpressionCreationImpl.craeteExpression;
 
-public class Multiply extends Calculation {
-    public Multiply(EntityDefinition entityDefinitionParam, String propertyNameParam, String expressionStrParam1, String expressionStrParam2){
+public class MultiplyAction extends CalculationAction {
+    public MultiplyAction(EntityDefinition entityDefinitionParam, String propertyNameParam, String expressionStrParam1, String expressionStrParam2){
         super(entityDefinitionParam, propertyNameParam, expressionStrParam1, expressionStrParam2);
     }
 

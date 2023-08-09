@@ -143,10 +143,10 @@
 			<xs:attribute name="arg1" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="PRD-condition">
+	<xs:element name="PRD-conditionAction">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="PRD-condition" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="PRD-conditionAction" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute name="value" type="xs:string"/>
 			<xs:attribute name="singularity" use="required">
@@ -208,7 +208,7 @@
 				<xs:element ref="PRD-divide"/>
 				<xs:element ref="PRD-multiply"/>
 				<xs:sequence>
-					<xs:element ref="PRD-condition"/>
+					<xs:element ref="PRD-conditionAction"/>
 					<xs:element ref="PRD-then"/>
 					<xs:element ref="PRD-else" minOccurs="0"/>
 				</xs:sequence>
@@ -218,7 +218,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="calculation"/>
-						<xs:enumeration value="condition"/>
+						<xs:enumeration value="conditionAction"/>
 						<xs:enumeration value="decrease"/>
 						<xs:enumeration value="increase"/>
 						<xs:enumeration value="kill"/>

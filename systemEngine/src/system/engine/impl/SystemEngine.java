@@ -2,7 +2,7 @@
 package system.engine.impl;
 
 import system.engine.api.SystemEngineAccess;
-import system.engine.world.WorldInstance;
+import system.engine.world.impl.WorldInstance;
 
 public class SystemEngine implements SystemEngineAccess {
 

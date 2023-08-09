@@ -23,7 +23,7 @@ public class EnvVariableDefinitionManagerImpl implements EnvVariablesDefinitionM
     }
 
     @Override
-    public EnvVariablesInstanceManager createActiveEnvironment() {
+    public EnvVariablesInstanceManager createEnvironmentVarInstanceManager() {
         return new EnvVariablesInstanceManagerImpl(this);
     }
 

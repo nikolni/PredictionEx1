@@ -10,4 +10,5 @@ public interface Rule {
     Activation getActivation();
     List<Action> getActionsToPerform();
     void addAction(Action action);
+    void craeteActivation(int ticksNumber);
 }

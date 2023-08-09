@@ -1,14 +1,13 @@
-package system.engine.world.creation.expression;
+package system.engine.world.creation.impl.expression;
 
+import system.engine.world.creation.api.ExpressionCreation;
 import system.engine.world.execution.instance.enitty.api.EntityInstance;
 import system.engine.world.rule.action.expression.api.Expression;
 import system.engine.world.rule.action.expression.impl.ExpFreeValue;
 import system.engine.world.rule.action.expression.impl.ExpFuncName;
 import system.engine.world.rule.action.expression.impl.ExpPropName;
-import system.engine.world.rule.action.expression.api.AbstractExpressionImpl;
-import system.engine.world.definition.entity.api.EntityDefinition;
 
-public class ExpressionCreation {
+public class ExpressionCreationImpl {
 
     public static Expression craeteExpression(String expressionStr, EntityInstance entityInstance, String propertyName) {
         String[] numAction = {"increase", "decrease","calculation", "divide", "ticks"};
