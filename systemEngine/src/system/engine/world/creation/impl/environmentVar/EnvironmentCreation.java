@@ -1,4 +1,4 @@
-package system.engine.world.creation.environmentVar;
+package system.engine.world.creation.impl.environmentVar;
 
 import system.engine.world.environment.variable.EnvironmentVariable;
 import system.engine.world.rule.enums.Type;

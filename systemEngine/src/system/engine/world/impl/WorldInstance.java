@@ -1,4 +1,4 @@
-package system.engine.world;
+package system.engine.world.impl;
 
 import system.engine.world.execution.instance.enitty.manager.api.EntityInstanceManager;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
@@ -8,9 +8,9 @@ public class WorldInstance {
     private EntityInstanceManager entityInstanceManager;
     private static EnvVariablesInstanceManager envVariablesInstanceManager;
 
-    public WorldInstance(WorldDefinition worldDefinition){
-        entityInstanceManager = worldDefinition.getEntityDefinitionManager().createEntityInstanceManager();
-        envVariablesInstanceManager = worldDefinition.getEnvVariablesDefinitionManager().createActiveEnvironment();
+    public WorldInstance(WorldDefinitionImpl worldDefinitionImpl){
+        entityInstanceManager = worldDefinitionImpl.getEntityDefinitionManager().createEntityInstanceManager();
+        envVariablesInstanceManager = worldDefinitionImpl.getEnvVariablesDefinitionManager().createEnvironmentVarInstanceManager();
     }
 
     public static PropertyInstance getEnvVarFromEnvVarManager(String envVarName){

@@ -7,6 +7,6 @@ import java.util.Collection;
 
 public interface EnvVariablesDefinitionManager {
     void addEnvironmentVariable(PropertyDefinition propertyDefinition);
-    EnvVariablesInstanceManager createActiveEnvironment();
+    EnvVariablesInstanceManager createEnvironmentVarInstanceManager();
     Collection<PropertyDefinition> getEnvVariables();
 }

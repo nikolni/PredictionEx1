@@ -57,15 +57,15 @@
 		</PRD-rule>
 		<PRD-rule name="r2">
 			<PRD-actions>
-				<PRD-action type="condition" entity="ent-1">
-					<PRD-condition singularity="multiple" logical="or">
-						<PRD-condition singularity="single" entity="ent-1" property="p1" operator="bt" value="4"/>
-						<PRD-condition singularity="single" entity="ent-1" property="p2" operator="lt" value="3"/>
-						<PRD-condition singularity="multiple" logical="and">
-							<PRD-condition singularity="single" entity="ent-1" property="p4" operator="!=" value="nothing"/>
-							<PRD-condition singularity="single" entity="ent-1" property="p3" operator="=" value="environment(e2)"/>
-						</PRD-condition>
-					</PRD-condition>
+				<PRD-action type="conditionAction" entity="ent-1">
+					<PRD-conditionAction singularity="multiple" logical="or">
+						<PRD-conditionAction singularity="single" entity="ent-1" property="p1" operator="bt" value="4"/>
+						<PRD-conditionAction singularity="single" entity="ent-1" property="p2" operator="lt" value="3"/>
+						<PRD-conditionAction singularity="multiple" logical="and">
+							<PRD-conditionAction singularity="single" entity="ent-1" property="p4" operator="!=" value="nothing"/>
+							<PRD-conditionAction singularity="single" entity="ent-1" property="p3" operator="=" value="environment(e2)"/>
+						</PRD-conditionAction>
+					</PRD-conditionAction>
 					<PRD-then>
 						<PRD-action type="increase" entity="ent-1" property="p1" by="3"/>
 						<PRD-action type="set" entity="ent-1" property="p1" value="random(3)"/>

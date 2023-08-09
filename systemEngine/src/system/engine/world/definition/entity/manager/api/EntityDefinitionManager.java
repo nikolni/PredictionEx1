@@ -11,6 +11,7 @@ import java.util.List;
 public interface EntityDefinitionManager {
     void addEntityDefinition(EntityDefinition entityDefinition);
     List<EntityDefinition> getDefinitions();
+    EntityDefinition getEntityDefinitionByName(String name);
     EntityInstanceManager createEntityInstanceManager();
 
 }

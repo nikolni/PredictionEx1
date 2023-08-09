@@ -8,13 +8,13 @@ import system.engine.world.rule.action.expression.api.Expression;
 import system.engine.world.rule.context.Context;
 import system.engine.world.rule.enums.Type;
 
-import static system.engine.world.creation.expression.ExpressionCreation.craeteExpression;
+import static system.engine.world.creation.impl.expression.ExpressionCreationImpl.craeteExpression;
 
-public class Set extends AbstractAction {
+public class SetAction extends AbstractAction {
         private String propertyName;
         private String expressionStr;
 
-    public Set(EntityDefinition entityDefinitionParam, String propertyNameParam, String expressionStrParam) {
+    public SetAction(EntityDefinition entityDefinitionParam, String propertyNameParam, String expressionStrParam) {
         super(ActionType.INCREASE, entityDefinitionParam);
         propertyName = propertyNameParam;
         expressionStr =expressionStrParam;
