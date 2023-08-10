@@ -11,8 +11,8 @@ import system.engine.world.rule.enums.Type;
 import static system.engine.world.creation.impl.expression.ExpressionCreationImpl.craeteExpression;
 
 public class SetAction extends AbstractAction {
-        private String propertyName;
-        private String expressionStr;
+        private final String propertyName;
+        private final String expressionStr;
 
     public SetAction(EntityDefinition entityDefinitionParam, String propertyNameParam, String expressionStrParam) {
         super(ActionType.INCREASE, entityDefinitionParam);
@@ -27,21 +27,21 @@ public class SetAction extends AbstractAction {
             Object expressionVal=  expression.evaluateExpression(context);
             Type propertyType = propertyInstance.getPropertyDefinition().getType();
 
-            if (!verifySameType(propertyType, expressionVal)) {
+            if (!verifySuitableType(propertyType, expressionVal)) {
                 throw new IllegalArgumentException("increase action can't operate on a none number property [" + propertyName);
             }
 
             propertyInstance.setValue(expressionVal);
         }
 
-    private boolean verifySameType(Type propertyType, Object expressionVal) {
+    private boolean verifySuitableType(Type propertyType, Object expressionVal) {
         switch (propertyType) {
             case DECIMAL:
                 return (expressionVal instanceof Integer);
             case FLOAT:
-                return (expressionVal instanceof Float);
+                return (expressionVal instanceof Float | expressionVal instanceof Integer);
             case BOOLEAN:
-                return (expressionVal instanceof Boolean);
+                return (expressionVal instanceof Boolean | expressionVal instanceof String);
             case STRING:
                 return (expressionVal instanceof String);
         }
