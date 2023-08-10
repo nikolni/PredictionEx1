@@ -13,8 +13,8 @@ import static system.engine.world.creation.impl.expression.ExpressionCreationImp
 
 public class DecreaseAction extends AbstractAction implements NumericVerify {
 
-    private String propertyName;
-    private String expressionStr;
+    private final String propertyName;
+    private final String expressionStr;
 
     public DecreaseAction(EntityDefinition entityDefinitionParam, String propertyNameParam, String expressionStrParam) {
         super(ActionType.DECREASE, entityDefinitionParam);
@@ -28,8 +28,12 @@ public class DecreaseAction extends AbstractAction implements NumericVerify {
         Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
         Type type = propertyInstance.getPropertyDefinition().getType();
 
-        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression, context))) {
-            throw new IllegalArgumentException("increase action can't operate on a none number property [" + propertyName);
+        if (!NumericVerify.verifyNumericPropertyType(propertyInstance)){
+            throw new IllegalArgumentException("decrease action can't operate on a none number property [" + propertyName);
+        }
+        if (!NumericVerify.verifyNumericExpressionValue(expression, context) |
+                !NumericVerify.verifySuitableType(type,expression, context) ) {
+            throw new IllegalArgumentException("can't cast expression value to type of property [" + propertyName);
         }
 
         switch (type) {
@@ -46,13 +50,4 @@ public class DecreaseAction extends AbstractAction implements NumericVerify {
         }
     }
 
-    @Override
-    public boolean verifyNumericPropertyType(PropertyInstance propertyValue) {
-        return verifyNumericPropertyType(propertyValue);
-    }
-
-    @Override
-    public boolean verifyNumericExpressionValue(Expression expression, Context context) {
-        return verifyNumericExpressionValue(expression, context);
-    }
 }

@@ -1,5 +1,6 @@
 package system.engine.world.rule.action.impl.numeric.impl.calculation;
 
+import system.engine.world.rule.action.impl.numeric.api.NumericVerify;
 import system.engine.world.rule.context.Context;
 import system.engine.world.rule.enums.Type;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
@@ -20,8 +21,14 @@ public class MultiplyAction extends CalculationAction {
         Expression expression2 = craeteExpression(expressionStrArg2, context.getPrimaryEntityInstance(), resultPropName);
         Type type = propertyInstance.getPropertyDefinition().getType();
 
-        if (!verifyNumericPropertyType(propertyInstance) | (!verifyNumericExpressionValue(expression1, context)) | (!verifyNumericExpressionValue(expression2, context))) {
-            throw new IllegalArgumentException("increase action can't operate on a none number property [" + resultPropName);
+        if (!NumericVerify.verifyNumericPropertyType(propertyInstance)){
+            throw new IllegalArgumentException("multiply action can't operate on a none number property [" + resultPropName);
+        }
+        if (!NumericVerify.verifyNumericExpressionValue(expression1, context) |
+                (!NumericVerify.verifyNumericExpressionValue(expression2, context)) |
+                !NumericVerify.verifySuitableType(type,expression1, context) |
+                !NumericVerify.verifySuitableType(type,expression2, context)) {
+            throw new IllegalArgumentException("can't cast one of expression value to type of property [" + resultPropName);
         }
 
         switch (type) {
@@ -38,13 +45,5 @@ public class MultiplyAction extends CalculationAction {
         }
     }
 
-    @Override
-    public boolean verifyNumericPropertyType(PropertyInstance propertyValue) {
-        return verifyNumericPropertyType(propertyValue);
-    }
 
-    @Override
-    public boolean verifyNumericExpressionValue(Expression expression, Context context) {
-        return verifyNumericExpressionValue(expression, context);
-    }
 }

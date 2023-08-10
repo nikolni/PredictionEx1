@@ -11,9 +11,9 @@ import static system.engine.world.creation.impl.expression.ExpressionCreationImp
 public class SingleConditionActionAction extends ConditionAction {
 
     private EntityDefinition entityDefinition;
-    private String propertyName;
-    private String expressionStr;
-    private String operator;
+    private final String propertyName;
+    private final String expressionStr;
+    private final String operator;
 
     public SingleConditionActionAction(EntityDefinition entityDefinitionParam1, EntityDefinition entityDefinitionParam2,
                                        String propertyNameParam, String operatorParam, String expressionParam) {

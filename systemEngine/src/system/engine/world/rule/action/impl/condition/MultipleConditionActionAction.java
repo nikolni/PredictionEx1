@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultipleConditionActionAction extends ConditionAction {
-    private String logical;
+    private final String logical;
     private List<ConditionAction> conditionsCollection;
 
     public MultipleConditionActionAction(EntityDefinition entityDefinitionParam, String logicalParam) {
