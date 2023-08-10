@@ -2,6 +2,7 @@ package system.engine.world.rule.impl;
 
 import system.engine.world.rule.action.api.Action;
 import system.engine.world.rule.activation.api.Activation;
+import system.engine.world.rule.activation.impl.ActivationImpl;
 import system.engine.world.rule.api.Rule;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class RuleImpl implements Rule {
     public RuleImpl(String name) {
         this.name = name;
         actions = new ArrayList<>();
+        activation = new ActivationImpl();
     }
 
     @Override
@@ -36,8 +38,4 @@ public class RuleImpl implements Rule {
         actions.add(action);
     }
 
-    @Override
-    public void craeteActivation(int ticksNumber) {
-        activation= new A
-    }
 }
