@@ -1,4 +1,4 @@
-package system.engine.world.creation.impl.rule;
+package system.engine.world.creation.impl.rule.action;
 
 import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.definition.entity.manager.api.EntityDefinitionManager;

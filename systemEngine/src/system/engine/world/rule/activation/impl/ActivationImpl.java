@@ -7,10 +7,6 @@ public class ActivationImpl implements Activation {
     private Tick ticks = new Tick(1);
     private float probability = 1;
 
-    public ActivationImpl(Tick ticksParam, float probabilityParam){
-        ticks= ticksParam;
-        probability = probabilityParam;
-    }
     public Tick getTicks() {
         return ticks;
     }
@@ -29,6 +25,14 @@ public class ActivationImpl implements Activation {
 
     @Override
     public boolean isActive(int tickNumber) {
+
+        int myTick = 0;
+        while(myTick < tickNumber) {
+            myTick+= ticks.getTick();
+            if(myTick == tickNumber){
+                return true;
+            }
+        }
         return false;
     }
 }
