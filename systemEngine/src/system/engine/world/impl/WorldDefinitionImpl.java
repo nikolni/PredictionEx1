@@ -4,18 +4,22 @@ import system.engine.world.api.WorldDefinition;
 import system.engine.world.definition.entity.manager.api.EntityDefinitionManager;
 import system.engine.world.definition.environment.variable.api.EnvVariablesDefinitionManager;
 import system.engine.world.rule.manager.api.RuleDefinitionManager;
+import system.engine.world.termination.condition.manager.api.TerminationConditionsManager;
 
 public class WorldDefinitionImpl implements WorldDefinition {
     private EntityDefinitionManager entityDefinitionManager;
     private EnvVariablesDefinitionManager envVariablesDefinitionManager;
     private RuleDefinitionManager ruleDefinitionManager;
+    private TerminationConditionsManager terminationConditionsManager;
 
     public WorldDefinitionImpl(EntityDefinitionManager entityDefinitionManager,
                                EnvVariablesDefinitionManager envVariablesDefinitionManager,
-                               RuleDefinitionManager ruleDefinitionManager){
+                               RuleDefinitionManager ruleDefinitionManager,
+                               TerminationConditionsManager terminationConditionsManager){
         this.entityDefinitionManager = entityDefinitionManager;
         this.envVariablesDefinitionManager = envVariablesDefinitionManager;
         this.ruleDefinitionManager = ruleDefinitionManager;
+        this.terminationConditionsManager = terminationConditionsManager;
     }
 
     public EntityDefinitionManager getEntityDefinitionManager() {
@@ -25,6 +29,9 @@ public class WorldDefinitionImpl implements WorldDefinition {
     public EnvVariablesDefinitionManager getEnvVariablesDefinitionManager() {
         return envVariablesDefinitionManager;
     }
+    public RuleDefinitionManager getRuleDefinitionManager(){return ruleDefinitionManager;}
+
+    public TerminationConditionsManager getTerminationConditionsManager(){return terminationConditionsManager;}
 
     @Override
     public WorldInstance createWorldInstance() {

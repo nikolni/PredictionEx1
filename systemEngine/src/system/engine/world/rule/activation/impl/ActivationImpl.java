@@ -4,7 +4,7 @@ import system.engine.world.rule.activation.api.Activation;
 import system.engine.world.tick.Tick;
 
 public class ActivationImpl implements Activation {
-    private Tick ticks = new Tick(1);
+    private Tick ticks = new Tick();
     private float probability = 1;
 
     public int getTicks() {
