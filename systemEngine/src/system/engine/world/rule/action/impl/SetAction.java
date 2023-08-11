@@ -28,7 +28,7 @@ public class SetAction extends AbstractAction {
             Type propertyType = propertyInstance.getPropertyDefinition().getType();
 
             if (!verifySuitableType(propertyType, expressionVal)) {
-                throw new IllegalArgumentException("increase action can't operate on a none number property [" + propertyName);
+                throw new IllegalArgumentException("set action can't operate on a none number property " + propertyName);
             }
 
             propertyInstance.setValue(expressionVal);

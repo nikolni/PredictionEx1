@@ -1,6 +1,8 @@
 package system.engine.world.definition.property.api;
 
 import system.engine.world.definition.value.generator.api.ValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
 import system.engine.world.rule.enums.Type;
 
 public abstract class AbstractPropertyDefinition<T> implements PropertyDefinition {
@@ -23,6 +25,22 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
     @Override
     public Type getType() {
         return propertyType;
+    }
+
+    @Override
+    public Boolean isRandomInitialized(){
+        return this.valueGenerator instanceof AbstractRandomValueGenerator;
+    }
+
+    @Override
+    public String getRange(){
+        if(this.valueGenerator instanceof AbstractNumericRandomGenerator){
+            AbstractNumericRandomGenerator NumericRandomGenerator =(AbstractNumericRandomGenerator) valueGenerator;
+            return ("range: "+ NumericRandomGenerator.getFrom() + "to " + NumericRandomGenerator.getTO());
+        }
+        else{
+            return "property doesn't hava a range.";
+        }
     }
 
     @Override

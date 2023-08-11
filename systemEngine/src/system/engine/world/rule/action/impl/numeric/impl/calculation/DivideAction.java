@@ -22,13 +22,13 @@ public class DivideAction extends CalculationAction {
         Type type = propertyInstance.getPropertyDefinition().getType();
 
         if (!NumericVerify.verifyNumericPropertyType(propertyInstance)){
-            throw new IllegalArgumentException("divide action can't operate on a none number property [" + resultPropName);
+            throw new IllegalArgumentException("divide action can't operate on a none number property " + resultPropName);
         }
         if (!NumericVerify.verifyNumericExpressionValue(expression1, context) |
         (!NumericVerify.verifyNumericExpressionValue(expression2, context)) |
                 !NumericVerify.verifySuitableType(type,expression1, context) |
                 !NumericVerify.verifySuitableType(type,expression2, context)) {
-            throw new IllegalArgumentException("can't cast one of expression value to type of property [" + resultPropName);
+            throw new IllegalArgumentException("can't cast one of expression value to type of property " + resultPropName);
         }
 
         switch (type) {

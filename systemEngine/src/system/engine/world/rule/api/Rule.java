@@ -10,4 +10,6 @@ public interface Rule {
     Activation getActivation();
     List<Action> getActionsToPerform();
     void addAction(Action action);
+    int getNumOfActions();
+    List<String> getActionsNames();
 }
