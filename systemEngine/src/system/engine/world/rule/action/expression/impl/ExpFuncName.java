@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ExpFuncName extends AbstractExpressionImpl {
 
-    private List<String> functionArgs;
-    private String propertyName;
+    private final List<String> functionArgs;
+    private final String propertyName;
 
     public ExpFuncName(String expressionStrParam, EntityInstance entityInstanceParam, String propertyNameParam, String... strings) {
         super(expressionStrParam, entityInstanceParam);
@@ -29,7 +29,7 @@ public class ExpFuncName extends AbstractExpressionImpl {
             case "environment":
                 return environment(context.getEnvironmentVariable(functionArgs.get(0)));
             case "random":
-                return random(Integer.parseInt(functionArgs.get(0)));
+                return random(functionArgs.get(0));
         }
         return null;
     }
@@ -38,18 +38,18 @@ public class ExpFuncName extends AbstractExpressionImpl {
         return environmentVariable.getValue();
     }
 
-    private Object random(int num) {
+    private Object random(String num) {
+        int number = Integer.parseInt(num);   //throws
         PropertyInstance propertyInstance = entityInstance.getPropertyByName(propertyName);
         Type type = propertyInstance.getPropertyDefinition().getType();
 
         switch (type) {
             case DECIMAL:
-                return (new RandomIntegerGenerator(0, num)).generateValue();
+                return (new RandomIntegerGenerator(0, number)).generateValue();
             case FLOAT:
-                return (new RandomFloatGenerator((float) 0, (float) num)).generateValue();
-            default:
-                //errors
+                return (new RandomFloatGenerator((float) 0, (float) number)).generateValue();
         }
+
         return null;
     }
 
