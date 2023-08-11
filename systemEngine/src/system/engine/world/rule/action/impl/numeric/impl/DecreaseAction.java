@@ -29,11 +29,11 @@ public class DecreaseAction extends AbstractAction implements NumericVerify {
         Type type = propertyInstance.getPropertyDefinition().getType();
 
         if (!NumericVerify.verifyNumericPropertyType(propertyInstance)){
-            throw new IllegalArgumentException("decrease action can't operate on a none number property [" + propertyName);
+            throw new IllegalArgumentException("decrease action can't operate on a none number property " + propertyName);
         }
         if (!NumericVerify.verifyNumericExpressionValue(expression, context) |
                 !NumericVerify.verifySuitableType(type,expression, context) ) {
-            throw new IllegalArgumentException("can't cast expression value to type of property [" + propertyName);
+            throw new IllegalArgumentException("can't cast expression value to type of property " + propertyName);
         }
 
         switch (type) {

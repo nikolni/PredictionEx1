@@ -7,8 +7,8 @@ public class ActivationImpl implements Activation {
     private Tick ticks = new Tick(1);
     private float probability = 1;
 
-    public Tick getTicks() {
-        return ticks;
+    public int getTicks() {
+        return ticks.getTick();
     }
 
     public void setTicks(Tick ticks) {

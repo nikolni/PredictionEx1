@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RuleImpl implements Rule {
     private final String name;
-    private final List<Action> actions;;
+    private final List<Action> actions;
     private Activation activation;
 
     public RuleImpl(String name) {
@@ -36,6 +36,20 @@ public class RuleImpl implements Rule {
     @Override
     public void addAction(Action action) {
         actions.add(action);
+    }
+
+    @Override
+    public int getNumOfActions() {
+        return actions.size();
+    }
+
+    @Override
+    public List<String> getActionsNames() {
+        List<String> names = new ArrayList<>();
+        for(Action action: actions){
+            names.add((action.getActionType()).toString());
+        }
+        return names;
     }
 
 }
