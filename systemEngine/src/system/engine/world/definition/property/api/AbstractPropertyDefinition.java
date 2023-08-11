@@ -28,19 +28,8 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
     }
 
     @Override
-    public Boolean isRandomInitialized(){
-        return this.valueGenerator instanceof AbstractRandomValueGenerator;
-    }
-
-    @Override
-    public String getRange(){
-        if(this.valueGenerator instanceof AbstractNumericRandomGenerator){
-            AbstractNumericRandomGenerator NumericRandomGenerator =(AbstractNumericRandomGenerator) valueGenerator;
-            return ("range: "+ NumericRandomGenerator.getFrom() + "to " + NumericRandomGenerator.getTO());
-        }
-        else{
-            return "property doesn't hava a range.";
-        }
+    public ValueGenerator getValueGenerator(){
+        return valueGenerator;
     }
 
     @Override

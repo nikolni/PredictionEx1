@@ -1,12 +1,19 @@
 package system.engine.api;
 
+import system.engine.world.definition.entity.api.EntityDefinition;
+import system.engine.world.definition.property.api.PropertyDefinition;
+import system.engine.world.rule.api.Rule;
+import system.engine.world.termination.condition.manager.api.TerminationConditionsManager;
+
+import java.util.Collection;
+import java.util.List;
 public interface SystemEngineAccess {
 
-    public void menu1();
-    public Object menu2(); //need to return DTO
-    public Object menu3(); //need to return DTO
-    public Object menu4(); //need to return DTO
-    public Object menu5(); //need to return DTO
+    List<EntityDefinition> getEntitiesDefinitionData();
+    List<Rule> getRulesData();
+    TerminationConditionsManager getTerminationConditionsManager();
+
+    Collection<PropertyDefinition> getEnvironmentVar();
 
 
 }

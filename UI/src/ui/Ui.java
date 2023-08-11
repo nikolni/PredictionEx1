@@ -1,6 +1,9 @@
 package ui;
 
+import system.engine.api.SystemEngineAccess;
+import system.engine.impl.SystemEngineAccessImpl;
+
 public class Ui {
-    private SystenEngineAccess SystemEngine=new SystemEngine();
+    private SystemEngineAccess SystemEngine=new SystemEngineAccessImpl();
 }
 

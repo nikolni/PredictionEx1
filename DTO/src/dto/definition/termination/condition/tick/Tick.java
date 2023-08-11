@@ -1,7 +1,7 @@
-package system.engine.world.tick;
+package dto.definition.termination.condition.tick;
 
 public class Tick {
-    private int tick = 1;
+    private int tick = 0;
 
     public int getTick() {
         return tick;

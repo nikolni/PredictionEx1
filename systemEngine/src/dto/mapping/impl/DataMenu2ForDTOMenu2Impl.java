@@ -1,33 +1,25 @@
 package dto.mapping.impl;
 
 import dto.mapping.api.DataMenu2ForDTO;
+import system.engine.api.SystemEngineAccess;
 import system.engine.world.definition.entity.api.EntityDefinition;
-import system.engine.world.definition.property.api.PropertyDefinition;
-import system.engine.world.rule.action.api.Action;
 import system.engine.world.rule.api.Rule;
-import system.engine.world.termination.condition.TerminationConditions;
+import system.engine.world.termination.condition.manager.api.TerminationConditionsManager;
 
 import java.util.List;
 
 public class DataMenu2ForDTOMenu2Impl implements DataMenu2ForDTO {
     @Override
-    public List<EntityDefinition> getEntitiesDefinitionData() {
-        return null;
+    public List<EntityDefinition> getEntitiesDefinitionData(SystemEngineAccess systemEngineAccess) {
+        return systemEngineAccess.getEntitiesDefinitionData();
     }
     @Override
-    public List<Rule> getRulesData() {
-        return null;
+    public List<Rule> getRulesData(SystemEngineAccess systemEngineAccess) {
+        return systemEngineAccess.getRulesData();
     }
 
     @Override
-    public TerminationConditions getTerminationConditions() {
-        return null;
-    }
-
-    public PropertyDefinition getPropertyDefinitionData() {
-        return null;
-    }
-    public Action getActionData() {
-        return null;
+    public TerminationConditionsManager getTerminationConditionsManager(SystemEngineAccess systemEngineAccess) {
+        return systemEngineAccess.getTerminationConditionsManager();
     }
 }
