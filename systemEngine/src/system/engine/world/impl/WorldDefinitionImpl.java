@@ -34,7 +34,7 @@ public class WorldDefinitionImpl implements WorldDefinition {
     public TerminationConditionsManager getTerminationConditionsManager(){return terminationConditionsManager;}
 
     @Override
-    public WorldInstance createWorldInstance() {
-        return new WorldInstance(this);
+    public WorldInstanceImpl createWorldInstance(int id) {
+        return new WorldInstanceImpl(this, id);
     }
 }

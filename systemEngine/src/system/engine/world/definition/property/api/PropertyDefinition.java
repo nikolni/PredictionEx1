@@ -7,6 +7,7 @@ public interface PropertyDefinition {
     String getUniqueName();
     Type getType();
     Object generateValue();
-
     ValueGenerator getValueGenerator();
+
+    void setValueGenerator(ValueGenerator valueGenerator);
 }

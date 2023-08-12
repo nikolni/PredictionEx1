@@ -6,7 +6,7 @@ import dto.definition.termination.condition.manager.api.TerminationConditionsDTO
 
 import java.util.List;
 
-public interface DTOMenu2 {
+public interface DTOMenu2ForUi {
 
      List<EntityDefinitionDTO> getEntitiesDTO();
      List<RuleDTO> getRulesDTO();
