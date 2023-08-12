@@ -1,8 +1,8 @@
 package ui;
 
 
-import creation.impl.CreateDTOMenu2Impl;
-import dto.api.DTOMenu2;
+import creation.impl.CreateDTOMenu2ForUiImpl;
+import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.property.api.PropertyDefinitionDTO;
 import dto.definition.rule.api.RuleDTO;
@@ -10,14 +10,15 @@ import dto.definition.termination.condition.api.TerminationConditionsDTO;
 import dto.definition.termination.condition.impl.TicksTerminationConditionsDTOImpl;
 import dto.definition.termination.condition.manager.api.TerminationConditionsDTOManager;
 import system.engine.api.SystemEngineAccess;
+
 import java.util.List;
 
 public class Menu2 {
     public void showSimulationDetails(SystemEngineAccess systemEngineAccess){
-        DTOMenu2 dtoMenu2 = new CreateDTOMenu2Impl().getDataForMenu2(systemEngineAccess);
-        List<EntityDefinitionDTO> entities = dtoMenu2.getEntitiesDTO();
-        List<RuleDTO> rules = dtoMenu2.getRulesDTO();
-        TerminationConditionsDTOManager terminationConditionsDTOManager = dtoMenu2.getTerminationConditionsDTOManager();
+        DTOMenu2ForUi dtoMenu2ForUi = new CreateDTOMenu2ForUiImpl().getDataForMenu2(systemEngineAccess);
+        List<EntityDefinitionDTO> entities = dtoMenu2ForUi.getEntitiesDTO();
+        List<RuleDTO> rules = dtoMenu2ForUi.getRulesDTO();
+        TerminationConditionsDTOManager terminationConditionsDTOManager = dtoMenu2ForUi.getTerminationConditionsDTOManager();
 
         printEntitiesData(entities);
         printRulesData(rules);
@@ -34,15 +35,21 @@ public class Menu2 {
             System.out.println("#" + countEntities + " name: " + entityDefinitionDTO.getUniqueName());
             System.out.println("  " + "population: " + entityDefinitionDTO.getPopulation());
             System.out.println("  " + "properties:");
-            countProperties = 0;
-            for(PropertyDefinitionDTO propertyDefinitionDTO : entityDefinitionDTO.getProps()){
-                countProperties++;
-                System.out.println("   #" + countProperties + " name: " + propertyDefinitionDTO.getUniqueName());
-                System.out.println("     " + "type: " + propertyDefinitionDTO.getType());
-                System.out.println("     " + "random initialize: " + propertyDefinitionDTO.isRandomInitialized());
-                System.out.println("     " + (propertyDefinitionDTO.isRandomInitialized()? "range: from " +
-                        propertyDefinitionDTO.getRange().get(0) + " to " + propertyDefinitionDTO.getRange().get(1) : "no range"));
-            }
+            List<PropertyDefinitionDTO> properties = entityDefinitionDTO.getProps();
+            printPropertiesData(properties);
+        }
+    }
+
+    private void printPropertiesData(List<PropertyDefinitionDTO> properties){
+        int countProperties = 0;
+
+        for(PropertyDefinitionDTO propertyDefinitionDTO : properties){
+            countProperties++;
+            System.out.println("   #" + countProperties + " name: " + propertyDefinitionDTO.getUniqueName());
+            System.out.println("     " + "type: " + propertyDefinitionDTO.getType());
+            System.out.println("     " + "random initialize: " + propertyDefinitionDTO.isRandomInitialized());
+            System.out.println("     " + (propertyDefinitionDTO.doesHaveRange() ? "range: from " +
+                    propertyDefinitionDTO.getRange().get(0) + " to " + propertyDefinitionDTO.getRange().get(1) : "no range"));
         }
     }
 

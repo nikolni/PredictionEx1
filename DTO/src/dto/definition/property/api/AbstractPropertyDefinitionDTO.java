@@ -37,6 +37,11 @@ public abstract class AbstractPropertyDefinitionDTO<T> implements PropertyDefini
     }
 
     @Override
+    public Boolean doesHaveRange(){
+        return this.valueGenerator instanceof AbstractNumericRandomGenerator;
+    }
+
+    @Override
     public List<Object> getRange(){
         List<Object> rangeArray = new ArrayList<>();
         if(this.valueGenerator instanceof AbstractNumericRandomGenerator){

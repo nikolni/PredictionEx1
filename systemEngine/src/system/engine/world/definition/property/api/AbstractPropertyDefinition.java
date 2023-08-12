@@ -9,7 +9,7 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
 
     private final String uniqueName;
     private final Type propertyType;
-    private final ValueGenerator<T> valueGenerator;
+    private ValueGenerator<T> valueGenerator;
 
     public AbstractPropertyDefinition(String uniqueName, Type propertyType, ValueGenerator<T> valueGenerator) {
         this.uniqueName = uniqueName;
@@ -30,6 +30,11 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
     @Override
     public ValueGenerator getValueGenerator(){
         return valueGenerator;
+    }
+
+    @Override
+    public void setValueGenerator(ValueGenerator valueGenerator){
+        this.valueGenerator = valueGenerator;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package creation.impl;
 
-import creation.api.CreateDTOMenu2;
-import dto.api.DTOMenu2;
+import creation.api.CreateDTOMenu2ForUi;
+import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.entity.impl.EntityDefinitionDTOImpl;
 import dto.definition.property.api.PropertyDefinitionDTO;
@@ -17,9 +17,9 @@ import dto.definition.termination.condition.impl.TicksTerminationConditionsDTOIm
 import dto.definition.termination.condition.impl.TimeTerminationConditionsDTOImpl;
 import dto.definition.termination.condition.manager.api.TerminationConditionsDTOManager;
 import dto.definition.termination.condition.manager.impl.TerminationConditionsDTOManagerImpl;
-import dto.impl.DTOMenu2Impl;
+import dto.impl.DTOMenu2ForUiImpl;
 import dto.mapping.api.DataMenu2ForDTO;
-import dto.mapping.impl.DataMenu2ForDTOMenu2Impl;
+import dto.mapping.impl.DataMenu2ForDTOImpl;
 import system.engine.api.SystemEngineAccess;
 import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.definition.property.api.PropertyDefinition;
@@ -31,15 +31,15 @@ import system.engine.world.termination.condition.manager.api.TerminationConditio
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu2Impl implements CreateDTOMenu2 {
+public class CreateDTOMenu2ForUiImpl implements CreateDTOMenu2ForUi {
     @Override
-    public DTOMenu2 getDataForMenu2(SystemEngineAccess systemEngineAccess) {
+    public DTOMenu2ForUi getDataForMenu2(SystemEngineAccess systemEngineAccess) {
         List<EntityDefinitionDTO> entitiesDTO = new ArrayList<>();
         List<RuleDTO> rulesDTO = new ArrayList<>();
         List<TerminationConditionsDTO> terminationConditionsDTO= new ArrayList<>();
 
 
-        DataMenu2ForDTO dataMenu2ForDTO = new DataMenu2ForDTOMenu2Impl();   //systemEngineDTOInterface
+        DataMenu2ForDTO dataMenu2ForDTO = new DataMenu2ForDTOImpl();   //systemEngineDTOInterface
 
         List<EntityDefinition> entities = dataMenu2ForDTO.getEntitiesDefinitionData(systemEngineAccess);
         for(EntityDefinition entityDefinition: entities){
@@ -58,7 +58,7 @@ public class CreateDTOMenu2Impl implements CreateDTOMenu2 {
         }
         TerminationConditionsDTOManager terminationConditionsDTOManager = new TerminationConditionsDTOManagerImpl(terminationConditionsDTO);
 
-        return new DTOMenu2Impl(entitiesDTO, rulesDTO, terminationConditionsDTOManager);
+        return new DTOMenu2ForUiImpl(entitiesDTO, rulesDTO, terminationConditionsDTOManager);
     }
 
     private EntityDefinitionDTO createEntityDefinitionDTO(EntityDefinition entityDefinition){

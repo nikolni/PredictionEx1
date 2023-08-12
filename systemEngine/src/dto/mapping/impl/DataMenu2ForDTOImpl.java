@@ -8,7 +8,7 @@ import system.engine.world.termination.condition.manager.api.TerminationConditio
 
 import java.util.List;
 
-public class DataMenu2ForDTOMenu2Impl implements DataMenu2ForDTO {
+public class DataMenu2ForDTOImpl implements DataMenu2ForDTO {
     @Override
     public List<EntityDefinition> getEntitiesDefinitionData(SystemEngineAccess systemEngineAccess) {
         return systemEngineAccess.getEntitiesDefinitionData();

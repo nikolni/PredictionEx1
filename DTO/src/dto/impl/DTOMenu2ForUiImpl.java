@@ -1,21 +1,21 @@
 package dto.impl;
 
-import dto.api.DTOMenu2;
+import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.rule.api.RuleDTO;
 import dto.definition.termination.condition.manager.api.TerminationConditionsDTOManager;
 
 import java.util.List;
 
-public class DTOMenu2Impl implements DTOMenu2 {
+public class DTOMenu2ForUiImpl implements DTOMenu2ForUi {
 
         private final List<EntityDefinitionDTO> entitiesDTO;
         private final List<RuleDTO> rulesDTO;
         private final TerminationConditionsDTOManager terminationConditionsDTOManager;
 
 
-        public DTOMenu2Impl(List<EntityDefinitionDTO> entitiesDTO, List<RuleDTO> rulesDTO,
-                            TerminationConditionsDTOManager terminationConditionsDTOManager){
+        public DTOMenu2ForUiImpl(List<EntityDefinitionDTO> entitiesDTO, List<RuleDTO> rulesDTO,
+                                 TerminationConditionsDTOManager terminationConditionsDTOManager){
                 this.entitiesDTO =entitiesDTO;
                 this.rulesDTO =rulesDTO;
                 this.terminationConditionsDTOManager = terminationConditionsDTOManager;
