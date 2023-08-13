@@ -2,8 +2,8 @@ package dto.definition.property.impl;
 
 
 import dto.definition.property.api.AbstractPropertyDefinitionDTO;
-import system.engine.world.definition.value.generator.api.ValueGenerator;
-import system.engine.world.rule.enums.Type;
+import dto.definition.property.value.generator.api.ValueGenerator;
+import dto.definition.rule.enums.Type;
 
 public class IntegerPropertyDefinitionDTO extends AbstractPropertyDefinitionDTO<Integer> {
 

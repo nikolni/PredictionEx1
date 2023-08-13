@@ -1,25 +1,25 @@
-package creation.impl;
+package dto.creation;
 
-import creation.api.CreateDTOMenu3ForUi;
 import dto.api.DTOMenu3ForUi;
 import dto.definition.property.api.PropertyDefinitionDTO;
 import dto.definition.property.impl.BooleanPropertyDefinitionDTO;
 import dto.definition.property.impl.FloatPropertyDefinitionDTO;
 import dto.definition.property.impl.IntegerPropertyDefinitionDTO;
 import dto.definition.property.impl.StringPropertyDefinitionDTO;
+import dto.definition.property.value.generator.api.ValueGenerator;
 import dto.impl.DTOMenu3ForUiImpl;
-import system.engine.api.SystemEngineAccess;
+import system.engine.world.api.WorldDefinition;
 import system.engine.world.definition.property.api.PropertyDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu3ForUiImpl implements CreateDTOMenu3ForUi {
-    @Override
-    public DTOMenu3ForUi getDataForMenu3(SystemEngineAccess systemEngineAccess) {
+public class CreateDTOMenu3ForUi  {
+
+    public DTOMenu3ForUi getDataForMenu3(WorldDefinition worldDefinition) {
         List<PropertyDefinitionDTO> environmentVars= new ArrayList<>();
 
-        for(PropertyDefinition environmentVar : systemEngineAccess.getEnvironmentVarDefinitions()){
+        for(PropertyDefinition environmentVar : worldDefinition.getEnvVariablesDefinitionManager().getEnvVariables()){
             environmentVars.add(createEnvironmentVarDTO(environmentVar));
         }
         return new DTOMenu3ForUiImpl(environmentVars);
@@ -28,13 +28,13 @@ public class CreateDTOMenu3ForUiImpl implements CreateDTOMenu3ForUi {
     private PropertyDefinitionDTO createEnvironmentVarDTO(PropertyDefinition environmentVar){
         switch (environmentVar.getType()){
             case DECIMAL:
-                return new IntegerPropertyDefinitionDTO(environmentVar.getUniqueName(), environmentVar.getValueGenerator());
+                return new IntegerPropertyDefinitionDTO(environmentVar.getUniqueName(), (ValueGenerator<Integer>) environmentVar.getValueGenerator());
             case FLOAT:
-                return new FloatPropertyDefinitionDTO(environmentVar.getUniqueName(), environmentVar.getValueGenerator());
+                return new FloatPropertyDefinitionDTO(environmentVar.getUniqueName(), (ValueGenerator<Float>) environmentVar.getValueGenerator());
             case STRING:
-                return new StringPropertyDefinitionDTO(environmentVar.getUniqueName(), environmentVar.getValueGenerator());
+                return new StringPropertyDefinitionDTO(environmentVar.getUniqueName(), (ValueGenerator<String>) environmentVar.getValueGenerator());
             case BOOLEAN:
-                return new BooleanPropertyDefinitionDTO(environmentVar.getUniqueName(), environmentVar.getValueGenerator());
+                return new BooleanPropertyDefinitionDTO(environmentVar.getUniqueName(), (ValueGenerator<Boolean>) environmentVar.getValueGenerator());
         }
         return null;
     }

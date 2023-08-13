@@ -1,6 +1,5 @@
-package creation.impl;
+package dto.creation;
 
-import creation.api.CreateDTOMenu2ForUi;
 import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.entity.impl.EntityDefinitionDTOImpl;
@@ -9,6 +8,7 @@ import dto.definition.property.impl.BooleanPropertyDefinitionDTO;
 import dto.definition.property.impl.FloatPropertyDefinitionDTO;
 import dto.definition.property.impl.IntegerPropertyDefinitionDTO;
 import dto.definition.property.impl.StringPropertyDefinitionDTO;
+import dto.definition.property.value.generator.api.ValueGenerator;
 import dto.definition.rule.activation.impl.ActivationDTOImpl;
 import dto.definition.rule.api.RuleDTO;
 import dto.definition.rule.impl.RuleDTOImpl;
@@ -18,9 +18,7 @@ import dto.definition.termination.condition.impl.TimeTerminationConditionsDTOImp
 import dto.definition.termination.condition.manager.api.TerminationConditionsDTOManager;
 import dto.definition.termination.condition.manager.impl.TerminationConditionsDTOManagerImpl;
 import dto.impl.DTOMenu2ForUiImpl;
-import dto.mapping.api.DataMenu2ForDTO;
-import dto.mapping.impl.DataMenu2ForDTOImpl;
-import system.engine.api.SystemEngineAccess;
+import system.engine.world.api.WorldDefinition;
 import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.rule.api.Rule;
@@ -31,28 +29,25 @@ import system.engine.world.termination.condition.manager.api.TerminationConditio
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu2ForUiImpl implements CreateDTOMenu2ForUi {
-    @Override
-    public DTOMenu2ForUi getDataForMenu2(SystemEngineAccess systemEngineAccess) {
+public class CreateDTOMenu2ForUi {
+
+    public DTOMenu2ForUi getDataForMenu2(WorldDefinition worldDefinition) {
         List<EntityDefinitionDTO> entitiesDTO = new ArrayList<>();
         List<RuleDTO> rulesDTO = new ArrayList<>();
         List<TerminationConditionsDTO> terminationConditionsDTO= new ArrayList<>();
 
-
-        DataMenu2ForDTO dataMenu2ForDTO = new DataMenu2ForDTOImpl();   //systemEngineDTOInterface
-
-        List<EntityDefinition> entities = dataMenu2ForDTO.getEntitiesDefinitionData(systemEngineAccess);
+        List<EntityDefinition> entities = worldDefinition.getEntityDefinitionManager().getDefinitions();
         for(EntityDefinition entityDefinition: entities){
             entitiesDTO.add(createEntityDefinitionDTO(entityDefinition));
         }
 
-        List<Rule> rules = dataMenu2ForDTO.getRulesData(systemEngineAccess);
+        List<Rule> rules = worldDefinition.getRuleDefinitionManager().getDefinitions();
         for(Rule rule: rules){
-            rulesDTO.add(new RuleDTOImpl(rule.getName(), rule.getActionsToPerform(),
+            rulesDTO.add(new RuleDTOImpl(rule.getName(), rule.getActionsNames(),
                     new ActivationDTOImpl(rule.getActivation().getTicks(), rule.getActivation().getProbability())));
         }
 
-        TerminationConditionsManager terminationConditionsManager = dataMenu2ForDTO.getTerminationConditionsManager(systemEngineAccess);
+        TerminationConditionsManager terminationConditionsManager = worldDefinition.getTerminationConditionsManager();
         for(TerminationCondition terminationCondition : terminationConditionsManager.getTerminationConditionsList()){
             terminationConditionsDTO.add(createTerminationConditionsDTO(terminationCondition));
         }
@@ -72,13 +67,13 @@ public class CreateDTOMenu2ForUiImpl implements CreateDTOMenu2ForUi {
     private PropertyDefinitionDTO createPropertyDefinitionDTO(PropertyDefinition propertyDefinition){
         switch (propertyDefinition.getType()){
             case DECIMAL:
-                return new IntegerPropertyDefinitionDTO(propertyDefinition.getUniqueName(), propertyDefinition.getValueGenerator());
+                return new IntegerPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<Integer>) propertyDefinition.getValueGenerator());
             case FLOAT:
-                return new FloatPropertyDefinitionDTO(propertyDefinition.getUniqueName(), propertyDefinition.getValueGenerator());
+                return new FloatPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<Float>) propertyDefinition.getValueGenerator());
             case STRING:
-                return new StringPropertyDefinitionDTO(propertyDefinition.getUniqueName(), propertyDefinition.getValueGenerator());
+                return new StringPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<String>) propertyDefinition.getValueGenerator());
             case BOOLEAN:
-                return new BooleanPropertyDefinitionDTO(propertyDefinition.getUniqueName(), propertyDefinition.getValueGenerator());
+                return new BooleanPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<Boolean>) propertyDefinition.getValueGenerator());
         }
         return null;
     }

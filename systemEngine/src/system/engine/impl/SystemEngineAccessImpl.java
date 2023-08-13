@@ -1,19 +1,19 @@
 
 package system.engine.impl;
 
+import dto.api.DTOMenu2ForUi;
 import dto.api.DTOMenu3ForSE;
+import dto.api.DTOMenu3ForUi;
+import dto.creation.CreateDTOMenu2ForUi;
+import dto.creation.CreateDTOMenu3ForUi;
 import system.engine.api.SystemEngineAccess;
 import system.engine.world.api.WorldDefinition;
 import system.engine.world.api.WorldInstance;
-import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.definition.value.generator.impl.init.InitValueGenerator;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
-import system.engine.world.impl.WorldInstanceImpl;
-import system.engine.world.rule.api.Rule;
-import system.engine.world.termination.condition.manager.api.TerminationConditionsManager;
 
 import java.util.*;
 
@@ -31,26 +31,14 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
 
 
     @Override
-    public List<EntityDefinition> getEntitiesDefinitionData() {
-        return worldDefinition.getEntityDefinitionManager().getDefinitions();
+    public DTOMenu2ForUi getDataForMenu2FromSE() {
+        return new CreateDTOMenu2ForUi().getDataForMenu2(worldDefinition);
     }
 
     @Override
-    public List<Rule> getRulesData() {
-        return worldDefinition.getRuleDefinitionManager().getDefinitions();
+    public DTOMenu3ForUi getDataForMenu3FromSE() {
+        return new CreateDTOMenu3ForUi().getDataForMenu3(worldDefinition);
     }
-
-
-    @Override
-    public TerminationConditionsManager getTerminationConditionsManager() {
-        return worldDefinition.getTerminationConditionsManager();
-    }
-
-    @Override
-    public Collection<PropertyDefinition> getEnvironmentVarDefinitions() {
-        return worldDefinition.getEnvVariablesDefinitionManager().getEnvVariables();
-    }
-
     @Override
     public List<PropertyInstance> getEnvironmentVarInstances() {
         return envVariablesInstanceManager.getEnvVarsList();

@@ -25,14 +25,14 @@ public class WorldInstanceImpl implements WorldInstance {
     }
 
 
-    @Override
-    /*public RuleDefinitionManager getRuleDefinitionManager() {
+    /*@Override
+    public RuleDefinitionManager getRuleDefinitionManager() {
         return ruleDefinitionManager;
     }
 
     @Override
     public TerminationConditionsManager getTerminationConditionsManager() {
-        return terminationConditionsManager;*/
-    }
+        return terminationConditionsManager;
+    }*/
 }
 
