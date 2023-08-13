@@ -1,7 +1,7 @@
 package dto.definition.entity.impl;
 
 import dto.definition.entity.api.EntityDefinitionDTO;
-import dto.definition.property.api.PropertyDefinitionDTO;
+import dto.definition.property.definition.api.PropertyDefinitionDTO;
 
 import java.util.List;
 

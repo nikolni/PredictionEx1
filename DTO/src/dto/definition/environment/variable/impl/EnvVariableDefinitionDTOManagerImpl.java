@@ -1,13 +1,12 @@
 package dto.definition.environment.variable.impl;
 
 import dto.definition.environment.variable.api.EnvVariablesDefinitionDTOManager;
-import dto.definition.property.api.PropertyDefinitionDTO;
+import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 public class EnvVariableDefinitionDTOManagerImpl implements EnvVariablesDefinitionDTOManager {

@@ -3,7 +3,7 @@ package ui;
 
 import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
-import dto.definition.property.api.PropertyDefinitionDTO;
+import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.rule.api.RuleDTO;
 import dto.definition.termination.condition.api.TerminationConditionsDTO;
 import dto.definition.termination.condition.impl.TicksTerminationConditionsDTOImpl;

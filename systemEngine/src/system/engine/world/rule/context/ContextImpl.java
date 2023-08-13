@@ -29,6 +29,6 @@ public class ContextImpl implements Context {
 
     @Override
     public PropertyInstance getEnvironmentVariable(String name) {
-        return envVariablesInstanceManager.getProperty(name);
+        return envVariablesInstanceManager.getEnvVar(name);
     }
 }

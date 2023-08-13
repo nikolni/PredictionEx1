@@ -2,19 +2,29 @@ package system.engine.api;
 
 import dto.api.DTOMenu2ForUi;
 import dto.api.DTOMenu3ForSE;
-import dto.api.DTOMenu3ForUi;
-import system.engine.world.definition.entity.api.EntityDefinition;
-import system.engine.world.definition.property.api.PropertyDefinition;
+import dto.api.DTOMenu3ForUiEVD;
+import dto.api.DTOMenu3ForUiEVI;
+import system.engine.world.execution.instance.enitty.api.EntityInstance;
+import system.engine.world.execution.instance.enitty.manager.api.EntityInstanceManager;
+import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
 import system.engine.world.rule.api.Rule;
-import system.engine.world.termination.condition.manager.api.TerminationConditionsManager;
 
-import java.util.Collection;
 import java.util.List;
 public interface SystemEngineAccess {
 
     DTOMenu2ForUi getDataForMenu2FromSE();
-    DTOMenu3ForUi getDataForMenu3FromSE();
+    DTOMenu3ForUiEVD getEVDForMenu3FromSE();
+
+    DTOMenu3ForUiEVI getEVIForMenu3FromSE();
+    int getNumOfTicksToRun();
+    int getNumOfSecondsToRun();
+
+    List<Rule> getActiveRules(int tickNumber);
+    List<EntityInstance> getAllInstancesOfLastWorldInstance();
+
+    EntityInstanceManager getEntityInstanceManagerOfLastWorldInstance();   //?
+    EnvVariablesInstanceManager getEnvVariablesInstanceManager();  //?
 
     void updateEnvironmentVarDefinition(DTOMenu3ForSE dtoMenu3ForSE);
     void addWorldInstance();

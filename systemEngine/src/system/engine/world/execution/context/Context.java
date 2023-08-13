@@ -1,7 +1,8 @@
 package system.engine.world.execution.context;
 
-import predictions.design.draft.execution.instance.enitty.EntityInstance;
-import predictions.design.draft.execution.instance.property.PropertyInstance;
+
+import system.engine.world.execution.instance.enitty.api.EntityInstance;
+import system.engine.world.execution.instance.property.api.PropertyInstance;
 
 public interface Context {
     EntityInstance getPrimaryEntityInstance();
