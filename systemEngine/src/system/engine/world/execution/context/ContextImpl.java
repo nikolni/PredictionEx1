@@ -1,20 +1,20 @@
 package system.engine.world.execution.context;
 
-import predictions.design.draft.execution.instance.enitty.EntityInstance;
-import predictions.design.draft.execution.instance.enitty.manager.EntityInstanceManager;
-import predictions.design.draft.execution.instance.environment.api.ActiveEnvironment;
-import predictions.design.draft.execution.instance.property.PropertyInstance;
+import system.engine.world.execution.instance.enitty.api.EntityInstance;
+import system.engine.world.execution.instance.enitty.manager.api.EntityInstanceManager;
+import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
+import system.engine.world.execution.instance.property.api.PropertyInstance;
 
 public class ContextImpl implements Context {
 
     private EntityInstance primaryEntityInstance;
     private EntityInstanceManager entityInstanceManager;
-    private ActiveEnvironment activeEnvironment;
+    private EnvVariablesInstanceManager envVariablesInstanceManager;
 
-    public ContextImpl(EntityInstance primaryEntityInstance, EntityInstanceManager entityInstanceManager, ActiveEnvironment activeEnvironment) {
+    public ContextImpl(EntityInstance primaryEntityInstance, EntityInstanceManager entityInstanceManager, EnvVariablesInstanceManager envVariablesInstanceManager) {
         this.primaryEntityInstance = primaryEntityInstance;
         this.entityInstanceManager = entityInstanceManager;
-        this.activeEnvironment = activeEnvironment;
+        this.envVariablesInstanceManager  =  envVariablesInstanceManager;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class ContextImpl implements Context {
 
     @Override
     public PropertyInstance getEnvironmentVariable(String name) {
-        return activeEnvironment.getProperty(name);
+        return envVariablesInstanceManager.getEnvVar(name);
     }
 }
