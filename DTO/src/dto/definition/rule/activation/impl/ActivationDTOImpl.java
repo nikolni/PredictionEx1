@@ -1,7 +1,8 @@
 package dto.definition.rule.activation.impl;
 
 import dto.definition.rule.activation.api.ActivationDTO;
-import system.engine.world.tick.Tick;
+import dto.definition.rule.activation.tick.Tick;
+
 
 public class ActivationDTOImpl implements ActivationDTO {
     private Tick ticks = new Tick();

@@ -1,11 +1,11 @@
 package dto.definition.property.api;
 
-import system.engine.world.definition.value.generator.api.ValueGenerator;
-import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
-import system.engine.world.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
-import system.engine.world.rule.enums.Type;
 
-import java.lang.reflect.Array;
+import dto.definition.property.value.generator.api.ValueGenerator;
+import dto.definition.property.value.generator.impl.random.api.AbstractRandomValueGenerator;
+import dto.definition.property.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
+import dto.definition.rule.enums.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 
