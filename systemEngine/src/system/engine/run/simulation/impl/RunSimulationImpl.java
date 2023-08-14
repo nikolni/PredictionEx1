@@ -12,6 +12,8 @@ import system.engine.world.rule.api.Rule;
 import system.engine.world.rule.context.Context;
 import system.engine.world.rule.context.ContextImpl;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -20,13 +22,15 @@ public class RunSimulationImpl implements RunSimulation {
 
     @Override
     public String runSimulationOnLastWorldInstance(WorldDefinition worldDefinition, WorldInstance worldInstance,
-                                                 EnvVariablesInstanceManager envVariablesInstanceManager){
+                                                 EnvVariablesInstanceManager envVariablesInstanceManager)
+                                                    throws IllegalArgumentException{
+        Instant startTime = Instant.now();
+        Instant endTime;
+        Duration duration;
         int tick = 0;
         int seconds = 0;
         int numOfTicksToRun = getNumOfTicksToRun(worldDefinition);
         int numOfSecondsToRun = getNumOfSecondsToRun(worldDefinition);
-
-        Action killAction;
 
         List<Action> actionsList = new ArrayList<>();
         Stream<Action> actionsStream;
@@ -38,27 +42,37 @@ public class RunSimulationImpl implements RunSimulation {
             }
             actionsStream = Stream.of((Action) actionsList);
 
-            for(EntityInstance entityInstance : getAllInstancesOfWorldInstance(worldInstance)){
-                killAction = null;
-                Context context = new ContextImpl(entityInstance, getEntityInstanceManagerOfWorldInstance(worldInstance),
-                        envVariablesInstanceManager);
-                for (Action action : actionsList){   //actionsList.forEach(action -> action.executeAction(context));
-                    if(action instanceof KillAction){
-                        killAction = action;
-                        continue;
-                    }
-                    action.executeAction(context);
-                }
-                if(killAction != null){
-                    killAction.executeAction(context);
-                }
-            }
+            runAllActionsOnAllEntities(worldInstance, envVariablesInstanceManager, actionsList);
 
             tick++;
+            endTime = Instant.now();
+            duration = Duration.between(startTime, endTime);
+            seconds = (int) duration.getSeconds();
        }
 
         if(tick>numOfTicksToRun){return "last tick";}
         else {return "time run out";}
+    }
+
+    private void runAllActionsOnAllEntities(WorldInstance worldInstance, EnvVariablesInstanceManager envVariablesInstanceManager,
+                                            List<Action> actionsList){
+        Action killAction;
+
+        for(EntityInstance entityInstance : getAllInstancesOfWorldInstance(worldInstance)){
+            killAction = null;
+            Context context = new ContextImpl(entityInstance, getEntityInstanceManagerOfWorldInstance(worldInstance),
+                    envVariablesInstanceManager);
+            for (Action action : actionsList){   //actionsList.forEach(action -> action.executeAction(context));
+                if(action instanceof KillAction){
+                    killAction = action;
+                    continue;
+                }
+                action.executeAction(context);
+            }
+            if(killAction != null){
+                killAction.executeAction(context);
+            }
+        }
     }
 
 

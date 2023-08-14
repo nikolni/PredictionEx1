@@ -21,18 +21,50 @@ public class SetAction extends AbstractAction {
     }
 
         @Override
-        public void executeAction(Context context) {
+        public void executeAction(Context context) throws IllegalArgumentException{
             PropertyInstance propertyInstance = context.getPrimaryEntityInstance().getPropertyByName(propertyName);
             Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
             Object expressionVal=  expression.evaluateExpression(context);
             Type propertyType = propertyInstance.getPropertyDefinition().getType();
 
             if (!verifySuitableType(propertyType, expressionVal)) {
-                throw new IllegalArgumentException("set action can't operate on a none number property " + propertyName);
+                throw new IllegalArgumentException("set action can't operate with expression type different from type of property " + propertyName);
+            }
+
+            setPropertyValue(propertyInstance, expressionVal);
+
+
+        }
+
+        private void setPropertyValue(PropertyInstance propertyInstance, Object expressionVal){
+            Type propertyType = propertyInstance.getPropertyDefinition().getType();
+
+            if(propertyInstance.getPropertyDefinition().doesHaveRange()) {
+                switch (propertyType) {
+                    case DECIMAL:
+                        Integer iMinRange = (Integer) propertyInstance.getPropertyDefinition().getRange().get(0);
+                        Integer iMaxRange = (Integer) propertyInstance.getPropertyDefinition().getRange().get(1);
+                        if ((Integer) expressionVal > iMaxRange) {
+                            expressionVal = iMaxRange;
+                        } else if ((Integer) expressionVal < iMinRange) {
+                            expressionVal = iMinRange;
+                        }
+
+                        break;
+                    case FLOAT:
+                        Float fMinRange = (Float) propertyInstance.getPropertyDefinition().getRange().get(0);
+                        Float fMaxRange = (Float) propertyInstance.getPropertyDefinition().getRange().get(1);
+                        if ((Float) expressionVal > fMaxRange) {
+                            expressionVal = fMaxRange;
+                        } else if ((Float) expressionVal < fMinRange) {
+                            expressionVal = fMinRange;
+                        }
+                        break;
+                }
             }
 
             propertyInstance.setValue(expressionVal);
-        }
+            }
 
     private boolean verifySuitableType(Type propertyType, Object expressionVal) {
         switch (propertyType) {

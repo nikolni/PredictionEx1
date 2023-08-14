@@ -23,7 +23,7 @@ public class DecreaseAction extends AbstractAction implements NumericVerify {
     }
 
     @Override
-    public void executeAction(Context context) {
+    public void executeAction(Context context) throws IllegalArgumentException{
         PropertyInstance propertyInstance = context.getPrimaryEntityInstance().getPropertyByName(propertyName);
         Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
         Type type = propertyInstance.getPropertyDefinition().getType();
@@ -37,15 +37,32 @@ public class DecreaseAction extends AbstractAction implements NumericVerify {
         }
 
         switch (type) {
+
             case DECIMAL:
                 Integer i1 = Type.DECIMAL.convert(propertyInstance.getValue());
                 Integer i2 = (Integer) (expression.evaluateExpression(context));
-                propertyInstance.setValue(i1 - i2);
+                Integer iResult = i1 - i2;
+                if(propertyInstance.getPropertyDefinition().doesHaveRange()){
+                    Integer iMinRange = (Integer)propertyInstance.getPropertyDefinition().getRange().get(0);
+                    if(iResult < iMinRange){
+                        iResult = iMinRange;
+                    }
+                }
+
+                propertyInstance.setValue(iResult);
                 break;
             case FLOAT:
                 Float f1 = Type.FLOAT.convert(propertyInstance.getValue());
                 Float f2 = (Float) (expression.evaluateExpression(context));
-                propertyInstance.setValue(f1 - f2);
+                Float fResult = f1 - f2;
+                if(propertyInstance.getPropertyDefinition().doesHaveRange()){
+                    Float fMinRange = (Float)propertyInstance.getPropertyDefinition().getRange().get(0);
+                    if(fResult < fMinRange){
+                        fResult = fMinRange;
+                    }
+                }
+
+                propertyInstance.setValue(fResult);
                 break;
         }
     }

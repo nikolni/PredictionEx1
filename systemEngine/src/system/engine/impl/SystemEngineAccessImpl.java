@@ -5,6 +5,7 @@ import dto.api.*;
 import dto.creation.CreateDTOMenu2ForUi;
 import dto.creation.CreateDTOMenu3EVDForUi;
 import dto.creation.CreateDTOMenu3EVIForUi;
+import dto.impl.DTOMenu3ForUiTCImpl;
 import system.engine.api.SystemEngineAccess;
 import system.engine.run.simulation.api.RunSimulation;
 import system.engine.run.simulation.impl.RunSimulationImpl;
@@ -82,7 +83,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     }
 
     @Override
-    public DTOMenu3ForUiTC runSimulation(){    //on last index at world instances list
+    public DTOMenu3ForUiTC runSimulation() throws IllegalArgumentException{    //on last index at world instances list
         int simulationID = worldInstances.size() - 1;
         String terminationCondition;
 
@@ -90,6 +91,6 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         terminationCondition = runSimulationInstance.runSimulationOnLastWorldInstance(worldDefinition,
                 worldInstances.get(simulationID) ,envVariablesInstanceManager);
 
-        return simulationID;
+        return new DTOMenu3ForUiTCImpl(simulationID, terminationCondition);
     }
 }

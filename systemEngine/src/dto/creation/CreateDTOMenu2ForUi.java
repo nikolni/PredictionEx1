@@ -3,6 +3,7 @@ package dto.creation;
 import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.entity.impl.EntityDefinitionDTOImpl;
+import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.property.definition.impl.PropertyDefinitionDTOImpl;
 import dto.definition.rule.activation.impl.ActivationDTOImpl;
 import dto.definition.rule.api.RuleDTO;
@@ -52,7 +53,7 @@ public class CreateDTOMenu2ForUi {
     }
 
     private EntityDefinitionDTO createEntityDefinitionDTO(EntityDefinition entityDefinition){
-        List<dto.definition.property.definition.api.PropertyDefinitionDTO> propertiesDTO = new ArrayList<>();
+        List<PropertyDefinitionDTO> propertiesDTO = new ArrayList<>();
         for(PropertyDefinition propertyDefinition: entityDefinition.getProps()){
             propertiesDTO.add(createPropertyDefinitionDTO(propertyDefinition));
         }

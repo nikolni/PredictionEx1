@@ -48,6 +48,6 @@ public class EntityInstanceManagerImpl implements EntityInstanceManager {
 
     @Override
     public void killEntity(int id) {
-        // some implementation...
+        instances.set(id, null);
     }
 }

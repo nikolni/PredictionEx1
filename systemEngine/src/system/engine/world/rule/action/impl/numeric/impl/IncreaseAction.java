@@ -23,7 +23,7 @@ public class IncreaseAction extends AbstractAction implements NumericVerify {
     }
 
     @Override
-    public void executeAction(Context context) {
+    public void executeAction(Context context) throws IllegalArgumentException{
         PropertyInstance propertyInstance = (context.getPrimaryEntityInstance()).getPropertyByName(propertyName);
         Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
         Type type = propertyInstance.getPropertyDefinition().getType();
@@ -39,13 +39,29 @@ public class IncreaseAction extends AbstractAction implements NumericVerify {
         switch (type) {
             case DECIMAL:
                 Integer i1 = Type.DECIMAL.convert(propertyInstance.getValue());
-                Integer i2 = (Integer)(expression.evaluateExpression(context));
-                propertyInstance.setValue(i1 + i2);
+                Integer i2 = (Integer) (expression.evaluateExpression(context));
+                Integer iResult = i1 + i2;
+                if(propertyInstance.getPropertyDefinition().doesHaveRange()){
+                    Integer iMaxRange = (Integer)propertyInstance.getPropertyDefinition().getRange().get(0);
+                    if(iResult > iMaxRange){
+                        iResult = iMaxRange;
+                    }
+                }
+
+                propertyInstance.setValue(iResult);
                 break;
             case FLOAT:
                 Float f1 = Type.FLOAT.convert(propertyInstance.getValue());
-                Float f2 = (Float)(expression.evaluateExpression(context));
-                propertyInstance.setValue(f1 + f2);
+                Float f2 = (Float) (expression.evaluateExpression(context));
+                Float fResult = f1 + f2;
+                if(propertyInstance.getPropertyDefinition().doesHaveRange()){
+                    Float fMaxRange = (Float)propertyInstance.getPropertyDefinition().getRange().get(0);
+                    if(fResult > fMaxRange){
+                        fResult = fMaxRange;
+                    }
+                }
+
+                propertyInstance.setValue(fResult);
                 break;
         }
     }
