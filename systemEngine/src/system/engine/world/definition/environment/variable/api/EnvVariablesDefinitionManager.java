@@ -4,6 +4,8 @@ import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public interface EnvVariablesDefinitionManager {
     void addEnvironmentVariable(PropertyDefinition propertyDefinition);
