@@ -15,7 +15,7 @@ public class MultiplyAction extends CalculationAction {
     }
 
     @Override
-    public void executeAction(Context context) {
+    public void executeAction(Context context) throws IllegalArgumentException{
         PropertyInstance propertyInstance = context.getPrimaryEntityInstance().getPropertyByName(resultPropName);
         Expression expression1 = craeteExpression(expressionStrArg1, context.getPrimaryEntityInstance(), resultPropName);
         Expression expression2 = craeteExpression(expressionStrArg2, context.getPrimaryEntityInstance(), resultPropName);
@@ -35,12 +35,28 @@ public class MultiplyAction extends CalculationAction {
             case DECIMAL:
                 Integer i1 = (Integer)(expression1.evaluateExpression(context));
                 Integer i2 = (Integer)(expression2.evaluateExpression(context));
-                propertyInstance.setValue(i1 * i2);
+                Integer iResult = i1 * i2;
+                if(propertyInstance.getPropertyDefinition().doesHaveRange()){
+                    Integer iMaxRange = (Integer)propertyInstance.getPropertyDefinition().getRange().get(1);
+                    if(iResult > iMaxRange){
+                        iResult = iMaxRange;
+                    }
+                }
+
+                propertyInstance.setValue(iResult);
                 break;
             case FLOAT:
                 Float f1 = (Float)(expression1.evaluateExpression(context));
                 Float f2 = (Float)(expression2.evaluateExpression(context));
-                propertyInstance.setValue(f1 * f2);
+                Float fResult = f1 * f2;
+                if(propertyInstance.getPropertyDefinition().doesHaveRange()){
+                    Float fMaxRange = (Float)propertyInstance.getPropertyDefinition().getRange().get(1);
+                    if(fResult > fMaxRange){
+                        fResult = fMaxRange;
+                    }
+                }
+
+                propertyInstance.setValue(fResult);
                 break;
         }
     }

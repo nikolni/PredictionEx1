@@ -1,8 +1,8 @@
 package system.engine.world.definition.property.api;
 
-import dto.definition.property.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
 import system.engine.world.definition.value.generator.api.ValueGenerator;
 import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
+import system.engine.world.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
 import system.engine.world.rule.enums.Type;
 
 import java.util.ArrayList;

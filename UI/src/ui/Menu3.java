@@ -1,14 +1,10 @@
 package ui;
 
 import dto.api.DTOMenu3ForUiEVD;
+import dto.api.DTOMenu3ForUiTC;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.property.instance.api.PropertyInstanceDTO;
 import system.engine.api.SystemEngineAccess;
-import system.engine.world.execution.instance.enitty.api.EntityInstance;
-import system.engine.world.rule.action.api.Action;
-import system.engine.world.rule.api.Rule;
-import system.engine.world.rule.context.Context;
-import system.engine.world.rule.context.ContextImpl;
 import ui.dto.creation.CreateDTOMenu3ForSE;
 
 import java.io.BufferedReader;
@@ -16,25 +12,36 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class Menu3 {
 
     public void executeSimulation(SystemEngineAccess systemEngineAccess){
-        DTOMenu3ForUiEVD dtoMenu3 = systemEngineAccess.getEVDForMenu3FromSE();
+        DTOMenu3ForUiEVD dtoMenu3ForUiEVD = systemEngineAccess.getEVDForMenu3FromSE();
         List<Object> initValues = new ArrayList<>();
-        int simulationID = 0;
 
         System.out.println("Here is the list of environment variables.\n" +
                 "For each environment variable you must press:" +
                 "Y - entering a value for the environment variable.\n" +
                 "N- random initialization.");
 
-        printEnvironmentVarsDataAndCollectValueFromUser(dtoMenu3, initValues);
+        printEnvironmentVarsDataAndCollectValueFromUser(dtoMenu3ForUiEVD, initValues);
         systemEngineAccess.updateEnvironmentVarDefinition(new CreateDTOMenu3ForSE().getDataForMenu3(initValues));
         printEnvironmentVarsDataAfterGeneration(systemEngineAccess.getEVIForMenu3FromSE().getEnvironmentVars());
         systemEngineAccess.addWorldInstance();
-        simulationID = systemEngineAccess.runSimulation();
+        runSimulation(systemEngineAccess);
+    }
+
+    private void runSimulation(SystemEngineAccess systemEngineAccess){
+        try{
+            DTOMenu3ForUiTC dtoMenu3ForUiTC = systemEngineAccess.runSimulation();
+            System.out.println("Simulation running is done without errors!\n" +
+                    "Simulation ID: " + dtoMenu3ForUiTC.getSimulationID() + "\n" +
+                    "Termination reason: " + dtoMenu3ForUiTC.getTerminationReason());
+        }
+        catch (Exception e){
+            System.out.println("Simulation running is terminated as a result of unexpected errors!\n" +
+                    "Error description: " + e.getMessage());
+        }
     }
 
 
@@ -86,12 +93,15 @@ public class Menu3 {
             try {
                 switch (envVarType) {
                     case "DECIMAL":
+                        System.out.println("Enter an integer value");
                         value = Integer.parseInt(valueFromUser);
                     case "FLOAT":
+                        System.out.println("Enter a decimal value");
                         value = Float.parseFloat(valueFromUser);
                     case "STRING":
-
+                        System.out.println("Enter your chars");
                     case "BOOLEAN":
+                        System.out.println("Enter 'true' or 'false'");
                         value = Boolean.parseBoolean(valueFromUser);
                 }
             }

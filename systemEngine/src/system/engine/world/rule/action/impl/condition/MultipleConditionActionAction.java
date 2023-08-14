@@ -18,11 +18,17 @@ public class MultipleConditionActionAction extends ConditionAction {
     }
 
     @Override
-    public void executeAction(Context context) {
+    public void executeAction(Context context) throws IllegalArgumentException {
         if (isConditionFulfilled(context)) {
-            for (Action action : actionsCollection) {
-                action.executeAction(context);
+            try{
+                for (Action action : actionsCollection) {
+                    action.executeAction(context);
+                }
             }
+            catch (IllegalArgumentException e){
+                throw e;
+            }
+
         }
     }
 
