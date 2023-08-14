@@ -17,17 +17,12 @@ public interface SystemEngineAccess {
     DTOMenu3ForUiEVD getEVDForMenu3FromSE();
 
     DTOMenu3ForUiEVI getEVIForMenu3FromSE();
-    int getNumOfTicksToRun();
-    int getNumOfSecondsToRun();
-
-    List<Rule> getActiveRules(int tickNumber);
-    List<EntityInstance> getAllInstancesOfLastWorldInstance();
-
-    EntityInstanceManager getEntityInstanceManagerOfLastWorldInstance();   //?
     EnvVariablesInstanceManager getEnvVariablesInstanceManager();  //?
 
     void updateEnvironmentVarDefinition(DTOMenu3ForSE dtoMenu3ForSE);
     void addWorldInstance();
     List<PropertyInstance> getEnvironmentVarInstances();
+
+     int runSimulation();
 
 }

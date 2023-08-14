@@ -1,31 +1,26 @@
 
 package system.engine.impl;
 
-import dto.api.DTOMenu2ForUi;
-import dto.api.DTOMenu3ForSE;
-import dto.api.DTOMenu3ForUiEVD;
-import dto.api.DTOMenu3ForUiEVI;
+import dto.api.*;
 import dto.creation.CreateDTOMenu2ForUi;
 import dto.creation.CreateDTOMenu3EVDForUi;
 import dto.creation.CreateDTOMenu3EVIForUi;
-import dto.impl.DTOMenu3ForUiEVIImpl;
 import system.engine.api.SystemEngineAccess;
+import system.engine.run.simulation.api.RunSimulation;
+import system.engine.run.simulation.impl.RunSimulationImpl;
 import system.engine.world.api.WorldDefinition;
 import system.engine.world.api.WorldInstance;
 import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.definition.value.generator.impl.init.InitValueGenerator;
-import system.engine.world.execution.instance.enitty.api.EntityInstance;
-import system.engine.world.execution.instance.enitty.manager.api.EntityInstanceManager;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
-import system.engine.world.rule.api.Rule;
 
 import java.util.*;
 
 public class SystemEngineAccessImpl implements SystemEngineAccess {
 
-    private WorldDefinition worldDefinition;
+    private final WorldDefinition worldDefinition;
     private List< WorldInstance> worldInstances;
     private EnvVariablesInstanceManager envVariablesInstanceManager;
 
@@ -51,37 +46,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         return new CreateDTOMenu3EVIForUi().getDataForMenu3(envVariablesInstanceManager);
     }
 
-    @Override
-    public int getNumOfTicksToRun() {
-        return worldDefinition.getTerminationConditionsManager().getTerminationConditionsList().get(0).getTerminationCondition();
-    }
 
-    @Override
-    public int getNumOfSecondsToRun() {
-        return worldDefinition.getTerminationConditionsManager().getTerminationConditionsList().get(1).getTerminationCondition();
-    }
-
-    @Override
-    public List<Rule> getActiveRules(int tickNumber) {
-        List<Rule> activeRules = new ArrayList<>();
-
-        for(Rule rule : worldDefinition.getRuleDefinitionManager().getDefinitions()){
-            if(rule.getActivation().isActive(tickNumber)){
-                activeRules.add(rule);
-            }
-        }
-        return activeRules;
-    }
-
-    @Override
-    public List<EntityInstance> getAllInstancesOfLastWorldInstance() {
-        return worldInstances.get(worldInstances.size() - 1).getEntityInstanceManager().getInstances();
-    }
-
-    @Override
-    public EntityInstanceManager getEntityInstanceManagerOfLastWorldInstance() {
-        return worldInstances.get(worldInstances.size() - 1).getEntityInstanceManager();
-    }
 
     @Override
     public EnvVariablesInstanceManager getEnvVariablesInstanceManager() {
@@ -116,6 +81,15 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         worldInstances.add(worldDefinition.createWorldInstance(worldInstances.size() + 1));
     }
 
+    @Override
+    public DTOMenu3ForUiTC runSimulation(){    //on last index at world instances list
+        int simulationID = worldInstances.size() - 1;
+        String terminationCondition;
 
+        RunSimulation runSimulationInstance = new RunSimulationImpl();
+        terminationCondition = runSimulationInstance.runSimulationOnLastWorldInstance(worldDefinition,
+                worldInstances.get(simulationID) ,envVariablesInstanceManager);
 
+        return simulationID;
+    }
 }

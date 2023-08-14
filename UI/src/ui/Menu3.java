@@ -3,7 +3,6 @@ package ui;
 import dto.api.DTOMenu3ForUiEVD;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.property.instance.api.PropertyInstanceDTO;
-import dto.definition.rule.enums.Type;
 import system.engine.api.SystemEngineAccess;
 import system.engine.world.execution.instance.enitty.api.EntityInstance;
 import system.engine.world.rule.action.api.Action;
@@ -24,6 +23,7 @@ public class Menu3 {
     public void executeSimulation(SystemEngineAccess systemEngineAccess){
         DTOMenu3ForUiEVD dtoMenu3 = systemEngineAccess.getEVDForMenu3FromSE();
         List<Object> initValues = new ArrayList<>();
+        int simulationID = 0;
 
         System.out.println("Here is the list of environment variables.\n" +
                 "For each environment variable you must press:" +
@@ -34,36 +34,9 @@ public class Menu3 {
         systemEngineAccess.updateEnvironmentVarDefinition(new CreateDTOMenu3ForSE().getDataForMenu3(initValues));
         printEnvironmentVarsDataAfterGeneration(systemEngineAccess.getEVIForMenu3FromSE().getEnvironmentVars());
         systemEngineAccess.addWorldInstance();
-        runSimulation(systemEngineAccess);
+        simulationID = systemEngineAccess.runSimulation();
     }
 
-    public void runSimulation(SystemEngineAccess systemEngineAccess){    //on last index at world instances list
-            int tick = 0;
-            int seconds = 0;
-            int numOfTicksToRun = systemEngineAccess.getNumOfTicksToRun();
-            int numOfSecondsToRun = systemEngineAccess.getNumOfSecondsToRun();
-
-            List<EntityInstance> entitiesToKill = new ArrayList<>();
-
-            List<Action> actionsList = new ArrayList<>();
-            Stream<Action> actionsStream;
-
-
-            while (tick<= numOfTicksToRun && seconds<=numOfSecondsToRun){
-                for(Rule rule : systemEngineAccess.getActiveRules(tick)){
-                    actionsList.addAll(rule.getActionsToPerform());
-                 }
-                actionsStream = Stream.of((Action) actionsList);
-
-                for(EntityInstance entityInstance : systemEngineAccess.getAllInstancesOfLastWorldInstance()){
-                    for (Action action : actionsList){
-                        Context context = new ContextImpl(entityInstance, systemEngineAccess.getEntityInstanceManagerOfLastWorldInstance(),
-                                systemEngineAccess.getEnvVariablesInstanceManager());
-                        action.executeAction(context);
-                    }
-                }
-            }
-    }
 
     private void printEnvironmentVarsDataAndCollectValueFromUser(DTOMenu3ForUiEVD dtoMenu3, List<Object> initValues){
         int countEnvVar = 0;
@@ -102,7 +75,7 @@ public class Menu3 {
                 "N- random initialization.");
     }
 
-    private Object collectValueFromUserAndCheckValidity(Type envVarType){
+    private Object collectValueFromUserAndCheckValidity(String envVarType){
         String valueFromUser = collectValueFromUser();
         boolean isInputValid= true;
         Object value = null;
@@ -112,13 +85,13 @@ public class Menu3 {
             isInputValid= true;
             try {
                 switch (envVarType) {
-                    case DECIMAL:
+                    case "DECIMAL":
                         value = Integer.parseInt(valueFromUser);
-                    case FLOAT:
+                    case "FLOAT":
                         value = Float.parseFloat(valueFromUser);
-                    case STRING:
+                    case "STRING":
 
-                    case BOOLEAN:
+                    case "BOOLEAN":
                         value = Boolean.parseBoolean(valueFromUser);
                 }
             }
