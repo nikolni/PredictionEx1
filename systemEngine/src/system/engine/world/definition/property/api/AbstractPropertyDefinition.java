@@ -1,9 +1,12 @@
 package system.engine.world.definition.property.api;
 
+import dto.definition.property.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
 import system.engine.world.definition.value.generator.api.ValueGenerator;
 import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
-import system.engine.world.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
 import system.engine.world.rule.enums.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractPropertyDefinition<T> implements PropertyDefinition {
 
@@ -40,5 +43,26 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
     @Override
     public T generateValue() {
         return valueGenerator.generateValue();
+    }
+
+    @Override
+    public Boolean isRandomInitialized(){
+        return this.valueGenerator instanceof AbstractRandomValueGenerator;
+    }
+
+    @Override
+    public Boolean doesHaveRange(){
+        return this.valueGenerator instanceof AbstractNumericRandomGenerator;
+    }
+
+    @Override
+    public List<Object> getRange(){
+        List<Object> rangeArray = new ArrayList<>();
+        if(this.valueGenerator instanceof AbstractNumericRandomGenerator){
+            AbstractNumericRandomGenerator NumericRandomGenerator =(AbstractNumericRandomGenerator) valueGenerator;
+            rangeArray.add(NumericRandomGenerator.getFrom());
+            rangeArray.add(NumericRandomGenerator.getTO());
+        }
+        return rangeArray;
     }
 }

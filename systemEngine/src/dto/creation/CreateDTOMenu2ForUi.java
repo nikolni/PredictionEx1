@@ -3,12 +3,7 @@ package dto.creation;
 import dto.api.DTOMenu2ForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.entity.impl.EntityDefinitionDTOImpl;
-import dto.definition.property.definition.api.PropertyDefinitionDTO;
-import dto.definition.property.definition.impl.BooleanPropertyDefinitionDTO;
-import dto.definition.property.definition.impl.FloatPropertyDefinitionDTO;
-import dto.definition.property.definition.impl.IntegerPropertyDefinitionDTO;
-import dto.definition.property.definition.impl.StringPropertyDefinitionDTO;
-import dto.definition.property.definition.value.generator.api.ValueGenerator;
+import dto.definition.property.definition.impl.PropertyDefinitionDTOImpl;
 import dto.definition.rule.activation.impl.ActivationDTOImpl;
 import dto.definition.rule.api.RuleDTO;
 import dto.definition.rule.impl.RuleDTOImpl;
@@ -57,7 +52,7 @@ public class CreateDTOMenu2ForUi {
     }
 
     private EntityDefinitionDTO createEntityDefinitionDTO(EntityDefinition entityDefinition){
-        List<PropertyDefinitionDTO> propertiesDTO = new ArrayList<>();
+        List<dto.definition.property.definition.api.PropertyDefinitionDTO> propertiesDTO = new ArrayList<>();
         for(PropertyDefinition propertyDefinition: entityDefinition.getProps()){
             propertiesDTO.add(createPropertyDefinitionDTO(propertyDefinition));
         }
@@ -65,17 +60,8 @@ public class CreateDTOMenu2ForUi {
     }
 
     private PropertyDefinitionDTO createPropertyDefinitionDTO(PropertyDefinition propertyDefinition){
-        switch (propertyDefinition.getType()){
-            case DECIMAL:
-                return new IntegerPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<Integer>) propertyDefinition.getValueGenerator());
-            case FLOAT:
-                return new FloatPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<Float>) propertyDefinition.getValueGenerator());
-            case STRING:
-                return new StringPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<String>) propertyDefinition.getValueGenerator());
-            case BOOLEAN:
-                return new BooleanPropertyDefinitionDTO(propertyDefinition.getUniqueName(), (ValueGenerator<Boolean>) propertyDefinition.getValueGenerator());
-        }
-        return null;
+        return  new PropertyDefinitionDTOImpl(propertyDefinition.getUniqueName(), propertyDefinition.getType().toString(),
+                propertyDefinition.isRandomInitialized(), propertyDefinition.doesHaveRange(), propertyDefinition.getRange());
     }
 
     private TerminationConditionsDTO createTerminationConditionsDTO (TerminationCondition terminationCondition){
