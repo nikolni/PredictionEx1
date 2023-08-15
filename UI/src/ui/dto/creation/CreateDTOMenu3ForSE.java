@@ -1,13 +1,14 @@
 package ui.dto.creation;
 
-import dto.api.DTOMenu3ForSE;
-import dto.impl.DTOMenu3ForSEImpl;
+import dto.api.DTOEnvVarDefValuesForSE;
+import dto.definition.property.definition.api.PropertyDefinitionDTO;
+import dto.impl.DTOEnvVarDefValuesForSEImpl;
 
 import java.util.List;
 
 public class CreateDTOMenu3ForSE {
 
-    public DTOMenu3ForSE getDataForMenu3(List<Object> environmentVarInitValues) {
-        return new DTOMenu3ForSEImpl(environmentVarInitValues);
+    public DTOEnvVarDefValuesForSE getDataForMenu3(List<Object> environmentVarInitValues, List<PropertyDefinitionDTO> propertyDefinitionDTOList) {
+        return new DTOEnvVarDefValuesForSEImpl(environmentVarInitValues, propertyDefinitionDTOList);
     }
 }

@@ -1,14 +1,14 @@
 package dto.impl;
 
-import dto.api.DTOMenu3ForUiEVI;
+import dto.api.DTOEnvVarsInsForUi;
 import dto.definition.property.instance.api.PropertyInstanceDTO;
 
 import java.util.List;
 
-public class DTOMenu3ForUiEVIImpl implements DTOMenu3ForUiEVI {
+public class DTOEnvVarsInsForUiImpl implements DTOEnvVarsInsForUi {
     private final List<PropertyInstanceDTO> environmentVars;
 
-    public DTOMenu3ForUiEVIImpl(List<PropertyInstanceDTO> environmentVars){
+    public DTOEnvVarsInsForUiImpl(List<PropertyInstanceDTO> environmentVars){
         this.environmentVars = environmentVars;
     }
 
