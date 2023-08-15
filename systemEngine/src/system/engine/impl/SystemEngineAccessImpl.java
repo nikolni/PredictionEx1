@@ -15,7 +15,6 @@ import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.definition.value.generator.impl.init.InitValueGenerator;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
-import system.engine.world.execution.instance.property.api.PropertyInstance;
 
 import java.util.*;
 
@@ -45,18 +44,6 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     @Override
     public DTOMenu3ForUiEVI getEVIForMenu3FromSE() {
         return new CreateDTOMenu3EVIForUi().getDataForMenu3(envVariablesInstanceManager);
-    }
-
-
-
-    @Override
-    public EnvVariablesInstanceManager getEnvVariablesInstanceManager() {
-        return envVariablesInstanceManager;
-    }
-
-    @Override
-    public List<PropertyInstance> getEnvironmentVarInstances() {
-        return envVariablesInstanceManager.getEnvVarsList();
     }
 
     @Override
