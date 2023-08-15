@@ -1,5 +1,6 @@
 package system.engine.world.creation.impl.property;
 
+import system.engine.world.definition.property.api.PropertyDefinition;
 import system.engine.world.rule.enums.Type;
 
 public class PropertyCreation {
