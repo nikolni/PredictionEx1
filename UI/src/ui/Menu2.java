@@ -1,7 +1,7 @@
 package ui;
 
 
-import dto.api.DTOMenu2ForUi;
+import dto.api.DTODefinitionsForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.rule.api.RuleDTO;
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class Menu2 {
     public void showSimulationDetails(SystemEngineAccess systemEngineAccess){
-        DTOMenu2ForUi dtoMenu2ForUi = systemEngineAccess.getDataForMenu2FromSE();
-        List<EntityDefinitionDTO> entities = dtoMenu2ForUi.getEntitiesDTO();
-        List<RuleDTO> rules = dtoMenu2ForUi.getRulesDTO();
-        TerminationConditionsDTOManager terminationConditionsDTOManager = dtoMenu2ForUi.getTerminationConditionsDTOManager();
+        DTODefinitionsForUi dtoDefinitionsForUi = systemEngineAccess.getDataForMenu2FromSE();
+        List<EntityDefinitionDTO> entities = dtoDefinitionsForUi.getEntitiesDTO();
+        List<RuleDTO> rules = dtoDefinitionsForUi.getRulesDTO();
+        TerminationConditionsDTOManager terminationConditionsDTOManager = dtoDefinitionsForUi.getTerminationConditionsDTOManager();
 
         printEntitiesData(entities);
         printRulesData(rules);
