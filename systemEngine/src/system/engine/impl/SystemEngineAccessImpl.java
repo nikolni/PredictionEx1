@@ -6,6 +6,7 @@ import dto.creation.CreateDTOMenu2ForUi;
 import dto.creation.CreateDTOMenu3EVDForUi;
 import dto.creation.CreateDTOMenu3EVIForUi;
 import dto.impl.DTOMenu3ForUiTCImpl;
+import jaxb.copy.WorldFromXml;
 import system.engine.api.SystemEngineAccess;
 import system.engine.run.simulation.api.RunSimulation;
 import system.engine.run.simulation.impl.RunSimulationImpl;
@@ -16,20 +17,27 @@ import system.engine.world.definition.value.generator.impl.init.InitValueGenerat
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
 
+import javax.xml.ws.WebFault;
 import java.util.*;
 
 public class SystemEngineAccessImpl implements SystemEngineAccess {
 
-    private final WorldDefinition worldDefinition;
+    private WorldDefinition worldDefinition;
     private List< WorldInstance> worldInstances;
     private EnvVariablesInstanceManager envVariablesInstanceManager;
 
 
-    public SystemEngineAccessImpl(WorldDefinition worldDefinition) {
-        this.worldDefinition = worldDefinition;
+    public SystemEngineAccessImpl() {
         this.worldInstances = new ArrayList<>();
     }
 
+
+
+    @Override
+    public void getXMLFromUser(String xmlPath) {
+        WorldFromXml worldFromXml = new WorldFromXml();
+        worldDefinition = worldFromXml.FromXmlToPRDWorld(xmlPath);
+    }
 
     @Override
     public DTOMenu2ForUi getDataForMenu2FromSE() {
