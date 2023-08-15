@@ -1,5 +1,7 @@
 package system.engine.world.rule.action.impl.condition;
 
+import system.engine.world.creation.api.ExpressionCreation;
+import system.engine.world.creation.impl.expression.ExpressionCreationImpl;
 import system.engine.world.rule.action.impl.numeric.api.NumericVerify;
 import system.engine.world.rule.context.Context;
 import system.engine.world.execution.instance.property.api.PropertyInstance;
@@ -7,8 +9,6 @@ import system.engine.world.rule.action.api.Action;
 import system.engine.world.rule.action.expression.api.Expression;
 import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.rule.enums.Type;
-
-import static system.engine.world.creation.impl.expression.ExpressionCreationImpl.craeteExpression;
 
 public class SingleConditionActionAction extends ConditionAction {
 
@@ -37,8 +37,9 @@ public class SingleConditionActionAction extends ConditionAction {
     }
 
     public boolean isConditionFulfilled(Context context) throws IllegalArgumentException{
+        ExpressionCreation expressionCreation = new ExpressionCreationImpl();
         PropertyInstance propertyInstance = context.getPrimaryEntityInstance().getPropertyByName(propertyName);
-        Expression expression = craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
+        Expression expression = expressionCreation.craeteExpression(expressionStr, context.getPrimaryEntityInstance(), propertyName);
         Object propertyValue = propertyInstance.getValue();
         Object expressionValue = expression.evaluateExpression(context);
         Type propertyType = propertyInstance.getPropertyDefinition().getType();

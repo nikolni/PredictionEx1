@@ -7,9 +7,9 @@ import system.engine.world.rule.action.expression.impl.ExpFreeValue;
 import system.engine.world.rule.action.expression.impl.ExpFuncName;
 import system.engine.world.rule.action.expression.impl.ExpPropName;
 
-public class ExpressionCreationImpl {
+public class ExpressionCreationImpl implements ExpressionCreation{
 
-    public static Expression craeteExpression(String expressionStr, EntityInstance entityInstance, String propertyName) {
+    public Expression craeteExpression(String expressionStr, EntityInstance entityInstance, String propertyName) {
         String[] numAction = {"increase", "decrease","calculation", "divide", "ticks"};
         String[] boolAction = {"environment", "random","evaluate", "percent", "ticks"};
         String[] stringAction = {"environment", "random","evaluate", "percent", "ticks"};
@@ -26,7 +26,7 @@ public class ExpressionCreationImpl {
         return expression;
     }
 
-    public static Expression createFuncExpression(String expressionStr, EntityInstance entityInstance, String propertyName) {
+    public Expression createFuncExpression(String expressionStr, EntityInstance entityInstance, String propertyName) {
         String[] allowedPrefixes = {"environment", "random","evaluate", "percent", "ticks"};
         String funcNameStr = null;
         String argument = null;
@@ -43,7 +43,7 @@ public class ExpressionCreationImpl {
         return expression;
     }
 
-    public static Expression createPropExpression(String expressionAtr, EntityInstance entityInstance, String propertyName) {
+    public Expression createPropExpression(String expressionAtr, EntityInstance entityInstance, String propertyName) {
         String property = expressionAtr;
         Expression expression = null;
 
