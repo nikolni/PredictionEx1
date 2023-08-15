@@ -2,8 +2,6 @@ package system.engine.world.definition.environment.variable.impl;
 
 import system.engine.world.definition.environment.variable.api.EnvVariablesDefinitionManager;
 import system.engine.world.definition.property.api.PropertyDefinition;
-import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
-import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,10 +20,6 @@ public class EnvVariableDefinitionManagerImpl implements EnvVariablesDefinitionM
         propNameToPropDefinition.put(propertyDefinition.getUniqueName(), propertyDefinition);
     }
 
-    @Override
-    public EnvVariablesInstanceManager createEnvironmentVarInstanceManager() {
-        return new EnvVariablesInstanceManagerImpl(this);
-    }
 
     @Override
     public Collection<PropertyDefinition> getEnvVariables() {

@@ -33,14 +33,14 @@ public class RunSimulationImpl implements RunSimulation {
         int numOfSecondsToRun = getNumOfSecondsToRun(worldDefinition);
 
         List<Action> actionsList = new ArrayList<>();
-        Stream<Action> actionsStream;
+        //Stream<Action> actionsStream;
 
 
         while (tick<= numOfTicksToRun && seconds<=numOfSecondsToRun){
             for(Rule rule : getActiveRules(tick, worldDefinition)){
                 actionsList.addAll(rule.getActionsToPerform());
             }
-            actionsStream = Stream.of((Action) actionsList);
+            //actionsStream = Stream.of((Action) actionsList);
 
             runAllActionsOnAllEntities(worldInstance, envVariablesInstanceManager, actionsList);
 
