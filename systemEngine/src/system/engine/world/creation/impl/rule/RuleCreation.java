@@ -4,8 +4,13 @@ import system.engine.world.rule.api.Rule;
 import system.engine.world.rule.impl.RuleImpl;
 
 public class RuleCreation {
-    public static Rule craeteRule(String ruleName)
-    {
-        return new RuleImpl(ruleName);
+    private Rule rule;
+
+    public RuleCreation(String ruleName) {
+        this.rule = new RuleImpl(ruleName);
+    }
+
+    public Rule getRule() {
+        return rule;
     }
 }

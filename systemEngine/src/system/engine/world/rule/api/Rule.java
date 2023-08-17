@@ -11,5 +11,6 @@ public interface Rule {
     List<Action> getActionsToPerform();
     void addAction(Action action);
     int getNumOfActions();
+    void setActivation(Activation activation);
     List<String> getActionsNames();
 }

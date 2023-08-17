@@ -30,7 +30,12 @@ public class SingleConditionActionAction extends ConditionAction {
     @Override
     public void executeAction(Context context) {
         if (isConditionFulfilled(context)) {
-            for (Action action : actionsCollection) {
+            for (Action action : thenActionList) {
+                action.executeAction(context);
+            }
+        }
+        else{
+            for (Action action : elseActionList) {
                 action.executeAction(context);
             }
         }
