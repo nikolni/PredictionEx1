@@ -6,6 +6,7 @@ import system.engine.world.definition.entity.manager.api.EntityDefinitionManager
 import system.engine.world.rule.action.api.Action;
 import system.engine.world.rule.action.impl.KillAction;
 import system.engine.world.rule.action.impl.SetAction;
+import system.engine.world.rule.action.impl.condition.ConditionAction;
 import system.engine.world.rule.action.impl.condition.MultipleConditionActionAction;
 import system.engine.world.rule.action.impl.condition.SingleConditionActionAction;
 import system.engine.world.rule.action.impl.numeric.impl.DecreaseAction;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ActionCreationImpl implements ActionCreation {
 
-    public Action createAction(String actionType, EntityDefinitionManager entityDefinitionManager,
+    /*public Action createAction(String actionType, EntityDefinitionManager entityDefinitionManager,
                                       String entityDefinitionName, String... strings){
         List<String> constactorArgs = Arrays.asList(strings);
         EntityDefinition entityDefinition= entityDefinitionManager.getEntityDefinitionByName(entityDefinitionName);
@@ -45,17 +46,17 @@ public class ActionCreationImpl implements ActionCreation {
 
         }
         return null;
-    }
+    }*/
 
-    private Action createActionIncrease(EntityDefinition entityDefinition, String propertyName, String expressionStr){
+    public Action createActionIncrease(EntityDefinition entityDefinition, String propertyName, String expressionStr){
         return new IncreaseAction(entityDefinition, propertyName, expressionStr);
     }
 
-    private Action createActionDecrease(EntityDefinition entityDefinition, String propertyName, String expressionStr){
+    public Action createActionDecrease(EntityDefinition entityDefinition, String propertyName, String expressionStr){
         return new DecreaseAction(entityDefinition, propertyName, expressionStr);
     }
 
-    private Action createActionCalculation(EntityDefinition entityDefinition,List<String> constactorArgs) {
+    /*public Action createActionCalculation(EntityDefinition entityDefinition,List<String> constactorArgs) {
         String resultPropertyName = constactorArgs.get(1);
         String expressionArg1 = constactorArgs.get(2);
         String expressionArg2 = constactorArgs.get(3);
@@ -67,47 +68,44 @@ public class ActionCreationImpl implements ActionCreation {
                 return createActionCalculationMultiply(entityDefinition, resultPropertyName, expressionArg1, expressionArg2);
         }
         return null;
-    }
+    }*/
 
-    private Action createActionCalculationDivide(EntityDefinition entityDefinition, String resultPropertyName,
+    public Action createActionCalculationDivide(EntityDefinition entityDefinition, String resultPropertyName,
                 String expressionStr1,String expressionStr2 ){
         return new DivideAction(entityDefinition, resultPropertyName, expressionStr1, expressionStr2);
     }
 
-    private Action createActionCalculationMultiply(EntityDefinition entityDefinition, String resultPropertyName,
+    public Action createActionCalculationMultiply(EntityDefinition entityDefinition, String resultPropertyName,
                 String expressionStr1,String expressionStr2){
         return new MultiplyAction(entityDefinition, resultPropertyName, expressionStr1, expressionStr2);
     }
 
-    private Action createActionCondition(EntityDefinition entityDefinition1,EntityDefinitionManager entityDefinitionManager, List<String> constactorArgs) {
-        switch (constactorArgs.get(0)) {
+    /*public Action createActionCondition(EntityDefinitionManager entityDefinitionManager,EntityDefinition mainEntityDefinition, List<String> conditionParams) {
+        switch (conditionParams.get(0)) {
             case "single":
-                EntityDefinition entityDefinition2 = entityDefinitionManager.getEntityDefinitionByName(constactorArgs.get(1));
-                String propertyName = constactorArgs.get(2);
-                String operator = constactorArgs.get(3);
-                String expressionStr = constactorArgs.get(4);
-                return createActionConditionSingle(entityDefinition1, entityDefinition2, propertyName, operator, expressionStr);
+                return createActionConditionSingle(entityDefinitionManager, mainEntityDefinition,conditionParams.get(1),conditionParams.get(2),conditionParams.get(3),conditionParams.get(4));
             case "multiple":
-                String logical = constactorArgs.get(1);
-                return createActionConditionMultiple(entityDefinition1, logical);
+                MultipleConditionActionAction multipleConditionAction=createActionConditionMultiple(mainEntityDefinition,conditionParams.get(5));
+                multipleConditionAction.addConditionToConditionsCollection();
         }
         return null;
     }
 
-    private Action createActionConditionSingle(EntityDefinition entityDefinition1, EntityDefinition entityDefinition2, String propertyName,
-                                                      String operator, String expressionStr){
-            return new SingleConditionActionAction(entityDefinition1, entityDefinition2, propertyName, operator, expressionStr);
+    public SingleConditionActionAction createActionConditionSingle(EntityDefinitionManager entityDefinitionManager, EntityDefinition mainEntityDefinition, String entityDefinition2, String propertyName,
+                                                       String operator, String expressionStr){
+        EntityDefinition secEntityDefinition = entityDefinitionManager.getEntityDefinitionByName(entityDefinition2);
+        return new SingleConditionActionAction(mainEntityDefinition, secEntityDefinition, propertyName, operator, expressionStr);
     }
 
-    private Action createActionConditionMultiple(EntityDefinition entityDefinition, String logical){
-            return new MultipleConditionActionAction(entityDefinition, logical);
-    }
+    public MultipleConditionActionAction createActionConditionMultiple(EntityDefinition mainEntityDefinition, String logical){
+            return new MultipleConditionActionAction(mainEntityDefinition, logical);
+    }*/
 
-    private Action createActionSet(EntityDefinition entityDefinition, String propertyName, String expressionStr){
+    public Action createActionSet(EntityDefinition entityDefinition, String propertyName, String expressionStr){
         return new SetAction(entityDefinition, propertyName, expressionStr);
     }
 
-    private Action createActionKill(EntityDefinition entityDefinition){
+    public Action createActionKill(EntityDefinition entityDefinition){
         return new KillAction(entityDefinition);
     }
 }

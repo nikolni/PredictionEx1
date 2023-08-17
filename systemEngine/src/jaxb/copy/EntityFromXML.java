@@ -40,8 +40,8 @@ public class EntityFromXML {
 
     public PropertyDefinition createPropertyDef(PRDProperty prdProperty){
         String propName=prdProperty.getPRDName();
-        try {
-            Type enumValue = Type.valueOf(prdProperty.getType());
+
+            Type enumValue = Type.valueOf(prdProperty.getType().toUpperCase());
             PropertyDefinition propertyDefinition;
             if(prdProperty.getPRDValue().isRandomInitialize()){
                 switch (enumValue) {
@@ -62,9 +62,8 @@ public class EntityFromXML {
                     default:
                         throw new IllegalStateException("Unexpected value: " + enumValue);
                 }
-
         }
-        else {
+        else { //init
                 switch (enumValue) {
                     case DECIMAL:
                         //propertyDefinition=new IntegerPropertyDefinition(propName, new RandomIntegerGenerator((int) (prdEnvProperty.getPRDRange().getFrom()),(int) (prdEnvProperty.getPRDRange().getTo())));
@@ -84,11 +83,6 @@ public class EntityFromXML {
                 }
         }
         return propertyDefinition;
-        }
-            catch (IllegalArgumentException e) {
-            System.out.println("Invalid enum value: " + prdProperty.getType());
-        }
-        return null;
     }
 
 

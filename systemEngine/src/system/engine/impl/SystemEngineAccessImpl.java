@@ -16,6 +16,8 @@ import system.engine.world.definition.value.generator.impl.init.InitValueGenerat
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
 
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SystemEngineAccessImpl implements SystemEngineAccess {
@@ -32,7 +34,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
 
 
     @Override
-    public void getXMLFromUser(String xmlPath) {
+    public void getXMLFromUser(String xmlPath) throws JAXBException, FileNotFoundException {
         WorldFromXml worldFromXml = new WorldFromXml();
         worldDefinition = worldFromXml.FromXmlToPRDWorld(xmlPath);
     }

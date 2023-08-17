@@ -28,6 +28,10 @@ public class RuleImpl implements Rule {
         return activation;
     }
 
+    public void setActivation(Activation activation) {
+        this.activation = activation;
+    }
+
     @Override
     public List<Action> getActionsToPerform() {
         return actions;

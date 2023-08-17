@@ -30,7 +30,7 @@ public class EnvironmentVariableFromXML {
     public PropertyDefinition createSingleProp(PRDEnvProperty prdEnvProperty){
        String propName=prdEnvProperty.getPRDName();
        try {
-           Type enumValue = Type.valueOf(prdEnvProperty.getType());
+           Type enumValue = Type.valueOf(prdEnvProperty.getType().toUpperCase());
            PropertyDefinition propertyDefinition;
            switch (enumValue) {
                case DECIMAL:

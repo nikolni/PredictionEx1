@@ -11,12 +11,16 @@ import java.util.List;
 
 public abstract class ConditionAction extends AbstractAction {
     protected String singularity;
-    protected List<Action> actionsCollection;
+    protected List<Action> thenActionList;
+    protected List<Action> elseActionList;
 
     public ConditionAction(EntityDefinition entityDefinitionParam) {
         super(ActionType.CONDITION, entityDefinitionParam);
-        actionsCollection = new ArrayList<>();
+        thenActionList = new ArrayList<>();
+        elseActionList = new ArrayList<>();
     }
 
+    public void addActionToThenList(Action action){thenActionList.add(action);}
+    public void addActionToElseList(Action action){elseActionList.add(action);}
     public abstract boolean isConditionFulfilled(Context context);
 }

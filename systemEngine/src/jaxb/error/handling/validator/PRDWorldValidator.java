@@ -135,9 +135,11 @@ public class PRDWorldValidator {
         Type enumResultPropType=getPropertyTypeOfEntity(prdAction.getResultProp(),getEntityByName(prdAction.getEntity(),prdEntityList));
         checkIfExpressionOrPropertyIsNumeric(enumResultPropType,prdAction.getResultProp(),prdRule.getName(),prdAction.getType());
         //check Multiply
-        checkMultiplyCalculation(prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2(),enumResultPropType,prdRule,prdAction,prdEntityList,prdEvironment);
+        if(prdAction.getPRDMultiply()!=null)
+            checkMultiplyCalculation(prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2(),enumResultPropType,prdRule,prdAction,prdEntityList,prdEvironment);
         //check divide
-        checkDivideCalculation(prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2(),prdRule,prdAction,prdEntityList,prdEvironment);
+        if(prdAction.getPRDDivide()!=null)
+            checkDivideCalculation(prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2(),prdRule,prdAction,prdEntityList,prdEvironment);
     }
 
     public void checkMultiplyCalculation(String arg1Exp,String arg2Exp,Type enumResultPropType,PRDRule prdRule,PRDAction prdAction,List<PRDEntity> prdEntityList,PRDEvironment prdEvironment){

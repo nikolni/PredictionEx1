@@ -24,7 +24,7 @@ public class WorldFromXml {
         //check XML path
         FileValidator fileValidator = new FileValidator();
         fileValidator.validateXmlFile(xmlPathName);
-        //here the file is ok
+        //here the xml path is valid and we create PRDWorld
         InputStream inputStream = new FileInputStream(new File(xmlPathName));
         PRDWorld PrdWorld = deserializeFrom(inputStream);
         //validation of PrdWorld
@@ -40,14 +40,14 @@ public class WorldFromXml {
         return (PRDWorld) u.unmarshal(in);
     }
 
-    //validation of PRDWorld
 
     WorldDefinition createWorldDefinitionFromPRDWorld(PRDWorld PrdWorld){
         EnvironmentVariableFromXML environmentVariableFromXML=new EnvironmentVariableFromXML(PrdWorld.getPRDEvironment());
         EntityFromXML entityFromXML=new EntityFromXML(PrdWorld.getPRDEntities());
-        RuleFromXML ruleFromXML=new RuleFromXML(PrdWorld.getPRDRules());
+        RuleFromXML ruleFromXML=new RuleFromXML(PrdWorld.getPRDRules(),entityFromXML.getEntityDefinitionManager());
+        TerminationFromXML terminationFromXML=new TerminationFromXML(PrdWorld.getPRDTermination());
 
-        WorldDefinition worldDefinition=new WorldDefinitionImpl(entityFromXML.getEntityDefinitionManager(),environmentVariableFromXML.getEnvVariablesDefinitionManager(),ruleFromXML.getRuleDefinitionManager());
+        WorldDefinition worldDefinition=new WorldDefinitionImpl(entityFromXML.getEntityDefinitionManager(),environmentVariableFromXML.getEnvVariablesDefinitionManager(),ruleFromXML.getRuleDefinitionManager(),terminationFromXML.getTerminationConditionsManager());
         return worldDefinition;
     }
 

@@ -5,5 +5,6 @@ import system.engine.world.termination.condition.api.TerminationCondition;
 import java.util.List;
 
 public interface TerminationConditionsManager {
-    public List<TerminationCondition> getTerminationConditionsList();
+     List<TerminationCondition> getTerminationConditionsList();
+     void addTerminationCondition (TerminationCondition terminationCondition);
 }

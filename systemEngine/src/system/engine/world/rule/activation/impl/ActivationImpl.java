@@ -13,8 +13,8 @@ public class ActivationImpl implements Activation {
         return ticks.getTick();
     }
 
-    public void setTicks(Tick ticks) {
-        this.ticks = ticks;
+    public void setTicks(int ticks) {
+        this.ticks.setTick(ticks);
     }
 
     public float getProbability() {
