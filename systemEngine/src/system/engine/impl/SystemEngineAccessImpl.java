@@ -2,11 +2,9 @@
 package system.engine.impl;
 
 import dto.api.*;
-import dto.creation.CreateDTOMenu2ForUi;
-import dto.creation.CreateDTOMenu3EVDForUi;
-import dto.creation.CreateDTOMenu3EVIForUi;
+import dto.creation.*;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
-import dto.impl.DTOSimulationDataForUiImpl;
+import dto.impl.DTOSimulationEndingForUiImpl;
 import jaxb.copy.WorldFromXml;
 import system.engine.api.SystemEngineAccess;
 import system.engine.run.simulation.api.RunSimulation;
@@ -40,18 +38,50 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     }
 
     @Override
-    public DTODefinitionsForUi getDataForMenu2FromSE() {
-        return new CreateDTOMenu2ForUi().getDataForMenu2(worldDefinition);
+    public DTODefinitionsForUi getDefinitionsDataFromSE() {
+        return new CreateDTODefinitionsForUi().getData(worldDefinition);
     }
 
     @Override
-    public DTOEnvVarsDefForUi getEVDForMenu3FromSE() {
-        return new CreateDTOMenu3EVDForUi().getDataForMenu3(worldDefinition);
+    public DTOEnvVarsDefForUi getEVDFromSE() {
+        return new CreateDTOEVDForUi().getData(worldDefinition);
     }
 
     @Override
-    public DTOEnvVarsInsForUi getEVIForMenu3FromSE() {
-        return new CreateDTOMenu3EVIForUi().getDataForMenu3(envVariablesInstanceManager);
+    public DTOEnvVarsInsForUi getEVIFromSE() {
+        return new CreateDTOEVIForUi().getData(envVariablesInstanceManager);
+    }
+
+    @Override
+    public DTOSimulationsTimeRunDataForUi getSimulationsTimeRunDataFromSE() {
+        return new CreateDTOSimulationsTimeRunDataForUi().getData(worldInstances);
+    }
+
+    @Override
+    public DTOEntitiesAfterSimulationByQuantityForUi getEntitiesDataAfterSimulationRunningByQuantity(Integer simulationID) {
+        return new CreateDTOEntitiesAfterSimulationByQuantityForUi().getData(worldDefinition, worldInstances.get(simulationID));
+    }
+
+    @Override
+    public DTONamesListForUi getEntitiesNames() {
+        return new CreateEntitiesNamesListForUi().getData(worldDefinition);
+    }
+
+    @Override
+    public DTONamesListForUi getPropertiesNames(int entityDefinitionIndex) {
+        return new CreatePropertiesNamesListForUi().getData(worldDefinition.getEntityDefinitionManager().
+                getDefinitions().get(entityDefinitionIndex -1));
+    }
+
+    @Override
+    public DTOPropertyHistogramForUi getPropertyDataAfterSimulationRunningByHistogram(Integer simulationID,
+                                                  int entityDefinitionIndex,int propertyIndex) {
+        String entityName = worldDefinition.getEntityDefinitionManager().
+                getDefinitions().get(entityDefinitionIndex -1).getUniqueName();
+        String propertyName = worldDefinition.getEntityDefinitionManager().
+                getDefinitions().get(entityDefinitionIndex -1).getProps().get(propertyIndex -1).getUniqueName();
+
+        return new CreateDTOPropertyHistogramForUi().getData(worldInstances.get(simulationID), entityName, propertyName);
     }
 
     @Override
@@ -87,7 +117,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     }
 
     @Override
-    public DTOSimulationDataForUi runSimulation() throws IllegalArgumentException{    //on last index at world instances list
+    public DTOSimulationEndingForUi runSimulation() throws IllegalArgumentException{    //on last index at world instances list
         int simulationID = worldInstances.size() - 1;
         String terminationCondition;
 
@@ -95,6 +125,6 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         terminationCondition = runSimulationInstance.runSimulationOnLastWorldInstance(worldDefinition,
                 worldInstances.get(simulationID) ,envVariablesInstanceManager);
 
-        return new DTOSimulationDataForUiImpl(simulationID, terminationCondition);
+        return new DTOSimulationEndingForUiImpl(simulationID, terminationCondition);
     }
 }

@@ -11,18 +11,31 @@ import system.engine.world.execution.instance.property.impl.PropertyInstanceImpl
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EntityInstanceManagerImpl implements EntityInstanceManager {
     private int count;   //all instances of all entities
     private List<EntityInstance> instances;
+    private Map<String, Integer> entitiesPopulationAfterSimulationRunning;
+
 
     public EntityInstanceManagerImpl(EntityDefinitionManager entityDefinitionManager) {
         count = 0;
+        int entityDefinitionCount = 0;
         instances = new ArrayList<>();
+        entitiesPopulationAfterSimulationRunning = new HashMap<>();
         for (EntityDefinition entityDefinition: entityDefinitionManager.getDefinitions()){
             create(entityDefinition);
+            entitiesPopulationAfterSimulationRunning.put(entityDefinitionManager.getDefinitions().get(entityDefinitionCount).getUniqueName(),
+                    entityDefinitionManager.getDefinitions().get(entityDefinitionCount).getPopulation());
         }
+    }
+
+    @Override
+    public int getEntityPopulationAfterRunning(String entityDefinitionName){
+        return entitiesPopulationAfterSimulationRunning.get(entityDefinitionName);
     }
 
     @Override
@@ -49,5 +62,9 @@ public class EntityInstanceManagerImpl implements EntityInstanceManager {
     @Override
     public void killEntity(int id) {
         instances.set(id, null);
+
+        String entityDefinitionName = instances.get(id - 1).getEntityDefinition().getUniqueName();
+        int oldPopulation = entitiesPopulationAfterSimulationRunning.get(entityDefinitionName);
+        entitiesPopulationAfterSimulationRunning.put(entityDefinitionName, oldPopulation - 1);
     }
 }

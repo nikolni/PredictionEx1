@@ -10,6 +10,6 @@ public interface EntityInstanceManager {
 
     EntityInstance create(EntityDefinition entityDefinition);
     List<EntityInstance> getInstances();
-
+    int getEntityPopulationAfterRunning(String entityDefinitionName);
     void killEntity(int id);
 }

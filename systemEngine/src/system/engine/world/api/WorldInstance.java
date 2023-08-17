@@ -5,10 +5,13 @@ import system.engine.world.execution.instance.environment.api.EnvVariablesInstan
 import system.engine.world.rule.manager.api.RuleDefinitionManager;
 import system.engine.world.termination.condition.manager.api.TerminationConditionsManager;
 
+import java.time.LocalDateTime;
+
 public interface WorldInstance {
     EntityInstanceManager getEntityInstanceManager();
 
-    //RuleDefinitionManager getRuleDefinitionManager();
+    LocalDateTime getSimulationRunTime();
 
-    //TerminationConditionsManager getTerminationConditionsManager();
+    int getId();
+
 }
