@@ -13,16 +13,22 @@ public class Menu1 implements MenuExecution {
         loadDataFromXml(systemEngine);
     }
     public void loadDataFromXml(SystemEngineAccess systemEngineAccess){
-        System.out.println("Please enter an XML path \n");
-        Scanner scanner = new Scanner(System.in);
-        String userXMLpathInput = scanner.nextLine();
-        try{
-            systemEngineAccess.getXMLFromUser(userXMLpathInput);
-            System.out.println("the XML file is valid and fully loaded");
-        }
-        catch(RuntimeException | JAXBException | FileNotFoundException e){
-            System.out.println(e.getMessage());
-        }
+        boolean validXML;
 
+        do{
+            System.out.println("Please enter an XML path \n");
+            Scanner scanner = new Scanner(System.in);
+            String userXMLpathInput = scanner.nextLine();
+            try{
+                validXML = true;
+                systemEngineAccess.getXMLFromUser(userXMLpathInput);
+                System.out.println("the XML file is valid and fully loaded");
+            }
+            catch(RuntimeException | JAXBException | FileNotFoundException e){
+                System.out.println(e.getMessage());
+                validXML = false;
+            }
+        }
+        while (!validXML);
     }
 }

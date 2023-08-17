@@ -6,7 +6,7 @@ public class EntityNotExistException extends  RuntimeException{
     private String ruleName;
     private String actionName;
 
-    public EntityNotExistException(String entityName, String ruleName, String actionName) {
+    public EntityNotExistException(String ruleName, String actionName,String entityName ) {
         this.entityName = entityName;
         this.ruleName = ruleName;
         this.actionName = actionName;

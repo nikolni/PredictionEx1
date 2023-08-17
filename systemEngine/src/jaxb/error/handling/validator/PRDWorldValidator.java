@@ -42,7 +42,7 @@ public class PRDWorldValidator {
     public void checkIfEntityExistInAction(PRDWorld prdWorld){
         for(PRDRule prdRule: prdWorld.getPRDRules().getPRDRule())
             for(PRDAction prdAction:prdRule.getPRDActions().getPRDAction())
-                if(!prdWorld.getPRDEntities().getPRDEntity().contains(prdAction.getEntity()))
+                if(!prdWorld.getPRDEntities().getPRDEntity().contains(getEntityByName(prdAction.getEntity(),prdWorld.getPRDEntities().getPRDEntity())))
                     throw new EntityNotExistException(prdRule.getName(),prdAction.getType(),prdAction.getEntity());
     }
     //5
