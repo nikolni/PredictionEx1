@@ -6,8 +6,4 @@ public class Main {
         new Ui().runSystem();
 
     }
-
-
-
-
 }
