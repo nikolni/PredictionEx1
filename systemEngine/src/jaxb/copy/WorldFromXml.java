@@ -3,21 +3,17 @@ package jaxb.copy;
 
 import jaxb.error.handling.validator.FileValidator;
 import jaxb.error.handling.validator.PRDWorldValidator;
-import jaxb.generator.PRDWorld;
+import jaxb.generated.PRDWorld;
 import system.engine.world.api.WorldDefinition;
 import system.engine.world.impl.WorldDefinitionImpl;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 
 public class WorldFromXml {
 
-    private final static String JAXB_XML_GAME_PACKAGE_NAME = "jaxb.generator";
+    //private final static String JAXB_XML_GAME_PACKAGE_NAME = "jaxb.generator";
 
 
     public WorldDefinition FromXmlToPRDWorld(String xmlPathName) throws JAXBException,FileNotFoundException{
@@ -25,8 +21,11 @@ public class WorldFromXml {
         FileValidator fileValidator = new FileValidator();
         fileValidator.validateXmlFile(xmlPathName);
         //here the xml path is valid and we create PRDWorld
-        InputStream inputStream = new FileInputStream(new File(xmlPathName));
-        PRDWorld PrdWorld = deserializeFrom(inputStream);
+
+        //InputStream inputStream = new FileInputStream(new File(xmlPathName));
+        //PRDWorld PrdWorld = deserializeFrom(inputStream);
+
+        PRDWorld PrdWorld = deserializeFrom(xmlPathName);
         //validation of PrdWorld
         PRDWorldValidator prdWorldValidator=new PRDWorldValidator();
         prdWorldValidator.validatePRDWorld(PrdWorld);
@@ -34,11 +33,19 @@ public class WorldFromXml {
     }
 
 
-    private static PRDWorld deserializeFrom(InputStream in) throws JAXBException {
+    /*private static PRDWorld deserializeFrom(InputStream in) throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
         Unmarshaller u = jc.createUnmarshaller();
         return (PRDWorld) u.unmarshal(in);
+
+
+    }*/
+
+    private static PRDWorld deserializeFrom(String xmlPathName) throws JAXBException, FileNotFoundException {
+        JAXBContext jc = JAXBContext.newInstance(PRDWorld.class);
+        return (PRDWorld) jc.createUnmarshaller().unmarshal(new FileReader(xmlPathName));
     }
+
 
 
     WorldDefinition createWorldDefinitionFromPRDWorld(PRDWorld PrdWorld){

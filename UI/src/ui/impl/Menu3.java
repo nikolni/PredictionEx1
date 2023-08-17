@@ -54,18 +54,28 @@ public class Menu3 implements MenuExecution {
 
     private void printEnvironmentVarsDataAndCollectValueFromUser(DTOEnvVarsDefForUi dtoMenu3, List<Object> initValues){
         int countEnvVar = 0;
+        boolean isInputValid;
 
         for(PropertyDefinitionDTO environmentVar : dtoMenu3.getEnvironmentVars()){
             countEnvVar++;
             printPropertyData(environmentVar, countEnvVar);
-            String userInput = collectValueFromUser();
-            if(userInput.equals("Y")){
-                Object valueFromUser = collectValueFromUserAndCheckValidity(environmentVar.getType());
-                initValues.add(valueFromUser);
+
+            do {
+                isInputValid = true;
+                String userInput = collectValueFromUser();
+
+                switch (userInput) {
+                    case "Y":
+                        Object valueFromUser = collectValueFromUserAndCheckValidity(environmentVar.getType());
+                        initValues.add(valueFromUser);
+                    case "N":
+                        initValues.add(null);
+                    default:
+                        System.out.println("only 'Y' or 'N'! Try again.");
+                        isInputValid = false;
+                }
             }
-            else {
-                initValues.add(null);
-            }
+            while (!isInputValid);
         }
     }
     private void printEnvironmentVarsDataAfterGeneration(List<PropertyInstanceDTO> envVars) {
@@ -90,26 +100,31 @@ public class Menu3 implements MenuExecution {
     }
 
     private Object collectValueFromUserAndCheckValidity(String envVarType){
-        String valueFromUser = collectValueFromUser();
-        boolean isInputValid= true;
+
+        boolean isInputValid;
         Object value = null;
 
         do {
             System.out.println("Enter value");
             isInputValid= true;
+            String valueFromUser = collectValueFromUser();
             try {
                 switch (envVarType) {
                     case "DECIMAL":
                         System.out.println("Enter an integer value");
                         value = Integer.parseInt(valueFromUser);
+                        break;
                     case "FLOAT":
                         System.out.println("Enter a decimal value");
                         value = Float.parseFloat(valueFromUser);
+                        break;
                     case "STRING":
                         System.out.println("Enter your chars");
+                        break;
                     case "BOOLEAN":
                         System.out.println("Enter 'true' or 'false'");
                         value = Boolean.parseBoolean(valueFromUser);
+                        break;
                 }
             }
             catch (NumberFormatException e){

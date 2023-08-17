@@ -1,6 +1,6 @@
 package jaxb.copy;
 
-import jaxb.generator.*;
+import jaxb.generated.*;
 import system.engine.world.creation.api.ActionCreation;
 import system.engine.world.creation.impl.rule.RuleCreation;
 import system.engine.world.creation.impl.rule.action.ActionCreationImpl;
@@ -22,7 +22,7 @@ import system.engine.world.rule.manager.impl.RuleDefinitionManagerImpl;
 public class RuleFromXML {
     private RuleDefinitionManager ruleDefinitionManager=new RuleDefinitionManagerImpl();
 
-    public RuleFromXML(PRDRules prdRules,EntityDefinitionManager entityDefinitionManager) {
+    public RuleFromXML(PRDRules prdRules, EntityDefinitionManager entityDefinitionManager) {
         for(PRDRule prdRule:prdRules.getPRDRule()){
             RuleCreation ruleCreation=new RuleCreation(prdRule.getName());
             if(prdRule.getPRDActivation()!=null)
@@ -65,7 +65,7 @@ public class RuleFromXML {
                 if(prdAction.getPRDMultiply()!=null)
                     return actionCreation.createActionCalculationMultiply(entityDefinition,prdAction.getResultProp(),prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2());
                 if(prdAction.getPRDDivide()!=null)
-                    return actionCreation.createActionCalculationDivide(entityDefinition,prdAction.getResultProp(),prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2());
+                    return actionCreation.createActionCalculationDivide(entityDefinition,prdAction.getResultProp(),prdAction.getPRDDivide().getArg1(),prdAction.getPRDDivide().getArg2());
             case "condition":
                 ConditionAction conditionAction=createConditionActionFromPRDCondition(entityDefinitionManager,entityDefinition,prdAction.getPRDCondition());
                 for(PRDAction thenPrdAction:prdAction.getPRDThen().getPRDAction())
@@ -74,6 +74,7 @@ public class RuleFromXML {
                     for(PRDAction elsePrdAction:prdAction.getPRDElse().getPRDAction())
                         conditionAction.addActionToThenList(createAction(entityDefinitionManager,entityDefinitionName,elsePrdAction));
                 }
+                return conditionAction;
             case "set":
                 String propertyName3 = prdAction.getProperty();
                 String expressionStr3 = prdAction.getValue();

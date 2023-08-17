@@ -69,7 +69,7 @@ public class Menu2 implements MenuExecution {
             System.out.println("  " + "active at tick: " + ruleDTO.getActivation().getTicks() +
                     " and with probability of: " + ruleDTO.getActivation().getProbability());
             System.out.println("  " + "number of actions: " + ruleDTO.getNumOfActions());
-            System.out.println("  " + "actions names:" + ruleDTO.getNumOfActions());
+            System.out.println("  " + "actions names:");
             countActions = 0;
             for(String actionName : ruleDTO.getActionsNames()){
                 countActions++;
@@ -83,6 +83,7 @@ public class Menu2 implements MenuExecution {
 
         System.out.println("Termination conditions:");
         for(TerminationConditionsDTO terminationConditionsDTO : terminationConditionsDTOManager.getTerminationConditionsDTOList()){
+            countTerminationConditions++;
             System.out.println("#" + countTerminationConditions + (terminationConditionsDTO instanceof TicksTerminationConditionsDTOImpl?
                     "after " + terminationConditionsDTO.getTerminationCondition() + " seconds" : "after " +
                     terminationConditionsDTO.getTerminationCondition() + " ticks"));

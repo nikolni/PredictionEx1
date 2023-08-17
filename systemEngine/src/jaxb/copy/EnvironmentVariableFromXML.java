@@ -1,7 +1,7 @@
 package jaxb.copy;
 
-import jaxb.generator.PRDEnvProperty;
-import jaxb.generator.PRDEvironment;
+import jaxb.generated.PRDEnvProperty;
+import jaxb.generated.PRDEvironment;
 import system.engine.world.definition.environment.variable.api.EnvVariablesDefinitionManager;
 import system.engine.world.definition.environment.variable.impl.EnvVariableDefinitionManagerImpl;
 import system.engine.world.definition.property.api.PropertyDefinition;

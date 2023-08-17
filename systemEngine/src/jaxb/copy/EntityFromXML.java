@@ -1,8 +1,8 @@
 package jaxb.copy;
 
-import jaxb.generator.PRDEntities;
-import jaxb.generator.PRDEntity;
-import jaxb.generator.PRDProperty;
+import jaxb.generated.PRDEntities;
+import jaxb.generated.PRDEntity;
+import jaxb.generated.PRDProperty;
 import system.engine.world.definition.entity.api.EntityDefinition;
 import system.engine.world.definition.entity.impl.EntityDefinitionImpl;
 import system.engine.world.definition.entity.manager.api.EntityDefinitionManager;

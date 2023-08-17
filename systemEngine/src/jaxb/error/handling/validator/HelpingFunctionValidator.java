@@ -2,8 +2,8 @@ package jaxb.error.handling.validator;
 
 import jaxb.error.handling.exception.prdworld.EnvironmentWrongParamsException;
 import jaxb.error.handling.exception.prdworld.RandomWrongParamException;
-import jaxb.generator.PRDEnvProperty;
-import jaxb.generator.PRDEvironment;
+import jaxb.generated.PRDEnvProperty;
+import jaxb.generated.PRDEvironment;
 
 public class HelpingFunctionValidator {
 

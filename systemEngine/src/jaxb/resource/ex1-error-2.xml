@@ -45,11 +45,11 @@
 		</PRD-rule>
 		<PRD-rule name="got cancer">
 			<PRD-actions>
-				<PRD-action entity="Smoker" type="conditionAction">
-					<PRD-conditionAction singularity="multiple" logical="and">
-						<PRD-conditionAction singularity="single" entity="Smoker"  property="cigarets-per-month" operator="bt" value="environment(cigarets-critical)"/>
-						<PRD-conditionAction singularity="single" entity="Smoker" property="age" operator="bt" value="40"/>
-					</PRD-conditionAction>
+				<PRD-action entity="Smoker" type="condition">
+					<PRD-condition singularity="multiple" logical="and">
+						<PRD-condition singularity="single" entity="Smoker"  property="cigarets-per-month" operator="bt" value="environment(cigarets-critical)"/>
+						<PRD-condition singularity="single" entity="Smoker" property="age" operator="bt" value="40"/>
+					</PRD-condition>
 					<PRD-then>
 						<PRD-action entity="Smoker" type="increase" property="lung-cancer-progress" by="random(5)"></PRD-action>
 					</PRD-then>
@@ -58,8 +58,8 @@
 		</PRD-rule>
 		<PRD-rule name="more-cigartes">
 			<PRD-actions>
-				<PRD-action entity="Smoker" type="conditionAction">
-					<PRD-conditionAction singularity="single" entity="Smoker" property="cigarets-per-month" operator="=" value="0"/>
+				<PRD-action entity="Smoker" type="condition">
+					<PRD-condition singularity="single" entity="Smoker" property="cigarets-per-month" operator="=" value="0"/>
 					<PRD-then>
 						<PRD-action entity="Smoker" type="increase" property="cigarets-per-month" by="environment(cigarets-increase-non-smoker)"></PRD-action>
 					</PRD-then>
@@ -72,8 +72,8 @@
 		</PRD-rule>
 		<PRD-rule name="death">
 			<PRD-actions>
-				<PRD-action entity="Smoker" type="conditionAction">
-					<PRD-conditionAction singularity="single" entity="Smoker" property="lung-cancer-progress" operator="bt" value="90"/>
+				<PRD-action entity="Smoker" type="condition">
+					<PRD-condition singularity="single" entity="Smoker" property="lung-cancer-progress" operator="bt" value="90"/>
 					<PRD-then>
 						<PRD-action entity="Smoker" type="kill"></PRD-action>
 					</PRD-then>

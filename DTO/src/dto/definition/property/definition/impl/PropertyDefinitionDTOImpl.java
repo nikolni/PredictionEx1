@@ -9,7 +9,6 @@ public class PropertyDefinitionDTOImpl implements dto.definition.property.defini
     private final String propertyType;
     private final Boolean isRandomInitialized;
     private final Boolean doesHaveRange;
-    //private final ValueGenerator<T> valueGenerator;
     private final List<Object> rangeArray;
 
     public PropertyDefinitionDTOImpl(String uniqueName, String propertyType, Boolean isRandomInitialized,

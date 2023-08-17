@@ -52,7 +52,7 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
 
     @Override
     public Boolean doesHaveRange(){
-        return this.valueGenerator instanceof AbstractNumericRandomGenerator;
+        return (this.propertyType.equals(Type.DECIMAL) | this.propertyType.equals(Type.FLOAT));
     }
 
     @Override

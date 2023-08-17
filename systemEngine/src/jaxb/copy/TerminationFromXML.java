@@ -1,8 +1,8 @@
 package jaxb.copy;
 
-import jaxb.generator.PRDBySecond;
-import jaxb.generator.PRDByTicks;
-import jaxb.generator.PRDTermination;
+import jaxb.generated.PRDBySecond;
+import jaxb.generated.PRDByTicks;
+import jaxb.generated.PRDTermination;
 import system.engine.world.termination.condition.api.TerminationCondition;
 import system.engine.world.termination.condition.impl.TicksTerminationConditionImpl;
 import system.engine.world.termination.condition.impl.TimeTerminationConditionImpl;

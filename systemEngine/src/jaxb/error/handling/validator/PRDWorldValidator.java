@@ -1,7 +1,7 @@
 package jaxb.error.handling.validator;
 
 import jaxb.error.handling.exception.prdworld.*;
-import jaxb.generator.*;
+import jaxb.generated.*;
 import system.engine.world.rule.enums.Type;
 
 import java.util.*;
@@ -64,7 +64,7 @@ public class PRDWorldValidator {
                 if(!isPropertyExistInEntity(prdAction.getResultProp(),prdAction.getEntity(),prdEntityList))
                     throw new PropertNotExistInEntityException(prdRule.getName(),prdAction.getType(),prdAction.getResultProp(),prdAction.getEntity());
             }
-            if(prdAction.getType().equals("conditionAction")){
+            if(prdAction.getType().equals("condition")){
                 //check the property in the condition section
                 checkPropertyInConditionAction(prdAction.getPRDCondition(),prdEntityList,prdRule);
                 //check actions in PRDThen
@@ -79,7 +79,7 @@ public class PRDWorldValidator {
         }
 
     //recursive function
-        public void checkPropertyInConditionAction(PRDCondition prdCondition,List<PRDEntity> prdEntityList,PRDRule prdRule){
+        public void checkPropertyInConditionAction(PRDCondition prdCondition, List<PRDEntity> prdEntityList, PRDRule prdRule){
             if(prdCondition.getSingularity().equals("single")){
                 if(!isPropertyExistInEntity(prdCondition.getProperty(),prdCondition.getEntity(),prdEntityList))
                     throw new PropertNotExistInEntityException(prdRule.getName(),"condition",prdCondition.getProperty(),prdCondition.getEntity());
@@ -110,13 +110,26 @@ public class PRDWorldValidator {
     public void checkNumericFunctionsParamType(PRDWorld prdWorld){
         for(PRDRule prdRule:prdWorld.getPRDRules().getPRDRule())
             for(PRDAction prdAction:prdRule.getPRDActions().getPRDAction()){
-                if(prdAction.getType().equals("increase") || prdAction.getType().equals("decrease")){
-                    checkIncreaseDecreaseFunctionsParamTypes(prdRule,prdAction,prdWorld.getPRDEntities().getPRDEntity(),prdWorld.getPRDEvironment());
-                }
-                if(prdAction.getType().equals("calculation")){
-                    checkCalculationFunctionParamType(prdRule,prdAction,prdWorld.getPRDEntities().getPRDEntity(),prdWorld.getPRDEvironment());
-                }
+                checkNumericParamTypeInSingleAction(prdAction,prdRule,prdWorld.getPRDEvironment(),prdWorld.getPRDEntities().getPRDEntity());
             }
+    }
+
+    public void checkNumericParamTypeInSingleAction(PRDAction prdAction,PRDRule prdRule,PRDEvironment prdEvironment,List<PRDEntity> prdEntityList){
+        if(prdAction.getType().equals("increase") || prdAction.getType().equals("decrease")){
+            checkIncreaseDecreaseFunctionsParamTypes(prdRule,prdAction,prdEntityList,prdEvironment);
+        }
+        if(prdAction.getType().equals("calculation")){
+            checkCalculationFunctionParamType(prdRule,prdAction,prdEntityList,prdEvironment);
+        }
+        if(prdAction.getType().equals("condition")){
+            for(PRDAction thenPrdAction:prdAction.getPRDThen().getPRDAction())
+                checkNumericParamTypeInSingleAction(thenPrdAction,prdRule,prdEvironment,prdEntityList);
+            if(prdAction.getPRDElse()!=null){
+                for(PRDAction elsePrdAction:prdAction.getPRDElse().getPRDAction())
+                    checkNumericParamTypeInSingleAction(elsePrdAction,prdRule,prdEvironment,prdEntityList);
+            }
+
+        }
     }
 
     public void checkIncreaseDecreaseFunctionsParamTypes(PRDRule prdRule,PRDAction prdAction,List<PRDEntity> prdEntityList,PRDEvironment prdEvironment){
@@ -139,7 +152,7 @@ public class PRDWorldValidator {
             checkMultiplyCalculation(prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2(),enumResultPropType,prdRule,prdAction,prdEntityList,prdEvironment);
         //check divide
         if(prdAction.getPRDDivide()!=null)
-            checkDivideCalculation(prdAction.getPRDMultiply().getArg1(),prdAction.getPRDMultiply().getArg2(),prdRule,prdAction,prdEntityList,prdEvironment);
+            checkDivideCalculation(prdAction.getPRDDivide().getArg1(),prdAction.getPRDDivide().getArg2(),prdRule,prdAction,prdEntityList,prdEvironment);
     }
 
     public void checkMultiplyCalculation(String arg1Exp,String arg2Exp,Type enumResultPropType,PRDRule prdRule,PRDAction prdAction,List<PRDEntity> prdEntityList,PRDEvironment prdEvironment){
