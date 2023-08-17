@@ -1,6 +1,6 @@
 package dto.api;
 
-public interface DTOMenu3ForUiTC {
+public interface DTOSimulationEndingForUi {
     int getSimulationID();
     String getTerminationReason();
 }

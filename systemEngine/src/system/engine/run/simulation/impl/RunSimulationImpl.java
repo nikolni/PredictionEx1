@@ -7,7 +7,6 @@ import system.engine.world.execution.instance.enitty.api.EntityInstance;
 import system.engine.world.execution.instance.enitty.manager.api.EntityInstanceManager;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.rule.action.api.Action;
-import system.engine.world.rule.action.impl.KillAction;
 import system.engine.world.rule.api.Rule;
 import system.engine.world.rule.context.Context;
 import system.engine.world.rule.context.ContextImpl;
@@ -16,7 +15,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class RunSimulationImpl implements RunSimulation {
 
@@ -33,16 +31,16 @@ public class RunSimulationImpl implements RunSimulation {
         int numOfSecondsToRun = getNumOfSecondsToRun(worldDefinition);
 
         List<Action> actionsList = new ArrayList<>();
-        //Stream<Action> actionsStream;
+        List<EntityInstance> entitiesToKill = new ArrayList<>();
+
 
 
         while (tick<= numOfTicksToRun && seconds<=numOfSecondsToRun){
             for(Rule rule : getActiveRules(tick, worldDefinition)){
                 actionsList.addAll(rule.getActionsToPerform());
             }
-            //actionsStream = Stream.of((Action) actionsList);
 
-            runAllActionsOnAllEntities(worldInstance, envVariablesInstanceManager, actionsList);
+            runAllActionsOnAllEntities(worldInstance, envVariablesInstanceManager, actionsList, entitiesToKill);
 
             tick++;
             endTime = Instant.now();
@@ -55,23 +53,14 @@ public class RunSimulationImpl implements RunSimulation {
     }
 
     private void runAllActionsOnAllEntities(WorldInstance worldInstance, EnvVariablesInstanceManager envVariablesInstanceManager,
-                                            List<Action> actionsList){
-        Action killAction;
+                                            List<Action> actionsList, List<EntityInstance> entitiesToKill){
 
         for(EntityInstance entityInstance : getAllInstancesOfWorldInstance(worldInstance)){
-            killAction = null;
-            Context context = new ContextImpl(entityInstance, getEntityInstanceManagerOfWorldInstance(worldInstance),
-                    envVariablesInstanceManager);
-            for (Action action : actionsList){   //actionsList.forEach(action -> action.executeAction(context));
-                if(action instanceof KillAction){
-                    killAction = action;
-                    continue;
-                }
-                action.executeAction(context);
+            Context context = new ContextImpl(entityInstance, envVariablesInstanceManager, entitiesToKill);
+            actionsList.forEach(action -> action.executeAction(context));
             }
-            if(killAction != null){
-                killAction.executeAction(context);
-            }
+        for(EntityInstance entityInstance : entitiesToKill){
+            worldInstance.getEntityInstanceManager().killEntity(entityInstance.getId());
         }
     }
 

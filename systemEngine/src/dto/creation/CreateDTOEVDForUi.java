@@ -1,24 +1,24 @@
 package dto.creation;
 
-import dto.api.DTOMenu3ForUiEVD;
+import dto.api.DTOEnvVarsDefForUi;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.property.definition.impl.PropertyDefinitionDTOImpl;
-import dto.impl.DTOMenu3ForUiEVDImpl;
+import dto.impl.DTOEnvVarsDefForUiImpl;
 import system.engine.world.api.WorldDefinition;
 import system.engine.world.definition.property.api.PropertyDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu3EVDForUi {
+public class CreateDTOEVDForUi {
 
-    public DTOMenu3ForUiEVD getDataForMenu3(WorldDefinition worldDefinition) {
+    public DTOEnvVarsDefForUi getData(WorldDefinition worldDefinition) {
         List<PropertyDefinitionDTO> environmentVars= new ArrayList<>();
 
         for(PropertyDefinition environmentVar : worldDefinition.getEnvVariablesDefinitionManager().getEnvVariables()){
             environmentVars.add(createEnvironmentVarDTO(environmentVar));
         }
-        return new DTOMenu3ForUiEVDImpl(environmentVars);
+        return new DTOEnvVarsDefForUiImpl(environmentVars);
     }
 
     private PropertyDefinitionDTO createEnvironmentVarDTO(PropertyDefinition environmentVar){

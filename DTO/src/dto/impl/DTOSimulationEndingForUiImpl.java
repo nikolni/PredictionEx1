@@ -1,13 +1,13 @@
 package dto.impl;
 
-import dto.api.DTOMenu3ForUiTC;
+import dto.api.DTOSimulationEndingForUi;
 
-public class DTOMenu3ForUiTCImpl implements DTOMenu3ForUiTC {
+public class DTOSimulationEndingForUiImpl implements DTOSimulationEndingForUi {
     private int simulationID;
     private String terminationReason;
 
 
-    public DTOMenu3ForUiTCImpl(int simulationID, String terminationReason){
+    public DTOSimulationEndingForUiImpl(int simulationID, String terminationReason){
         this.simulationID = simulationID;
         this.terminationReason = terminationReason;
     }

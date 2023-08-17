@@ -1,7 +1,7 @@
-package ui;
+package ui.impl;
 
 
-import dto.api.DTOMenu2ForUi;
+import dto.api.DTODefinitionsForUi;
 import dto.definition.entity.api.EntityDefinitionDTO;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.rule.api.RuleDTO;
@@ -9,15 +9,21 @@ import dto.definition.termination.condition.api.TerminationConditionsDTO;
 import dto.definition.termination.condition.impl.TicksTerminationConditionsDTOImpl;
 import dto.definition.termination.condition.manager.api.TerminationConditionsDTOManager;
 import system.engine.api.SystemEngineAccess;
+import ui.api.MenuExecution;
 
 import java.util.List;
 
-public class Menu2 {
+public class Menu2 implements MenuExecution {
+    @Override
+    public void executeUserChoice(SystemEngineAccess systemEngine) {
+        showSimulationDetails(systemEngine);
+    }
+
     public void showSimulationDetails(SystemEngineAccess systemEngineAccess){
-        DTOMenu2ForUi dtoMenu2ForUi = systemEngineAccess.getDataForMenu2FromSE();
-        List<EntityDefinitionDTO> entities = dtoMenu2ForUi.getEntitiesDTO();
-        List<RuleDTO> rules = dtoMenu2ForUi.getRulesDTO();
-        TerminationConditionsDTOManager terminationConditionsDTOManager = dtoMenu2ForUi.getTerminationConditionsDTOManager();
+        DTODefinitionsForUi dtoDefinitionsForUi = systemEngineAccess.getDefinitionsDataFromSE();
+        List<EntityDefinitionDTO> entities = dtoDefinitionsForUi.getEntitiesDTO();
+        List<RuleDTO> rules = dtoDefinitionsForUi.getRulesDTO();
+        TerminationConditionsDTOManager terminationConditionsDTOManager = dtoDefinitionsForUi.getTerminationConditionsDTOManager();
 
         printEntitiesData(entities);
         printRulesData(rules);
@@ -82,4 +88,6 @@ public class Menu2 {
                     terminationConditionsDTO.getTerminationCondition() + " ticks"));
         }
     }
+
+
 }

@@ -22,6 +22,13 @@ public class EnvVariableDefinitionManagerImpl implements EnvVariablesDefinitionM
 
 
     @Override
+    public PropertyDefinition getEnvVar(String name) {
+        if (!propNameToPropDefinition.containsKey(name)) {
+            throw new IllegalArgumentException("Can't find env variable with name " + name);
+        }
+        return propNameToPropDefinition.get(name);
+    }
+    @Override
     public Collection<PropertyDefinition> getEnvVariables() {
         return propNameToPropDefinition.values();
     }

@@ -1,20 +1,28 @@
 package system.engine.api;
 
 import dto.api.*;
-import system.engine.world.api.WorldDefinition;
 
 public interface SystemEngineAccess {
 
     void getXMLFromUser(String xmlPath);
 
-    DTOMenu2ForUi getDataForMenu2FromSE();
-    DTOMenu3ForUiEVD getEVDForMenu3FromSE();
+    DTODefinitionsForUi getDefinitionsDataFromSE();
+    DTOEnvVarsDefForUi getEVDFromSE();
 
-    DTOMenu3ForUiEVI getEVIForMenu3FromSE();
+    DTOEnvVarsInsForUi getEVIFromSE();
+    DTOSimulationsTimeRunDataForUi getSimulationsTimeRunDataFromSE();
 
-    void updateEnvironmentVarDefinition(DTOMenu3ForSE dtoMenu3ForSE);
+    DTOEntitiesAfterSimulationByQuantityForUi getEntitiesDataAfterSimulationRunningByQuantity(Integer simulationID);
+
+    DTONamesListForUi getEntitiesNames();
+
+    DTONamesListForUi getPropertiesNames(int entityDefinitionIndex );
+    DTOPropertyHistogramForUi getPropertyDataAfterSimulationRunningByHistogram(Integer simulationID,
+                                                                               int entityDefinitionIndex,int propertyIndex);
+
+    void updateEnvironmentVarDefinition(DTOEnvVarDefValuesForSE dtoEnvVarDefValuesForSE);
     void addWorldInstance();
 
-    DTOMenu3ForUiTC runSimulation();
+    DTOSimulationEndingForUi runSimulation();
 
 }

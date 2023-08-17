@@ -1,11 +1,13 @@
-package ui;
+package ui.impl;
 
-import dto.api.DTOMenu3ForUiEVD;
-import dto.api.DTOMenu3ForUiTC;
+import dto.api.DTOEnvVarsDefForUi;
+import dto.api.DTOSimulationEndingForUi;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.property.instance.api.PropertyInstanceDTO;
 import system.engine.api.SystemEngineAccess;
+import ui.api.MenuExecution;
 import ui.dto.creation.CreateDTOMenu3ForSE;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,10 +15,14 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Menu3 {
+public class Menu3 implements MenuExecution {
+    @Override
+    public void executeUserChoice(SystemEngineAccess systemEngine) {
+        executeSimulation(systemEngine);
+    }
 
     public void executeSimulation(SystemEngineAccess systemEngineAccess){
-        DTOMenu3ForUiEVD dtoMenu3ForUiEVD = systemEngineAccess.getEVDForMenu3FromSE();
+        DTOEnvVarsDefForUi dtoEnvVarsDefForUi = systemEngineAccess.getEVDFromSE();
         List<Object> initValues = new ArrayList<>();
 
         System.out.println("Here is the list of environment variables.\n" +
@@ -24,19 +30,20 @@ public class Menu3 {
                 "Y - entering a value for the environment variable.\n" +
                 "N- random initialization.");
 
-        printEnvironmentVarsDataAndCollectValueFromUser(dtoMenu3ForUiEVD, initValues);
-        systemEngineAccess.updateEnvironmentVarDefinition(new CreateDTOMenu3ForSE().getDataForMenu3(initValues));
-        printEnvironmentVarsDataAfterGeneration(systemEngineAccess.getEVIForMenu3FromSE().getEnvironmentVars());
+        printEnvironmentVarsDataAndCollectValueFromUser(dtoEnvVarsDefForUi, initValues);
+        systemEngineAccess.updateEnvironmentVarDefinition(new CreateDTOMenu3ForSE().getDataForMenu3(initValues,
+                dtoEnvVarsDefForUi.getEnvironmentVars()));
+        printEnvironmentVarsDataAfterGeneration(systemEngineAccess.getEVIFromSE().getEnvironmentVars());
         systemEngineAccess.addWorldInstance();
         runSimulation(systemEngineAccess);
     }
 
     private void runSimulation(SystemEngineAccess systemEngineAccess){
         try{
-            DTOMenu3ForUiTC dtoMenu3ForUiTC = systemEngineAccess.runSimulation();
+            DTOSimulationEndingForUi dtoSimulationEndingForUi = systemEngineAccess.runSimulation();
             System.out.println("Simulation running is done without errors!\n" +
-                    "Simulation ID: " + dtoMenu3ForUiTC.getSimulationID() + "\n" +
-                    "Termination reason: " + dtoMenu3ForUiTC.getTerminationReason());
+                    "Simulation ID: " + dtoSimulationEndingForUi.getSimulationID() + "\n" +
+                    "Termination reason: " + dtoSimulationEndingForUi.getTerminationReason());
         }
         catch (Exception e){
             System.out.println("Simulation running is terminated as a result of unexpected errors!\n" +
@@ -45,7 +52,7 @@ public class Menu3 {
     }
 
 
-    private void printEnvironmentVarsDataAndCollectValueFromUser(DTOMenu3ForUiEVD dtoMenu3, List<Object> initValues){
+    private void printEnvironmentVarsDataAndCollectValueFromUser(DTOEnvVarsDefForUi dtoMenu3, List<Object> initValues){
         int countEnvVar = 0;
 
         for(PropertyDefinitionDTO environmentVar : dtoMenu3.getEnvironmentVars()){
@@ -111,6 +118,7 @@ public class Menu3 {
             }
         }
         while (!isInputValid);
+
         return value;
     }
 
