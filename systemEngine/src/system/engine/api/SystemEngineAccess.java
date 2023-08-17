@@ -2,9 +2,12 @@ package system.engine.api;
 
 import dto.api.*;
 
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
+
 public interface SystemEngineAccess {
 
-    void getXMLFromUser(String xmlPath);
+    void getXMLFromUser(String xmlPath) throws JAXBException, FileNotFoundException;
 
     DTODefinitionsForUi getDefinitionsDataFromSE();
     DTOEnvVarsDefForUi getEVDFromSE();
