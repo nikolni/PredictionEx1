@@ -10,9 +10,9 @@ import system.engine.world.definition.property.api.PropertyDefinition;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu3EVDForUi {
+public class CreateDTOEVDForUi {
 
-    public DTOEnvVarsDefForUi getDataForMenu3(WorldDefinition worldDefinition) {
+    public DTOEnvVarsDefForUi getData(WorldDefinition worldDefinition) {
         List<PropertyDefinitionDTO> environmentVars= new ArrayList<>();
 
         for(PropertyDefinition environmentVar : worldDefinition.getEnvVariablesDefinitionManager().getEnvVariables()){

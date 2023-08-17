@@ -13,10 +13,10 @@ import system.engine.world.execution.instance.property.api.PropertyInstance;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu3EVIForUi {
+public class CreateDTOEVIForUi {
 
 
-    public DTOEnvVarsInsForUi getDataForMenu3(EnvVariablesInstanceManager envVariablesInstanceManager) {
+    public DTOEnvVarsInsForUi getData(EnvVariablesInstanceManager envVariablesInstanceManager) {
         List<PropertyInstanceDTO> environmentVars= new ArrayList<>();
 
         for(PropertyInstance environmentVar : envVariablesInstanceManager.getEnvVarsList()){

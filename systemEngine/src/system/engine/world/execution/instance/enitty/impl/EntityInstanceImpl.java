@@ -20,6 +20,10 @@ public class EntityInstanceImpl implements EntityInstance {
     }
 
     @Override
+    public EntityDefinition getEntityDefinition(){
+        return entityDefinition;
+    }
+    @Override
     public int getId() {
         return id;
     }

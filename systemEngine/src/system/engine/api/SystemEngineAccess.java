@@ -6,14 +6,23 @@ public interface SystemEngineAccess {
 
     void getXMLFromUser(String xmlPath);
 
-    DTODefinitionsForUi getDataForMenu2FromSE();
-    DTOEnvVarsDefForUi getEVDForMenu3FromSE();
+    DTODefinitionsForUi getDefinitionsDataFromSE();
+    DTOEnvVarsDefForUi getEVDFromSE();
 
-    DTOEnvVarsInsForUi getEVIForMenu3FromSE();
+    DTOEnvVarsInsForUi getEVIFromSE();
+    DTOSimulationsTimeRunDataForUi getSimulationsTimeRunDataFromSE();
+
+    DTOEntitiesAfterSimulationByQuantityForUi getEntitiesDataAfterSimulationRunningByQuantity(Integer simulationID);
+
+    DTONamesListForUi getEntitiesNames();
+
+    DTONamesListForUi getPropertiesNames(int entityDefinitionIndex );
+    DTOPropertyHistogramForUi getPropertyDataAfterSimulationRunningByHistogram(Integer simulationID,
+                                                                               int entityDefinitionIndex,int propertyIndex);
 
     void updateEnvironmentVarDefinition(DTOEnvVarDefValuesForSE dtoEnvVarDefValuesForSE);
     void addWorldInstance();
 
-    DTOSimulationDataForUi runSimulation();
+    DTOSimulationEndingForUi runSimulation();
 
 }

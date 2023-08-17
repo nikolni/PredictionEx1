@@ -25,9 +25,9 @@ import system.engine.world.termination.condition.manager.api.TerminationConditio
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateDTOMenu2ForUi {
+public class CreateDTODefinitionsForUi {
 
-    public DTODefinitionsForUi getDataForMenu2(WorldDefinition worldDefinition) {
+    public DTODefinitionsForUi getData(WorldDefinition worldDefinition) {
         List<EntityDefinitionDTO> entitiesDTO = new ArrayList<>();
         List<RuleDTO> rulesDTO = new ArrayList<>();
         List<TerminationConditionsDTO> terminationConditionsDTO= new ArrayList<>();
