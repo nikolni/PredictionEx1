@@ -10,7 +10,7 @@
 			<PRD-range from="0" to="10"/>
 		</PRD-env-property>		
 		<PRD-env-property type="decimal">
-			<PRD-name>cigarets-increase-already-smoker</PRD-name>
+			<PRD-name>cigarets-increase-non-smoker</PRD-name>
 			<PRD-range from="10" to="100"/>
 		</PRD-env-property>			
 	</PRD-evironment>
@@ -30,7 +30,7 @@
 				</PRD-property>		
 				<PRD-property type="decimal">
 					<PRD-name>cigarets-per-month</PRD-name>
-					<PRD-range to="500" from="0"/>
+					<PRD-range to="0" from="500"/>
 					<PRD-value random-initialize="true"/>
 				</PRD-property>							
 			</PRD-properties>

@@ -11,6 +11,8 @@ public class InitFloatGenerator extends AbstractNumericInitGenerator<Float> {
         else{
             this.setValue(initValue);
         }
+        setFrom(from);
+        setTo(to);
     }
 
     private boolean isBiggerThanRange(Float to,Float initValue){

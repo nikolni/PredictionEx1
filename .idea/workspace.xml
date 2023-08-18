@@ -4,20 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed76b477-1bb4-4531-900b-8a0a48f4ea89" name="Changes" comment="new commit">
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/file/InvalidFileException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/file/InvalidFileException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/file/InvalidXmlFileException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/file/InvalidXmlFileException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/DeivideByZeroException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/DeivideByZeroException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/DuplicateEntitysPropertyNameException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/DuplicateEntitysPropertyNameException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/DuplicateEnvironmentVarException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/DuplicateEnvironmentVarException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/EntityNotExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/EntityNotExistException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/EnvironmentWrongParamsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/EnvironmentWrongParamsException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/ForbiddenCastingInNumericFunctionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/ForbiddenCastingInNumericFunctionException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/PropertNotExistInEntityException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/PropertNotExistInEntityException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/RandomWrongParamException.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/RandomWrongParamException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/TypeIsNotNumeric.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/exception/prdworld/TypeIsNotNumeric.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/validator/PRDWorldValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/error/handling/validator/PRDWorldValidator.java" afterDir="false" />
+    <list default="true" id="ed76b477-1bb4-4531-900b-8a0a48f4ea89" name="Changes" comment="new commit with jaxb files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/src/ui/impl/Menu3.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI/src/ui/impl/Menu3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/src/ui/impl/Menu4.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI/src/ui/impl/Menu4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/dto/creation/CreateDTOPropertyHistogramForUi.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/dto/creation/CreateDTOPropertyHistogramForUi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/copy/EntityFromXML.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/copy/EntityFromXML.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/copy/RuleFromXML.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/copy/RuleFromXML.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/systemEngine/src/jaxb/resource/ex1-cigarets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/jaxb/resource/ex1-cigarets.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/impl/SystemEngineAccessImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/impl/SystemEngineAccessImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/run/simulation/impl/RunSimulationImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/run/simulation/impl/RunSimulationImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/world/definition/value/generator/impl/init/impl/numeric/InitFloatGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/world/definition/value/generator/impl/init/impl/numeric/InitFloatGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/world/definition/value/generator/impl/init/impl/numeric/InitIntegerGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/world/definition/value/generator/impl/init/impl/numeric/InitIntegerGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/world/execution/instance/enitty/manager/api/EntityInstanceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/world/execution/instance/enitty/manager/api/EntityInstanceManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/world/execution/instance/enitty/manager/impl/EntityInstanceManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/world/execution/instance/enitty/manager/impl/EntityInstanceManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemEngine/src/system/engine/world/rule/action/impl/condition/MultipleConditionActionAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/systemEngine/src/system/engine/world/rule/action/impl/condition/MultipleConditionActionAction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1692347063971</updated>
-      <workItem from="1692347065309" duration="20936000" />
+      <workItem from="1692347065309" duration="44829000" />
     </task>
     <task id="LOCAL‎-00001" summary="new commit">
       <option name="closed" value="true" />
@@ -91,7 +92,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1692370367747</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎-00002" summary="new commit with jaxb files">
+      <option name="closed" value="true" />
+      <created>1692370989412</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL‎-00002" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1692370989412</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,7 +119,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="new commit" />
+    <MESSAGE value="new commit with jaxb files" />
+    <option name="LAST_COMMIT_MESSAGE" value="new commit with jaxb files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -125,22 +135,24 @@
           <line>21</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/systemEngine/src/jaxb/copy/EntityFromXML.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/systemEngine/src/system/engine/run/simulation/impl/RunSimulationImpl.java</url>
-          <line>59</line>
-          <properties>
-            <option name="lambda-ordinal" value="0" />
-          </properties>
-          <option name="timeStamp" value="9" />
+          <line>68</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/systemEngine/src/system/engine/run/simulation/impl/RunSimulationImpl.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/systemEngine/src/dto/creation/CreateDTOPropertyHistogramForUi.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/systemEngine/src/system/engine/impl/SystemEngineAccessImpl.java</url>
-          <line>69</line>
+          <line>70</line>
           <properties class="system.engine.impl.SystemEngineAccessImpl" method="getEntitiesDataAfterSimulationRunningByQuantity">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -156,17 +168,48 @@
           </properties>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/systemEngine/src/system/engine/world/rule/context/ContextImpl.java</url>
+          <line>27</line>
+          <properties class="system.engine.world.rule.context.ContextImpl" method="removeEntity">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/UI/src/ui/impl/Menu4.java</url>
+          <line>64</line>
+          <properties class="ui.impl.Menu4" method="printDataByHistogram">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="11" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="system.engine.world.rule.context.ContextImpl" memberName="primaryEntityInstance" />
         <PinnedItemInfo parentTag="system.engine.world.rule.action.impl.condition.SingleConditionActionAction" memberName="thenActionList" />
+        <PinnedItemInfo parentTag="system.engine.world.execution.instance.enitty.manager.impl.EntityInstanceManagerImpl" memberName="instancesBeforeKill" />
+        <PinnedItemInfo parentTag="system.engine.world.execution.instance.enitty.impl.EntityInstanceImpl" memberName="id" />
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="((ContextImpl)context).primaryEntityInstance" custom="system.engine.world.rule.context.ContextImpl" />
+        <watch expression="((ArrayList) actionsList).size" language="JAVA" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PredictionEx1Final$Main.ic" NAME="Main Coverage Results" MODIFIED="1692379969944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ui.*</FILTER>
+    </SUITE>
   </component>
 </project>

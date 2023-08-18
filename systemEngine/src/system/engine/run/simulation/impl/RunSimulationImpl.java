@@ -34,8 +34,10 @@ public class RunSimulationImpl implements RunSimulation {
         List<EntityInstance> entitiesToKill = new ArrayList<>();
 
 
-
+    //while (tick<= numOfTicksToRun && seconds<=numOfSecondsToRun){
         while (tick<= numOfTicksToRun && seconds<=numOfSecondsToRun){
+            entitiesToKill.clear();
+            actionsList.clear();
             for(Rule rule : getActiveRules(tick, worldDefinition)){
                 actionsList.addAll(rule.getActionsToPerform());
             }
@@ -55,10 +57,15 @@ public class RunSimulationImpl implements RunSimulation {
     private void runAllActionsOnAllEntities(WorldInstance worldInstance, EnvVariablesInstanceManager envVariablesInstanceManager,
                                             List<Action> actionsList, List<EntityInstance> entitiesToKill){
 
-        for(EntityInstance entityInstance : getAllInstancesOfWorldInstance(worldInstance)){
-            Context context = new ContextImpl(entityInstance, envVariablesInstanceManager, entitiesToKill);
-            actionsList.forEach(action -> action.executeAction(context));
+        List<EntityInstance> currentEntitiesToKill = new ArrayList<>();
+        for(EntityInstance entityInstance : getAllEntityInstancesOfWorldInstance(worldInstance)){
+            currentEntitiesToKill.clear();
+            if(entityInstance != null){
+                Context context = new ContextImpl(entityInstance, envVariablesInstanceManager, currentEntitiesToKill);
+                actionsList.forEach(action -> action.executeAction(context));
+                entitiesToKill.addAll(currentEntitiesToKill);
             }
+        }
         for(EntityInstance entityInstance : entitiesToKill){
             worldInstance.getEntityInstanceManager().killEntity(entityInstance.getId());
         }
@@ -87,7 +94,7 @@ public class RunSimulationImpl implements RunSimulation {
     }
 
 
-    private List<EntityInstance> getAllInstancesOfWorldInstance(WorldInstance worldInstance) {
+    private List<EntityInstance> getAllEntityInstancesOfWorldInstance(WorldInstance worldInstance) {
         return worldInstance.getEntityInstanceManager().getInstances();
     }
 

@@ -42,7 +42,7 @@ public class Menu3 implements MenuExecution {
         try{
             DTOSimulationEndingForUi dtoSimulationEndingForUi = systemEngineAccess.runSimulation();
             System.out.println("Simulation running is done without errors!\n" +
-                    "Simulation ID: " + dtoSimulationEndingForUi.getSimulationID() + "\n" +
+                    "Simulation ID: " + (dtoSimulationEndingForUi.getSimulationID()+1) + "\n" +
                     "Termination reason: " + dtoSimulationEndingForUi.getTerminationReason());
         }
         catch (Exception e){
