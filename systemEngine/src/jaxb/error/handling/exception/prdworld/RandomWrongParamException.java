@@ -1,7 +1,7 @@
 package jaxb.error.handling.exception.prdworld;
 
 public class RandomWrongParamException extends RuntimeException{
-    private final String EXCEPTION_MESSAGE = "The Random function must get an integer as a parameter";
+    private final String EXCEPTION_MESSAGE = "ERROR- The Random function must get an integer as a parameter";
 
     @Override
     public String getMessage() {

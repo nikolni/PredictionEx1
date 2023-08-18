@@ -3,7 +3,7 @@ package jaxb.error.handling.exception.prdworld;
 import system.engine.world.rule.enums.Type;
 
 public class TypeIsNotNumeric extends RuntimeException{
-    private final String EXCEPTION_MESSAGE = "In rule:%s, action:%s, %s's type is not numeric";
+    private final String EXCEPTION_MESSAGE = "ERROR- In rule:%s, action:%s, %s's type is not numeric";
     private String propOrExpressionStr;
     private String ruleName;
     private String actionName;

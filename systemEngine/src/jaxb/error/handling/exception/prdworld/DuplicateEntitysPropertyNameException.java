@@ -1,7 +1,7 @@
 package jaxb.error.handling.exception.prdworld;
 
 public class DuplicateEntitysPropertyNameException extends RuntimeException{
-    private final String EXCEPTION_MESSAGE = "The entity:%s has properties with the same name: %s";
+    private final String EXCEPTION_MESSAGE = "ERROR- The entity:%s has properties with the same name: %s";
     private String entityName;
     private String propertyName;
 

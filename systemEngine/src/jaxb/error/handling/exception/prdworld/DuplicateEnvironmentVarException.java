@@ -1,7 +1,7 @@
 package jaxb.error.handling.exception.prdworld;
 
 public class DuplicateEnvironmentVarException extends RuntimeException{
-    private final String EXCEPTION_MESSAGE = "There are Environment Variables with the same name: %s";
+    private final String EXCEPTION_MESSAGE = "ERROR- There are Environment Variables with the same name: %s";
     private String envVarName;
 
 
