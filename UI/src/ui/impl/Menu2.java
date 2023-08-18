@@ -85,7 +85,7 @@ public class Menu2 implements MenuExecution {
         for(TerminationConditionsDTO terminationConditionsDTO : terminationConditionsDTOManager.getTerminationConditionsDTOList()){
             countTerminationConditions++;
             System.out.println("#" + countTerminationConditions + (terminationConditionsDTO instanceof TicksTerminationConditionsDTOImpl?
-                    "after " + terminationConditionsDTO.getTerminationCondition() + " seconds" : "after " +
+                    " after " + terminationConditionsDTO.getTerminationCondition() + " seconds" : "after " +
                     terminationConditionsDTO.getTerminationCondition() + " ticks"));
         }
     }

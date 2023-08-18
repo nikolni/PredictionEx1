@@ -18,7 +18,6 @@ public class ExpressionCreationImpl implements ExpressionCreation{
 
         if((expression = createFuncExpression(expressionStr , entityInstance, propertyName)) == null){
             if((expression = createPropExpression(expressionStr, entityInstance, propertyName)) == null){
-                //free value errors
                 expression = new ExpFreeValue(expressionStr, entityInstance);
             }
 
@@ -43,11 +42,11 @@ public class ExpressionCreationImpl implements ExpressionCreation{
         return expression;
     }
 
-    public Expression createPropExpression(String expressionAtr, EntityInstance entityInstance, String propertyName) {
-        String property = expressionAtr;
+    public Expression createPropExpression(String expressionStr, EntityInstance entityInstance, String propertyName) {
+        String property = expressionStr;
         Expression expression = null;
 
-        if(entityInstance.getPropertyByName(propertyName) != null){
+        if(entityInstance.getPropertyByName(expressionStr) != null){
             expression = new ExpPropName(property, entityInstance, propertyName);
         }
         return expression;

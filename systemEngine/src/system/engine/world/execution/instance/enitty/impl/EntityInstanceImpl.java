@@ -31,7 +31,7 @@ public class EntityInstanceImpl implements EntityInstance {
     @Override
     public PropertyInstance getPropertyByName(String name) {
         if (!properties.containsKey(name)) {
-            throw new IllegalArgumentException("for entity of type " + entityDefinition.getUniqueName() + " has no property named " + name);
+            return null;
         }
 
         return properties.get(name);

@@ -39,8 +39,10 @@ public class Menu4 implements MenuExecution {
             case "quantity":
                 DTOEntitiesAfterSimulationByQuantityForUi entitiesAfterSimulationForUi= systemEngineAccess.getEntitiesDataAfterSimulationRunningByQuantity( simulationChoice);
                 printDataByQuantity(entitiesAfterSimulationForUi, simulationChoice);
+                break;
             case "histogram of a property":
                 printDataByHistogram( systemEngineAccess, simulationChoice);
+                break;
         }
     }
 
@@ -145,7 +147,7 @@ public class Menu4 implements MenuExecution {
         String displayWay = null;
 
         System.out.println("Choose the desired information display mode(Write exactly one of the following options): " +
-                "1. quantity\n" +"2. histogram of a property");
+                "\n1. quantity\n" +"2. histogram of a property");
 
         do{
             System.out.println("Enter your choice");

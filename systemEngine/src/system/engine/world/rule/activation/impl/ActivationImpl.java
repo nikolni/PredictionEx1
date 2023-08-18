@@ -31,6 +31,9 @@ public class ActivationImpl implements Activation {
         float randomProbabilityValue = randomProbability.generateValue();
         if(randomProbabilityValue <= probability){   //active by probability
             int myTick = 0;
+            if(myTick == tickNumber){
+                return true;
+            }
             while(myTick < tickNumber) {
                 myTick+= ticks.getTick();
                 if(myTick == tickNumber){

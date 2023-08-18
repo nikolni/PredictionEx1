@@ -1,0 +1,7 @@
+1
+C:\Users\nikolnisanov\Documents\JAVA\PredictionEx1Final\systemEngine\src\jaxb\resource\ex1-cigarets.xml
+3
+n
+y
+40
+n

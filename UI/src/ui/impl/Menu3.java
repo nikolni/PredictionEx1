@@ -26,9 +26,9 @@ public class Menu3 implements MenuExecution {
         List<Object> initValues = new ArrayList<>();
 
         System.out.println("Here is the list of environment variables.\n" +
-                "For each environment variable you must press:" +
-                "Y - entering a value for the environment variable.\n" +
-                "N- random initialization.");
+                "For each environment variable you must press:\n" +
+                "y - entering a value for the environment variable.\n" +
+                "n- random initialization.");
 
         printEnvironmentVarsDataAndCollectValueFromUser(dtoEnvVarsDefForUi, initValues);
         systemEngineAccess.updateEnvironmentVarDefinition(new CreateDTOMenu3ForSE().getDataForMenu3(initValues,
@@ -58,21 +58,24 @@ public class Menu3 implements MenuExecution {
 
         for(PropertyDefinitionDTO environmentVar : dtoMenu3.getEnvironmentVars()){
             countEnvVar++;
-            printPropertyData(environmentVar, countEnvVar);
+            printPropertyDataForInitialize(environmentVar, countEnvVar);
 
             do {
                 isInputValid = true;
                 String userInput = collectValueFromUser();
 
                 switch (userInput) {
-                    case "Y":
+                    case "y":
                         Object valueFromUser = collectValueFromUserAndCheckValidity(environmentVar.getType());
                         initValues.add(valueFromUser);
-                    case "N":
+                        break;
+                    case "n":
                         initValues.add(null);
+                        break;
                     default:
-                        System.out.println("only 'Y' or 'N'! Try again.");
+                        System.out.println("only 'y' or 'n'! Try again.");
                         isInputValid = false;
+                        break;
                 }
             }
             while (!isInputValid);
@@ -88,15 +91,15 @@ public class Menu3 implements MenuExecution {
             System.out.println("   " + "value: " + environmentVar.getValue().toString());
         }
     }
-    private void printPropertyData(PropertyDefinitionDTO environmentVar, int countEnvVar){
+    private void printPropertyDataForInitialize(PropertyDefinitionDTO environmentVar, int countEnvVar){
         System.out.println("   #" + countEnvVar + " name: " + environmentVar.getUniqueName());
         System.out.println("     " + "type: " + environmentVar.getType());
         System.out.println("     " + (environmentVar.doesHaveRange() ? "range: from " +
                 environmentVar.getRange().get(0) + " to " + environmentVar.getRange().get(1) : "no range"));
 
         System.out.println("Would you like to initialize the environment variable?\n" +
-                "Y - Entering a value for the environment variable.\n" +
-                "N- random initialization.");
+                "y - entering a value for the environment variable.\n" +
+                "n- random initialization.");
     }
 
     private Object collectValueFromUserAndCheckValidity(String envVarType){
@@ -111,18 +114,14 @@ public class Menu3 implements MenuExecution {
             try {
                 switch (envVarType) {
                     case "DECIMAL":
-                        System.out.println("Enter an integer value");
                         value = Integer.parseInt(valueFromUser);
                         break;
                     case "FLOAT":
-                        System.out.println("Enter a decimal value");
                         value = Float.parseFloat(valueFromUser);
                         break;
                     case "STRING":
-                        System.out.println("Enter your chars");
                         break;
                     case "BOOLEAN":
-                        System.out.println("Enter 'true' or 'false'");
                         value = Boolean.parseBoolean(valueFromUser);
                         break;
                 }

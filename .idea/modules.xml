@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DTO/DTO.iml" filepath="$PROJECT_DIR$/DTO/DTO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PredictionEx1Final.iml" filepath="$PROJECT_DIR$/.idea/PredictionEx1Final.iml" />
       <module fileurl="file://$PROJECT_DIR$/UI/UI.iml" filepath="$PROJECT_DIR$/UI/UI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/predictions_Ex1.iml" filepath="$PROJECT_DIR$/predictions_Ex1.iml" />
       <module fileurl="file://$PROJECT_DIR$/systemEngine/systemEngine.iml" filepath="$PROJECT_DIR$/systemEngine/systemEngine.iml" />
     </modules>
   </component>

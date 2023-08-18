@@ -28,7 +28,7 @@ public class Ui {
             case "1":
                 new Menu1().executeUserChoice(systemEngine);
                 while (!userChoice.equals("5")) {
-                    System.out.println("Here are the following options:\n" +
+                    System.out.println("\nHere are the following options:\n" +
                             "1. Reading the system information file\n" +
                             "2. Displaying the simulation details\n" +
                             "3. Running a simulation\n" +

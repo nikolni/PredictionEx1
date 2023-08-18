@@ -27,7 +27,9 @@ public class EntityInstanceManagerImpl implements EntityInstanceManager {
         instances = new ArrayList<>();
         entitiesPopulationAfterSimulationRunning = new HashMap<>();
         for (EntityDefinition entityDefinition: entityDefinitionManager.getDefinitions()){
-            create(entityDefinition);
+            for(int i = 0; i<entityDefinition.getPopulation(); i++) {
+                create(entityDefinition);
+            }
             entitiesPopulationAfterSimulationRunning.put(entityDefinitionManager.getDefinitions().get(entityDefinitionCount).getUniqueName(),
                     entityDefinitionManager.getDefinitions().get(entityDefinitionCount).getPopulation());
         }
