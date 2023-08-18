@@ -44,6 +44,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     public void getXMLFromUser(String xmlPath) throws JAXBException, FileNotFoundException {
         WorldFromXml worldFromXml = new WorldFromXml();
         worldDefinition = worldFromXml.FromXmlToPRDWorld(xmlPath);
+        worldInstances.clear();
     }
 
     @Override
@@ -90,7 +91,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         String propertyName = worldDefinition.getEntityDefinitionManager().
                 getDefinitions().get(entityDefinitionIndex -1).getProps().get(propertyIndex -1).getUniqueName();
 
-        return new CreateDTOPropertyHistogramForUi().getData(worldInstances.get(simulationID), entityName, propertyName);
+        return new CreateDTOPropertyHistogramForUi().getData(worldInstances.get(simulationID-1), entityName, propertyName);
     }
 
     @Override

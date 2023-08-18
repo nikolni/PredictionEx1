@@ -39,17 +39,19 @@ public class MultipleConditionActionAction extends ConditionAction {
 
 
     public boolean isConditionFulfilled(Context context) {
-        boolean isConditionFulfilled = false;
+        boolean isConditionFulfilled= false;
 
         switch (logical) {
             case "or":
+                isConditionFulfilled = false;
                 for (ConditionAction conditionAction : conditionsCollection) {
                     isConditionFulfilled |= conditionAction.isConditionFulfilled(context);
                 }
                 break;
             case "and":
+                isConditionFulfilled = true;
                 for (ConditionAction conditionAction : conditionsCollection) {
-                    isConditionFulfilled &= conditionAction.isConditionFulfilled(context);
+                    isConditionFulfilled &=conditionAction.isConditionFulfilled(context);
                 }
                 break;
         }

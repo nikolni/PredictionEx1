@@ -11,6 +11,8 @@ public class InitIntegerGenerator extends AbstractNumericInitGenerator<Integer> 
         else{
             this.setValue(initValue);
         }
+        setFrom(from);
+        setTo(to);
     }
 
     private boolean isBiggerThanRange(Integer to,Integer initValue){

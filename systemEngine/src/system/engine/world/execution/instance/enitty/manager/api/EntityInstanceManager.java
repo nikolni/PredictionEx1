@@ -8,8 +8,10 @@ import java.util.List;
 
 public interface EntityInstanceManager {
 
-    EntityInstance create(EntityDefinition entityDefinition);
+    void create(EntityDefinition entityDefinition);
     List<EntityInstance> getInstances();
+
+    List<EntityInstance> getInstancesBeforeKill();
     int getEntityPopulationAfterRunning(String entityDefinitionName);
     void killEntity(int id);
 }

@@ -28,19 +28,19 @@ public class Menu4 implements MenuExecution {
         printListOfPastSimulationsData(simulationsTimeRunDataForUi);
         System.out.println("Enter the number of the simulation you want to get the details of.");
         Integer simulationChoice = collectNumberFromUser();
-        String displayWay= collectDisplayWayFromUser();
+        int displayWay= collectDisplayWayFromUser();
         callSystemEngineMethod(systemEngineAccess, simulationChoice, displayWay);
     }
 
     private void callSystemEngineMethod(SystemEngineAccess systemEngineAccess,
-                                        Integer simulationChoice, String displayWay){
+                                        Integer simulationChoice, int displayWay){
 
         switch (displayWay){
-            case "quantity":
+            case 1:
                 DTOEntitiesAfterSimulationByQuantityForUi entitiesAfterSimulationForUi= systemEngineAccess.getEntitiesDataAfterSimulationRunningByQuantity( simulationChoice);
                 printDataByQuantity(entitiesAfterSimulationForUi, simulationChoice);
                 break;
-            case "histogram of a property":
+            case 2:
                 printDataByHistogram( systemEngineAccess, simulationChoice);
                 break;
         }
@@ -88,7 +88,7 @@ public class Menu4 implements MenuExecution {
         Map< Object, Long> propertyHistogramMap = dtoPropertyHistogramForUi.getPropertyHistogram();
         for(Object value : propertyHistogramMap.keySet()){
             System.out.println(propertyHistogramMap.get(value) + " instances which the property '" +
-                    dtoPropertyHistogramForUi.getPropertyName() + "'  is " + value.toString());
+                    dtoPropertyHistogramForUi.getPropertyName() + "' is " + value.toString());
         }
     }
 
@@ -98,12 +98,18 @@ public class Menu4 implements MenuExecution {
 
         int count = 0;
 
-        System.out.println("Here is list of all past simulations:");
-
-        for(Integer idNum : idList){
-            count++;
-            System.out.println("#" + count + " simulation Run Time: " + convertLocalDateTimeToString(simulationRunTimeList.get(count-1))+ " ,ID: " + idNum);
+        if(idList.isEmpty()){
+            System.out.println("No simulations in the system!");
         }
+        else{
+            System.out.println("Here is list of all past simulations:");
+
+            for(Integer idNum : idList){
+                count++;
+                System.out.println("#" + count + " simulation Run Time: " + convertLocalDateTimeToString(simulationRunTimeList.get(count-1))+ " ,ID: " + idNum);
+            }
+        }
+
     }
 
     private String convertLocalDateTimeToString(LocalDateTime simulationRunTime){
@@ -141,12 +147,13 @@ public class Menu4 implements MenuExecution {
         return num;
     }
 
-    private String collectDisplayWayFromUser(){
+    private Integer collectDisplayWayFromUser(){
         boolean isInputValid= true;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String displayWay = null;
+        int num = 0;
 
-        System.out.println("Choose the desired information display mode(Write exactly one of the following options): " +
+        System.out.println("Choose the desired information display mode(enter 1/2 for one of the following options): " +
                 "\n1. quantity\n" +"2. histogram of a property");
 
         do{
@@ -155,15 +162,20 @@ public class Menu4 implements MenuExecution {
 
             try {
                 displayWay = reader.readLine();
+                num = Integer.parseInt(displayWay);
 
             } catch (IOException e) {
                 e.printStackTrace();
                 isInputValid= false;
             }
+            catch (NumberFormatException e){
+                System.out.println("Only numbers! Try again.");
+                isInputValid= false;
+            }
         }
-        while (!isInputValid | !(displayWay.equals("quantity") | displayWay.equals("histogram of a property")));
+        while (!isInputValid | ((num != 1) & (num != 2)));
 
-        return displayWay;
+        return num;
     }
 
 }

@@ -68,7 +68,7 @@ public class EntityFromXML {
                     case DECIMAL:
                         //propertyDefinition=new IntegerPropertyDefinition(propName, new RandomIntegerGenerator((int) (prdEnvProperty.getPRDRange().getFrom()),(int) (prdEnvProperty.getPRDRange().getTo())));
                         propertyDefinition=new IntegerPropertyDefinition(propName, ValueGeneratorFactory.createFixedInteger((int) (prdProperty.getPRDRange().getFrom()),
-                                (int) (prdProperty.getPRDRange().getTo()), Integer.parseInt(prdProperty.getPRDValue().getInit())));
+                                (int) (prdProperty.getPRDRange().getTo()),Integer.parseInt(prdProperty.getPRDValue().getInit())));
                         break;
                     case FLOAT:
                         propertyDefinition = new FloatPropertyDefinition(propName, ValueGeneratorFactory.createFixedFloat((float) (prdProperty.getPRDRange().getFrom()),
