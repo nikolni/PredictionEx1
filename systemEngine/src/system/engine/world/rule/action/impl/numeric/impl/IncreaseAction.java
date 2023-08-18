@@ -43,12 +43,11 @@ public class IncreaseAction extends AbstractAction implements NumericVerify {
                 Integer i2 = (Integer) (expression.evaluateExpression(context));
                 Integer iResult = i1 + i2;
                 if(propertyInstance.getPropertyDefinition().doesHaveRange()){
-                    Integer iMaxRange = (Integer)propertyInstance.getPropertyDefinition().getRange().get(0);
+                    Integer iMaxRange = (Integer)propertyInstance.getPropertyDefinition().getRange().get(1);
                     if(iResult > iMaxRange){
                         iResult = iMaxRange;
                     }
                 }
-
                 propertyInstance.setValue(iResult);
                 break;
             case FLOAT:
@@ -56,7 +55,7 @@ public class IncreaseAction extends AbstractAction implements NumericVerify {
                 Float f2 = (Float) (expression.evaluateExpression(context));
                 Float fResult = f1 + f2;
                 if(propertyInstance.getPropertyDefinition().doesHaveRange()){
-                    Float fMaxRange = (Float)propertyInstance.getPropertyDefinition().getRange().get(0);
+                    Float fMaxRange = (Float)propertyInstance.getPropertyDefinition().getRange().get(1);
                     if(fResult > fMaxRange){
                         fResult = fMaxRange;
                     }

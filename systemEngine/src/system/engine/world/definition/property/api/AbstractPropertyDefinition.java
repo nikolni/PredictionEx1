@@ -1,6 +1,7 @@
 package system.engine.world.definition.property.api;
 
 import system.engine.world.definition.value.generator.api.ValueGenerator;
+import system.engine.world.definition.value.generator.impl.init.impl.numeric.AbstractNumericInitGenerator;
 import system.engine.world.definition.value.generator.impl.random.api.AbstractRandomValueGenerator;
 import system.engine.world.definition.value.generator.impl.random.impl.numeric.AbstractNumericRandomGenerator;
 import system.engine.world.rule.enums.Type;
@@ -58,10 +59,18 @@ public abstract class AbstractPropertyDefinition<T> implements PropertyDefinitio
     @Override
     public List<Object> getRange(){
         List<Object> rangeArray = new ArrayList<>();
-        if(this.valueGenerator instanceof AbstractNumericRandomGenerator){
-            AbstractNumericRandomGenerator NumericRandomGenerator =(AbstractNumericRandomGenerator) valueGenerator;
-            rangeArray.add(NumericRandomGenerator.getFrom());
-            rangeArray.add(NumericRandomGenerator.getTO());
+        if(doesHaveRange()){
+            if(isRandomInitialized()){
+                AbstractNumericRandomGenerator numericRandomGenerator =(AbstractNumericRandomGenerator) valueGenerator;
+                rangeArray.add(numericRandomGenerator.getFrom());
+                rangeArray.add(numericRandomGenerator.getTO());
+            }
+            else {
+                AbstractNumericInitGenerator numericInitGenerator =(AbstractNumericInitGenerator) valueGenerator;
+                rangeArray.add(numericInitGenerator.getFrom());
+                rangeArray.add(numericInitGenerator.getTO());
+            }
+
         }
         return rangeArray;
     }

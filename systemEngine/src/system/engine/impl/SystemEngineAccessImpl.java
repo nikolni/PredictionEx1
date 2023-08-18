@@ -12,9 +12,16 @@ import system.engine.run.simulation.impl.RunSimulationImpl;
 import system.engine.world.api.WorldDefinition;
 import system.engine.world.api.WorldInstance;
 import system.engine.world.definition.property.api.PropertyDefinition;
-import system.engine.world.definition.value.generator.impl.init.InitValueGenerator;
+import system.engine.world.definition.property.impl.BooleanPropertyDefinition;
+import system.engine.world.definition.property.impl.FloatPropertyDefinition;
+import system.engine.world.definition.property.impl.IntegerPropertyDefinition;
+import system.engine.world.definition.property.impl.StringPropertyDefinition;
+import system.engine.world.definition.value.generator.api.ValueGenerator;
+import system.engine.world.definition.value.generator.api.ValueGeneratorFactory;
+import system.engine.world.definition.value.generator.impl.init.api.AbstractInitValueGenerator;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
+import system.engine.world.rule.enums.Type;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -61,7 +68,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
 
     @Override
     public DTOEntitiesAfterSimulationByQuantityForUi getEntitiesDataAfterSimulationRunningByQuantity(Integer simulationID) {
-        return new CreateDTOEntitiesAfterSimulationByQuantityForUi().getData(worldDefinition, worldInstances.get(simulationID));
+        return new CreateDTOEntitiesAfterSimulationByQuantityForUi().getData(worldDefinition, worldInstances.get(simulationID -1));
     }
 
     @Override
@@ -94,11 +101,34 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         List<PropertyDefinition> propertyDefinitions = createListOfPropertyDefinitionsFromDTO(dtoEnvVarDefValuesForSE.getPropertyDefinitionDTOList());
         for (PropertyDefinition propertyDefinition : propertyDefinitions) {
             if (initValues.get(index) != null) {
-                propertyDefinition.setValueGenerator(new InitValueGenerator(initValues.get(index)));
+                propertyDefinition.setValueGenerator(createInitValueGenerator(propertyDefinition, initValues.get(index)));
             }
             index++;
         }
         createEnvVarInstanceManager();
+    }
+
+    private ValueGenerator createInitValueGenerator(PropertyDefinition propertyDefinition, Object initValue){
+        ValueGenerator valueGenerator = null;
+
+        switch (propertyDefinition.getType()) {
+
+            case DECIMAL:
+                valueGenerator= ValueGeneratorFactory.createFixedInteger((int) (propertyDefinition.getRange().get(0)),
+                        (int) (propertyDefinition.getRange().get(1)),(int)initValue );
+                break;
+            case FLOAT:
+                valueGenerator = ValueGeneratorFactory.createFixedFloat((float) (propertyDefinition.getRange().get(0)),
+                        (float) (propertyDefinition.getRange().get(1)),(float)initValue );
+                break;
+            case BOOLEAN:
+                valueGenerator=ValueGeneratorFactory.createFixedBoolean((Boolean) initValue);
+                break;
+            case STRING:
+                valueGenerator=ValueGeneratorFactory.createFixedString((String) initValue);
+                break;
+        }
+        return valueGenerator;
     }
 
     private List<PropertyDefinition> createListOfPropertyDefinitionsFromDTO(List<PropertyDefinitionDTO> propertyDefinitionDTOList){
