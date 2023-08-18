@@ -1,7 +1,7 @@
 package jaxb.error.handling.exception.prdworld;
 
 public class PropertNotExistInEntityException extends  RuntimeException{
-    private final String EXCEPTION_MESSAGE = "In the rule:%s, action:%s there is no such property name:%s in entity:%s";
+    private final String EXCEPTION_MESSAGE = "ERROR- In the rule:%s, action:%s there is no such property name:%s in entity:%s";
     private String entityName;
     private String propertyName;
     private String ruleName;

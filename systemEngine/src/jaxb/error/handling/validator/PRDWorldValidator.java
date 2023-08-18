@@ -41,10 +41,38 @@ public class PRDWorldValidator {
     //4
     public void checkIfEntityExistInAction(PRDWorld prdWorld){
         for(PRDRule prdRule: prdWorld.getPRDRules().getPRDRule())
-            for(PRDAction prdAction:prdRule.getPRDActions().getPRDAction())
-                if(!prdWorld.getPRDEntities().getPRDEntity().contains(getEntityByName(prdAction.getEntity(),prdWorld.getPRDEntities().getPRDEntity())))
-                    throw new EntityNotExistException(prdRule.getName(),prdAction.getType(),prdAction.getEntity());
+            for(PRDAction prdAction:prdRule.getPRDActions().getPRDAction()){
+                checkEntityInSingleAction(prdRule,prdAction,prdWorld.getPRDEntities().getPRDEntity());
+            }
     }
+
+    public void checkEntityInSingleAction(PRDRule prdRule,PRDAction prdAction,List<PRDEntity> prdEntityList){
+        if(!prdEntityList.contains(getEntityByName(prdAction.getEntity(),prdEntityList)))
+            throw new EntityNotExistException(prdRule.getName(),prdAction.getType(),prdAction.getEntity());
+        if(prdAction.getType().equals("condition")){
+            checkEntityInConditionAction(prdAction.getPRDCondition(),prdEntityList,prdRule);
+            //check entity in PRDThen
+            for(PRDAction thenPrdAction:prdAction.getPRDThen().getPRDAction())
+                checkEntityInSingleAction(prdRule,thenPrdAction,prdEntityList);
+            //check entity in PRDElse if exist
+            if(prdAction.getPRDElse()!=null){
+                for(PRDAction elsePrdAction:prdAction.getPRDElse().getPRDAction())
+                    checkEntityInSingleAction(prdRule,elsePrdAction,prdEntityList);
+            }
+        }
+    }
+
+    public void checkEntityInConditionAction(PRDCondition prdCondition, List<PRDEntity> prdEntityList, PRDRule prdRule){
+        if(prdCondition.getSingularity().equals("single")){
+            if(!prdEntityList.contains(getEntityByName(prdCondition.getEntity(),prdEntityList)))
+                throw new EntityNotExistException(prdRule.getName(),"condition",prdCondition.getEntity());
+        }
+        if(prdCondition.getSingularity().equals("multiple")){
+            for(PRDCondition innerPrdCondition:prdCondition.getPRDCondition())
+                checkEntityInConditionAction(innerPrdCondition,prdEntityList,prdRule);
+        }
+    }
+
     //5
     public void checkIfAllPropertiesExist(PRDWorld prdWorld) {
         boolean flag=false;
@@ -54,7 +82,7 @@ public class PRDWorldValidator {
                 checkPropertyInSingleAction(prdRule,prdAction,prdWorld.getPRDEntities().getPRDEntity());
         }
 
-        //recursive function
+
         public void checkPropertyInSingleAction(PRDRule prdRule,PRDAction prdAction,List<PRDEntity> prdEntityList){
             if (prdAction.getProperty() != null) { //increase,decrease,set
                 if(!isPropertyExistInEntity(prdAction.getProperty(),prdAction.getEntity(),prdEntityList))
@@ -78,7 +106,7 @@ public class PRDWorldValidator {
             }
         }
 
-    //recursive function
+
         public void checkPropertyInConditionAction(PRDCondition prdCondition, List<PRDEntity> prdEntityList, PRDRule prdRule){
             if(prdCondition.getSingularity().equals("single")){
                 if(!isPropertyExistInEntity(prdCondition.getProperty(),prdCondition.getEntity(),prdEntityList))
@@ -170,7 +198,7 @@ public class PRDWorldValidator {
         Type enumArg2Type=getExpressionType(arg2Exp,getEntityByName(prdAction.getEntity(),prdEntityList),prdEvironment);
         checkIfExpressionOrPropertyIsNumeric(enumArg2Type,arg2Exp,prdRule.getName(),prdAction.getType());
         if(arg2Exp.trim().equals("0")||arg2Exp.trim().equals("0.0"))
-            throw new DeivideByZeroException();
+            throw new DeivideByZeroException(prdRule.getName(),prdAction.getType());
     }
 
 
