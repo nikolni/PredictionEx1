@@ -5,6 +5,7 @@ import dto.api.DTOSimulationEndingForUi;
 import dto.definition.property.definition.api.PropertyDefinitionDTO;
 import dto.definition.property.instance.api.PropertyInstanceDTO;
 import system.engine.api.SystemEngineAccess;
+import system.engine.world.definition.property.api.PropertyDefinition;
 import ui.api.MenuExecution;
 import ui.dto.creation.CreateDTOMenu3ForSE;
 
@@ -12,6 +13,7 @@ import ui.dto.creation.CreateDTOMenu3ForSE;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,14 +25,9 @@ public class Menu3 implements MenuExecution {
 
     public void executeSimulation(SystemEngineAccess systemEngineAccess){
         DTOEnvVarsDefForUi dtoEnvVarsDefForUi = systemEngineAccess.getEVDFromSE();
-        List<Object> initValues = new ArrayList<>();
+        List<Object> initValues = new ArrayList<>(Collections.nCopies(dtoEnvVarsDefForUi.getEnvironmentVars().size(), null));
 
-        System.out.println("Here is the list of environment variables.\n" +
-                "For each environment variable you must press:\n" +
-                "y - entering a value for the environment variable.\n" +
-                "n- random initialization.");
-
-        printEnvironmentVarsDataAndCollectValueFromUser(dtoEnvVarsDefForUi, initValues);
+        printEnvironmentVarsDataAndCollectValueFromUser(systemEngineAccess, dtoEnvVarsDefForUi, initValues);
         systemEngineAccess.updateEnvironmentVarDefinition(new CreateDTOMenu3ForSE().getDataForMenu3(initValues,
                 dtoEnvVarsDefForUi.getEnvironmentVars()));
         printEnvironmentVarsDataAfterGeneration(systemEngineAccess.getEVIFromSE().getEnvironmentVars());
@@ -41,66 +38,69 @@ public class Menu3 implements MenuExecution {
     private void runSimulation(SystemEngineAccess systemEngineAccess){
         try{
             DTOSimulationEndingForUi dtoSimulationEndingForUi = systemEngineAccess.runSimulation();
-            System.out.println("Simulation running is done without errors!\n" +
+            System.out.println("\nSimulation running is done without errors!\n" +
                     "Simulation ID: " + (dtoSimulationEndingForUi.getSimulationID()+1) + "\n" +
                     "Termination reason: " + dtoSimulationEndingForUi.getTerminationReason());
         }
         catch (Exception e){
-            System.out.println("Simulation running is terminated as a result of unexpected errors!\n" +
+            System.out.println("\nSimulation running is terminated as a result of unexpected errors!\n" +
                     "Error description: " + e.getMessage());
         }
     }
 
+    private void printEnvironmentVarsDataAndCollectValueFromUser(SystemEngineAccess systemEngine,
+                                                                 DTOEnvVarsDefForUi dtoMenu3, List<Object> initValues){
+        int envVarChoice =1;
 
-    private void printEnvironmentVarsDataAndCollectValueFromUser(DTOEnvVarsDefForUi dtoMenu3, List<Object> initValues){
-        int countEnvVar = 0;
-        boolean isInputValid;
+        while(envVarChoice != 0){
+            int countEnvVar = 0;
+            System.out.println("Here is all environment variables names." +
+                    "\nChoose the one you would like to init (by his number)" +
+                    "\nIf you don't want to initialize anyone, press '0'.\n");
+            for (PropertyDefinitionDTO environmentVar : dtoMenu3.getEnvironmentVars()) {
+                countEnvVar++;
+                System.out.println("#" + countEnvVar + " environment variable name: " + environmentVar.getUniqueName());
+            }
 
-        for(PropertyDefinitionDTO environmentVar : dtoMenu3.getEnvironmentVars()){
-            countEnvVar++;
-            printPropertyDataForInitialize(environmentVar, countEnvVar);
-
+            boolean wrongInput;
             do {
-                isInputValid = true;
-                String userInput = collectValueFromUser();
-
-                switch (userInput) {
-                    case "y":
-                        Object valueFromUser = collectValueFromUserAndCheckValidity(environmentVar.getType());
-                        initValues.add(valueFromUser);
-                        break;
-                    case "n":
-                        initValues.add(null);
-                        break;
-                    default:
-                        System.out.println("only 'y' or 'n'! Try again.");
-                        isInputValid = false;
-                        break;
+                wrongInput = false;
+                System.out.println("\nEnter the number of the environment variable you would like to init (by his number).");
+                envVarChoice = collectNumberFromUser();
+                if (envVarChoice < 0 | envVarChoice > (dtoMenu3.getEnvironmentVars().size())) {
+                    wrongInput = true;
+                    System.out.println("Wrong input! Try again.");
                 }
             }
-            while (!isInputValid);
+            while (wrongInput);
+            if(envVarChoice != 0){
+                PropertyDefinitionDTO environmentVar = dtoMenu3.getEnvironmentVars().get(envVarChoice - 1);
+                printPropertyDataForInitialize(environmentVar, countEnvVar);
+                Object valueFromUser = collectValueFromUserAndCheckValidity(environmentVar.getType());
+                initValues.set(envVarChoice - 1, valueFromUser);
+            }
         }
+    }
+
+
+    private void printPropertyDataForInitialize(PropertyDefinitionDTO environmentVar, int countEnvVar){
+        System.out.println("   #" + countEnvVar + " name: " + environmentVar.getUniqueName());
+        System.out.println("     " + " type: " + environmentVar.getType());
+        System.out.println("     " + (environmentVar.doesHaveRange() ? " range: from " +
+                environmentVar.getRange().get(0) + " to " + environmentVar.getRange().get(1) : " no range"));
+
     }
     private void printEnvironmentVarsDataAfterGeneration(List<PropertyInstanceDTO> envVars) {
         int countEnvVar = 0;
 
-        System.out.println("Here is the list of all environment variables after generation:");
+        System.out.println("\nHere is the list of all environment variables after generation:");
         for(PropertyInstanceDTO environmentVar : envVars){
             countEnvVar++;
             System.out.println("#" + countEnvVar + " name: " + environmentVar.getPropertyDefinition().getUniqueName());
             System.out.println("   " + "value: " + environmentVar.getValue().toString());
         }
     }
-    private void printPropertyDataForInitialize(PropertyDefinitionDTO environmentVar, int countEnvVar){
-        System.out.println("   #" + countEnvVar + " name: " + environmentVar.getUniqueName());
-        System.out.println("     " + "type: " + environmentVar.getType());
-        System.out.println("     " + (environmentVar.doesHaveRange() ? "range: from " +
-                environmentVar.getRange().get(0) + " to " + environmentVar.getRange().get(1) : "no range"));
 
-        System.out.println("Would you like to initialize the environment variable?\n" +
-                "y - entering a value for the environment variable.\n" +
-                "n- random initialization.");
-    }
 
     private Object collectValueFromUserAndCheckValidity(String envVarType){
 
@@ -146,5 +146,32 @@ public class Menu3 implements MenuExecution {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private int collectNumberFromUser(){
+        boolean isInputValid= true;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int num = 0;
+
+        do{
+            System.out.println("Enter your choice");
+            isInputValid= true;
+
+            try {
+                String userInput = reader.readLine();
+                num = Integer.parseInt(userInput);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                isInputValid= false;
+            }
+            catch (NumberFormatException e){
+                System.out.println("Only numbers! Try again.");
+                isInputValid= false;
+            }
+        }
+        while (!isInputValid);
+
+        return num;
     }
 }

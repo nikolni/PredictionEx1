@@ -25,11 +25,26 @@ public class Menu4 implements MenuExecution {
 
     public void showFullDetailsOfPastSimulation(SystemEngineAccess systemEngineAccess){
         DTOSimulationsTimeRunDataForUi simulationsTimeRunDataForUi = systemEngineAccess.getSimulationsTimeRunDataFromSE();
-        printListOfPastSimulationsData(simulationsTimeRunDataForUi);
-        System.out.println("Enter the number of the simulation you want to get the details of.");
-        Integer simulationChoice = collectNumberFromUser();
-        int displayWay= collectDisplayWayFromUser();
-        callSystemEngineMethod(systemEngineAccess, simulationChoice, displayWay);
+        boolean simulationsWereShown = printListOfPastSimulationsData(simulationsTimeRunDataForUi);
+
+        if(simulationsWereShown){
+            int simulationsQuantity = simulationsTimeRunDataForUi.getIdList().size();
+            Integer simulationChoice;
+            boolean wrongInput;
+            do{
+                wrongInput = false;
+                System.out.println("\nEnter the number of the simulation you want to get the details of.");
+                simulationChoice = collectNumberFromUser();
+                if(simulationChoice<1 | simulationChoice>(simulationsQuantity)){
+                    wrongInput = true;
+                    System.out.println("Wrong input! Try again.");
+                }
+            }
+            while (wrongInput);
+
+            int displayWay= collectDisplayWayFromUser();
+            callSystemEngineMethod(systemEngineAccess, simulationChoice, displayWay);
+        }
     }
 
     private void callSystemEngineMethod(SystemEngineAccess systemEngineAccess,
@@ -86,20 +101,25 @@ public class Menu4 implements MenuExecution {
         DTOPropertyHistogramForUi dtoPropertyHistogramForUi = systemEngineAccess.getPropertyDataAfterSimulationRunningByHistogram
                 (simulationID,entityChoice, propertyChoice );
         Map< Object, Long> propertyHistogramMap = dtoPropertyHistogramForUi.getPropertyHistogram();
-        for(Object value : propertyHistogramMap.keySet()){
-            System.out.println(propertyHistogramMap.get(value) + " instances which the property '" +
-                    dtoPropertyHistogramForUi.getPropertyName() + "' is " + value.toString());
+        if(propertyHistogramMap.isEmpty()){
+            System.out.println("There are no instances left for the selected property of the selected entity.");
+        }
+        else{
+            for(Object value : propertyHistogramMap.keySet()){
+                System.out.println(propertyHistogramMap.get(value) + " instances which the property '" +
+                        dtoPropertyHistogramForUi.getPropertyName() + "' is " + value.toString());
+            }
         }
     }
 
-    private void printListOfPastSimulationsData(DTOSimulationsTimeRunDataForUi simulationsTimeRunDataForUi){
+    private boolean printListOfPastSimulationsData(DTOSimulationsTimeRunDataForUi simulationsTimeRunDataForUi){
         List<Integer> idList = simulationsTimeRunDataForUi.getIdList();
         List<LocalDateTime> simulationRunTimeList = simulationsTimeRunDataForUi.getSimulationRunTimeList();
-
         int count = 0;
 
         if(idList.isEmpty()){
             System.out.println("No simulations in the system!");
+            return false;
         }
         else{
             System.out.println("Here is list of all past simulations:");
@@ -108,8 +128,8 @@ public class Menu4 implements MenuExecution {
                 count++;
                 System.out.println("#" + count + " simulation Run Time: " + convertLocalDateTimeToString(simulationRunTimeList.get(count-1))+ " ,ID: " + idNum);
             }
+            return true;
         }
-
     }
 
     private String convertLocalDateTimeToString(LocalDateTime simulationRunTime){

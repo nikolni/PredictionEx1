@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 public interface SystemEngineAccess {
 
     void getXMLFromUser(String xmlPath) throws JAXBException, FileNotFoundException;
+    boolean getIsHaveValidFileInSystem();
 
     DTODefinitionsForUi getDefinitionsDataFromSE();
     DTOEnvVarsDefForUi getEVDFromSE();

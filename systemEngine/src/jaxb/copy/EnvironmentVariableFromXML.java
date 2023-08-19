@@ -29,7 +29,6 @@ public class EnvironmentVariableFromXML {
 
     public PropertyDefinition createSingleProp(PRDEnvProperty prdEnvProperty){
        String propName=prdEnvProperty.getPRDName();
-       try {
            Type enumValue = Type.valueOf(prdEnvProperty.getType().toUpperCase());
            PropertyDefinition propertyDefinition;
            switch (enumValue) {
@@ -50,9 +49,5 @@ public class EnvironmentVariableFromXML {
                    throw new IllegalStateException("Unexpected value: " + enumValue);
            }
            return propertyDefinition;
-       } catch (IllegalArgumentException e) {
-           System.out.println("Invalid enum value: " + prdEnvProperty.getType());
-       }
-       return null;
    }
 }
