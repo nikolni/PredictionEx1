@@ -16,34 +16,42 @@ public class Ui {
         SystemEngineAccess systemEngine = new SystemEngineAccessImpl();
         String userChoice = "";
 
-        while (!userChoice.equals("1") & !userChoice.equals("5")) {
+        while ((!userChoice.equals("1") & !userChoice.equals("2")) || (!systemEngine.getIsHaveValidFileInSystem())) {
             System.out.println("Here are the following options:\n" +
                     "1. Reading the system information file\n" +
-                    "5. Exiting the system\n" +
+                    "2. Exiting the system\n" +
                     "Please enter the options number(1-2).");
 
-        userChoice = collectNumberFromUser();
+            userChoice = collectNumberFromUser();
 
-        switch (userChoice) {
-            case "1":
-                new Menu1().executeUserChoice(systemEngine);
-                while (!userChoice.equals("5")) {
-                    System.out.println("\nHere are the following options:\n" +
-                            "1. Reading the system information file\n" +
-                            "2. Displaying the simulation details\n" +
-                            "3. Running a simulation\n" +
-                            "4. Displaying full details of past activation\n" +
-                            "5. Exiting the system\n" +
-                            "Please enter the options number(1-5).");
-
-                    userChoice = collectNumberFromUser();
-                    displayUserChoice(systemEngine, userChoice);
-                }
-            case "5":
+            switch (userChoice) {
+                case "1":
+                    new Menu1().executeUserChoice(systemEngine);
+                    break;
+                case "2":
+                    break;
+                default:
+                    System.out.println("Only 1,2 numbers!");
+                    break;
+            }
+            if(userChoice.equals("2")){
                 break;
-            default:
-                System.out.println("Only 1,5 numbers!");
-         }
+            }
+        }
+
+        if(!userChoice.equals("2")) {
+            while (!userChoice.equals("5")) {
+                System.out.println("\nHere are the following options:\n" +
+                        "1. Reading the system information file\n" +
+                        "2. Displaying the simulation details\n" +
+                        "3. Running a simulation\n" +
+                        "4. Displaying full details of past activation\n" +
+                        "5. Exiting the system\n" +
+                        "Please enter the options number(1-5).");
+
+                userChoice = collectNumberFromUser();
+                displayUserChoice(systemEngine, userChoice);
+            }
         }
     }
 

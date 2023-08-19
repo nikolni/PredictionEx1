@@ -12,16 +12,10 @@ import system.engine.run.simulation.impl.RunSimulationImpl;
 import system.engine.world.api.WorldDefinition;
 import system.engine.world.api.WorldInstance;
 import system.engine.world.definition.property.api.PropertyDefinition;
-import system.engine.world.definition.property.impl.BooleanPropertyDefinition;
-import system.engine.world.definition.property.impl.FloatPropertyDefinition;
-import system.engine.world.definition.property.impl.IntegerPropertyDefinition;
-import system.engine.world.definition.property.impl.StringPropertyDefinition;
 import system.engine.world.definition.value.generator.api.ValueGenerator;
 import system.engine.world.definition.value.generator.api.ValueGeneratorFactory;
-import system.engine.world.definition.value.generator.impl.init.api.AbstractInitValueGenerator;
 import system.engine.world.execution.instance.environment.api.EnvVariablesInstanceManager;
 import system.engine.world.execution.instance.environment.impl.EnvVariablesInstanceManagerImpl;
-import system.engine.world.rule.enums.Type;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -32,6 +26,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     private WorldDefinition worldDefinition;
     private List< WorldInstance> worldInstances;
     private EnvVariablesInstanceManager envVariablesInstanceManager;
+    private boolean isHaveValidFileInSystem=false;
 
 
     public SystemEngineAccessImpl() {
@@ -44,7 +39,12 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
     public void getXMLFromUser(String xmlPath) throws JAXBException, FileNotFoundException {
         WorldFromXml worldFromXml = new WorldFromXml();
         worldDefinition = worldFromXml.FromXmlToPRDWorld(xmlPath);
+        isHaveValidFileInSystem=true;
         worldInstances.clear();
+    }
+
+    public boolean getIsHaveValidFileInSystem() {
+        return isHaveValidFileInSystem;
     }
 
     @Override
@@ -82,6 +82,7 @@ public class SystemEngineAccessImpl implements SystemEngineAccess {
         return new CreatePropertiesNamesListForUi().getData(worldDefinition.getEntityDefinitionManager().
                 getDefinitions().get(entityDefinitionIndex -1));
     }
+
 
     @Override
     public DTOPropertyHistogramForUi getPropertyDataAfterSimulationRunningByHistogram(Integer simulationID,

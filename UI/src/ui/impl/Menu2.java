@@ -34,12 +34,12 @@ public class Menu2 implements MenuExecution {
         int countEntities = 0;
         int countProperties = 0;
 
-        System.out.println("Entities:");
+        System.out.println("\nEntities:");
         for(EntityDefinitionDTO entityDefinitionDTO : entities){
             countEntities++;
             System.out.println("#" + countEntities + " name: " + entityDefinitionDTO.getUniqueName());
-            System.out.println("  " + "population: " + entityDefinitionDTO.getPopulation());
-            System.out.println("  " + "properties:");
+            System.out.println("  " + " population: " + entityDefinitionDTO.getPopulation());
+            System.out.println("  " + " properties:");
             List<PropertyDefinitionDTO> properties = entityDefinitionDTO.getProps();
             printPropertiesData(properties);
         }
@@ -51,10 +51,10 @@ public class Menu2 implements MenuExecution {
         for(PropertyDefinitionDTO propertyDefinitionDTO : properties){
             countProperties++;
             System.out.println("   #" + countProperties + " name: " + propertyDefinitionDTO.getUniqueName());
-            System.out.println("     " + "type: " + propertyDefinitionDTO.getType());
-            System.out.println("     " + "random initialize: " + propertyDefinitionDTO.isRandomInitialized());
-            System.out.println("     " + (propertyDefinitionDTO.doesHaveRange() ? "range: from " +
-                    propertyDefinitionDTO.getRange().get(0) + " to " + propertyDefinitionDTO.getRange().get(1) : "no range"));
+            System.out.println("     " + " type: " + propertyDefinitionDTO.getType());
+            System.out.println("     " + " random initialize: " + propertyDefinitionDTO.isRandomInitialized());
+            System.out.println("     " + (propertyDefinitionDTO.doesHaveRange() ? " range: from " +
+                    propertyDefinitionDTO.getRange().get(0) + " to " + propertyDefinitionDTO.getRange().get(1) : " no range"));
         }
     }
 
@@ -66,14 +66,14 @@ public class Menu2 implements MenuExecution {
         for(RuleDTO ruleDTO : rules){
             countRules++;
             System.out.println("#" + countRules + " name: " + ruleDTO.getName());
-            System.out.println("  " + "active at tick: " + ruleDTO.getActivation().getTicks() +
-                    " and with probability of: " + ruleDTO.getActivation().getProbability());
-            System.out.println("  " + "number of actions: " + ruleDTO.getNumOfActions());
-            System.out.println("  " + "actions names:");
+            System.out.println("  " + " active every " + ruleDTO.getActivation().getTicks() +
+                    "ticks with probability of: " + ruleDTO.getActivation().getProbability());
+            System.out.println("  " + " number of actions: " + ruleDTO.getNumOfActions());
+            System.out.println("  " + " actions names:");
             countActions = 0;
             for(String actionName : ruleDTO.getActionsNames()){
                 countActions++;
-                System.out.println("  #" + countActions + " " + actionName);
+                System.out.println("   #" + countActions + " " + actionName);
             }
         }
     }
@@ -85,8 +85,8 @@ public class Menu2 implements MenuExecution {
         for(TerminationConditionsDTO terminationConditionsDTO : terminationConditionsDTOManager.getTerminationConditionsDTOList()){
             countTerminationConditions++;
             System.out.println("#" + countTerminationConditions + (terminationConditionsDTO instanceof TicksTerminationConditionsDTOImpl?
-                    " after " + terminationConditionsDTO.getTerminationCondition() + " seconds" : "after " +
-                    terminationConditionsDTO.getTerminationCondition() + " ticks"));
+                    " after " + terminationConditionsDTO.getTerminationCondition() + " ticks" : " after " +
+                    terminationConditionsDTO.getTerminationCondition() + " seconds"));
         }
     }
 

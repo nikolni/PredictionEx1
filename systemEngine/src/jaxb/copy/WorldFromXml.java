@@ -22,9 +22,6 @@ public class WorldFromXml {
         fileValidator.validateXmlFile(xmlPathName);
         //here the xml path is valid and we create PRDWorld
 
-        //InputStream inputStream = new FileInputStream(new File(xmlPathName));
-        //PRDWorld PrdWorld = deserializeFrom(inputStream);
-
         PRDWorld PrdWorld = deserializeFrom(xmlPathName);
         //validation of PrdWorld
         PRDWorldValidator prdWorldValidator=new PRDWorldValidator();
@@ -33,13 +30,6 @@ public class WorldFromXml {
     }
 
 
-    /*private static PRDWorld deserializeFrom(InputStream in) throws JAXBException {
-        JAXBContext jc = JAXBContext.newInstance(JAXB_XML_GAME_PACKAGE_NAME);
-        Unmarshaller u = jc.createUnmarshaller();
-        return (PRDWorld) u.unmarshal(in);
-
-
-    }*/
 
     private static PRDWorld deserializeFrom(String xmlPathName) throws JAXBException, FileNotFoundException {
         JAXBContext jc = JAXBContext.newInstance(PRDWorld.class);
