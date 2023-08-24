@@ -68,16 +68,22 @@ public class SetAction extends AbstractAction {
             }
 
     private boolean verifySuitableType(Type propertyType, Object expressionVal) {
+        boolean result = false;
+
         switch (propertyType) {
             case DECIMAL:
-                return (expressionVal instanceof Integer);
+                result= (expressionVal instanceof Integer);
+                break;
             case FLOAT:
-                return (expressionVal instanceof Float | expressionVal instanceof Integer);
+                result= (expressionVal instanceof Float | expressionVal instanceof Integer);
+                break;
             case BOOLEAN:
-                return (expressionVal instanceof Boolean | expressionVal instanceof String);
+                result= (expressionVal instanceof Boolean | expressionVal instanceof String);
+                break;
             case STRING:
-                return (expressionVal instanceof String);
+                result= (expressionVal instanceof String);
+                break;
         }
-        return false;
+        return result;
     }
 }

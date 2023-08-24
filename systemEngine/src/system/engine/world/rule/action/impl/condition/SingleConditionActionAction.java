@@ -48,6 +48,7 @@ public class SingleConditionActionAction extends ConditionAction {
         Object propertyValue = propertyInstance.getValue();
         Object expressionValue = expression.evaluateExpression(context);
         Type propertyType = propertyInstance.getPropertyDefinition().getType();
+        boolean result =false;
 
         if (!verifySuitableType(propertyType, expressionValue)) {
             throw new IllegalArgumentException("condition action can't operate with expression type different from type of property " + propertyName);
@@ -56,59 +57,77 @@ public class SingleConditionActionAction extends ConditionAction {
 
         switch (operator) {
             case "=":
-                return propertyValue ==  expressionValue;
+                result= propertyValue ==  expressionValue;
+                break;
             case "!=":
-                return propertyValue !=  expressionValue;
+                result= propertyValue !=  expressionValue;
+                break;
             case "bt":
-                return caseBT(propertyInstance, propertyValue, propertyType, expressionValue);
+                result= caseBT(propertyInstance, propertyValue, propertyType, expressionValue);
+                break;
             case "lt":
-                return caseLT(propertyInstance, propertyValue, propertyType, expressionValue);
+                result= caseLT(propertyInstance, propertyValue, propertyType, expressionValue);
+                break;
         }
-        return false;
+        return result;
     }
 
 
     private boolean caseBT(PropertyInstance propertyInstance, Object propertyValue,Type propertyType,
                            Object expressionValue) throws IllegalArgumentException {
+        boolean result =false;
+
         if (!NumericVerify.verifyNumericPropertyType(propertyInstance)) {
             throw new IllegalArgumentException("bt operator can't operate on a none number property " + propertyName);
         }
 
         switch (propertyType) {
             case DECIMAL:
-                return (int) propertyValue > (int) expressionValue;
+                result= (int) propertyValue > (int) expressionValue;
+                break;
             case FLOAT:
-                return (float) propertyValue > (float) expressionValue;
+                result= (float) propertyValue > (float) expressionValue;
+                break;
         }
-        return false;
+        return result;
     }
 
     private boolean caseLT(PropertyInstance propertyInstance, Object propertyValue,Type propertyType,
                            Object expressionValue) throws IllegalArgumentException {
+        boolean result =false;
+
         if (!NumericVerify.verifyNumericPropertyType(propertyInstance)) {
             throw new IllegalArgumentException("lt operator can't operate on a none number property " + propertyName);
         }
 
         switch (propertyType) {
             case DECIMAL:
-                return (int) propertyValue < (int) expressionValue;
+                result= (int) propertyValue < (int) expressionValue;
+                break;
             case FLOAT:
-                return (float) propertyValue < (float) expressionValue;
+                result= (float) propertyValue < (float) expressionValue;
+                break;
         }
-        return false;
+        return result;
     }
 
     private boolean verifySuitableType(Type propertyType, Object expressionVal) {
+        boolean result =false;
+
         switch (propertyType) {
             case DECIMAL:
-                return (expressionVal instanceof Integer);
+                result= (expressionVal instanceof Integer);
+                break;
             case FLOAT:
-                return (expressionVal instanceof Float | expressionVal instanceof Integer);
+                result= (expressionVal instanceof Float | expressionVal instanceof Integer);
+                break;
             case BOOLEAN:
-                return (expressionVal instanceof Boolean | expressionVal instanceof String);
+                result= (expressionVal instanceof Boolean | expressionVal instanceof String);
+                break;
             case STRING:
-                return (expressionVal instanceof String);
+                result= (expressionVal instanceof String);
+                break;
         }
-        return false;
+        return result;
     }
 }
