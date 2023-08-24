@@ -25,13 +25,17 @@ public class ExpFuncName extends AbstractExpressionImpl {
 
     @Override
     public Object evaluateExpression(Context context) {
+        Object value = null;
+
         switch (expressionStr) {
             case "environment":
-                return environment(context.getEnvironmentVariable(functionArgs.get(0)));
+                value= environment(context.getEnvironmentVariable(functionArgs.get(0)));
+                break;
             case "random":
-                return random(functionArgs.get(0));
+                value= random(functionArgs.get(0));
+                break;
         }
-        return null;
+        return value;
     }
 
     private Object environment(PropertyInstance environmentVariable) {
@@ -42,15 +46,16 @@ public class ExpFuncName extends AbstractExpressionImpl {
         int number = Integer.parseInt(num);   //throws
         PropertyInstance propertyInstance = entityInstance.getPropertyByName(propertyName);
         Type type = propertyInstance.getPropertyDefinition().getType();
+        Object value = null;
 
         switch (type) {
             case DECIMAL:
-                return (new RandomIntegerGenerator(0, number)).generateValue();
+                value= (new RandomIntegerGenerator(0, number)).generateValue();
             case FLOAT:
-                return (new RandomFloatGenerator((float) 0, (float) number)).generateValue();
+                value= (new RandomFloatGenerator((float) 0, (float) number)).generateValue();
         }
 
-        return null;
+        return value;
     }
 
     /*private Object evaluate(String propertyName) {
